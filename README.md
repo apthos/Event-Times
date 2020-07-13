@@ -38,14 +38,12 @@ Event Times is an app centered around scheduling events. Users can create events
 * Users can use gestures to edit their itinerary (holding down on an activity will bring up an option to add/remove)
 * Animations appear when going through views
 * Use an external library for UI
-* ...
 
 **Optional Nice-to-have Stories**
 
 * Users can collaborate on the itinerary
 * Users may view directions to an activity on the itinerary inside the app or with Apple/Google Maps
 * Users can export their calendar to other calendar apps such as Google Calendar
-* ...
 
 ### 2. Screen Archetypes
 
@@ -94,10 +92,73 @@ Event Times is an app centered around scheduling events. Users can create events
 https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
 
 ## Schema 
-[This section will be completed in Unit 9]
+
 ### Models
-[Add table of models]
+
+#### Event Data Model
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| objectId | String | unique id for the event |
+| createdAt | Date | date when event was created |
+| author | Pointer to User | event creator |
+| name | String | event name |
+| startDate | Date | start date for the event|
+| endDate | Date | end date for the event |
+| activities | Array | activities occurring at the event |
+| description | String | description of event |
+| location | String | location of event |
+| participants | Relation | Users attending the event |
+| tags | Array | list of tags that categorize the event |
+
+#### Activity Data Model
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| objectId | String | unique id for the activity |
+| createdAt | Date | date when activity was created |
+| author | Pointer to User | activity creator |
+| name | String | activity name |
+| startDate | Date | start date and time for the activity|
+| endDate | Date | end date and time for the activity |
+| description | String | description of activity |
+| location | String | location of activity |
+| participants | Array | list of users attending the activity|
+
+#### User Data Model
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| objectId | String | unique id for the event |
+| createdAt | Date | date when account was created |
+| email | String | user's email |
+| username | String | unique username given by the user |
+| password | String | password for login |
+| profileImage | PFFileObject | selected profile image |
+| activities | Array | list of activities the user is attending |
+| events | Array | list of events the user is attending |
+| createdEvents | Array | list of events the user has created |
+
 ### Networking
-- [Add list of network requests by screen ]
+* Events
+   * (Read/GET) Query all events
+   * (Read/GET) Query events that are recommended to the user
+* Event Details
+    * (Read/GET) Query for event details including activities
+    * (Update/PUT) Update whether the user is attending a select activity
+* Event Creation
+    * (Create/POST) Create an event object
+    * (Delete/DELETE) Delete a created activity
+* Activity Creation
+    * (Create/POST) Create an activity object
+* Activity Edit
+    * (Update/PUT) Update an existing activity object
+* Calendar
+   * (Read/GET) Query activities user is attending
+   * (Update/PUT) Update whether the user is attending a select activity
+   * (Delete/DELETE) Delete a personal activity
+* Profile
+    * (Read/GET) Query logged in user object
+    * (Update/PUT) Update the user profile image
+* My Events
+    * (Read/GET) Query for events that the user is attending (including those created by them)
+
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
