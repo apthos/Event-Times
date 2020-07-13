@@ -6,6 +6,7 @@ target 'Event Times' do
   use_frameworks!
 
   # Pods for Event Times
+  pod 'Parse'
 
   target 'Event TimesTests' do
     inherit! :search_paths
