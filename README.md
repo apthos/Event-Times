@@ -95,6 +95,19 @@ https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
 
 ### Models
 
+#### User Data Model
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| objectId | String | unique id for the event |
+| createdAt | Date | date when account was created |
+| email | String | user's email |
+| username | String | unique username given by the user |
+| password | String | password for login |
+| profileImage | PFFileObject | selected profile image |
+| activities | Relation | list of activities the user is attending |
+| events | Relation | list of events the user is attending |
+| createdEvents | Relation | list of events the user has created |
+
 #### Event Data Model
 | Property | Type | Description |
 | -------- | ---- | ----------- |
@@ -104,11 +117,10 @@ https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
 | name | String | event name |
 | startDate | Date | start date for the event|
 | endDate | Date | end date for the event |
-| activities | Array | activities occurring at the event |
-| description | String | description of event |
-| location | String | location of event |
-| participants | Relation | Users attending the event |
+| info | String | description of event |
+| location | Placemark | location of event |
 | tags | Array | list of tags that categorize the event |
+| participants | Relation | list of users attending the event |
 
 #### Activity Data Model
 | Property | Type | Description |
@@ -119,22 +131,21 @@ https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
 | name | String | activity name |
 | startDate | Date | start date and time for the activity|
 | endDate | Date | end date and time for the activity |
-| description | String | description of activity |
-| location | String | location of activity |
-| participants | Array | list of users attending the activity|
+| info | String | description of activity |
+| location | Placemark | location of activity |
+| event | Pointer to Event | event the activity is taking place during |
+| participants | Relation | list of users attending the activity |
 
-#### User Data Model
+#### Placemark Data Model
 | Property | Type | Description |
 | -------- | ---- | ----------- |
-| objectId | String | unique id for the event |
-| createdAt | Date | date when account was created |
-| email | String | user's email |
-| username | String | unique username given by the user |
-| password | String | password for login |
-| profileImage | PFFileObject | selected profile image |
-| activities | Array | list of activities the user is attending |
-| events | Array | list of events the user is attending |
-| createdEvents | Array | list of events the user has created |
+| name | String | placemark name |
+| location | PFGeoPoint | location containing latitude and longitude |
+| street | String | street name for the address |
+| city | String | city name for the address |
+| state | String | state name for the address |
+| postalCode | String | postal code for the address |
+| country | String | country for the address |
 
 ### Networking
 * Events
