@@ -3,13 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		60DA6B1E83A1FA8DA04D9200 /* Pods_Event_Times_Event_TimesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB36BEA98F20A582F8BA9EDB /* Pods_Event_Times_Event_TimesUITests.framework */; };
 		8C4B756B07386432A405B139 /* Pods_Event_Times.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C279DD2ABA12915C2FD22BD /* Pods_Event_Times.framework */; };
 		A9253C1F682A651085698FAD /* Pods_Event_TimesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE593D864B9F7D4DEB08E791 /* Pods_Event_TimesTests.framework */; };
+		B81752D424BE71D700952196 /* Placemark.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752D324BE71D700952196 /* Placemark.m */; };
+		B81752D724BE721300952196 /* Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752D624BE721300952196 /* Activity.m */; };
+		B81752DA24BE724E00952196 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752D924BE724E00952196 /* Event.m */; };
 		B837BB5B24BCFD37001D0DF5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B837BB5A24BCFD37001D0DF5 /* AppDelegate.m */; };
 		B837BB5E24BCFD37001D0DF5 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B837BB5D24BCFD37001D0DF5 /* SceneDelegate.m */; };
 		B837BB6124BCFD37001D0DF5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B837BB6024BCFD37001D0DF5 /* ViewController.m */; };
@@ -44,6 +47,12 @@
 		390C29C39F99588851915A47 /* Pods-Event TimesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Event TimesTests.debug.xcconfig"; path = "Target Support Files/Pods-Event TimesTests/Pods-Event TimesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		55B3F7394B2AA39CE26D83FB /* Pods-Event Times.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Event Times.debug.xcconfig"; path = "Target Support Files/Pods-Event Times/Pods-Event Times.debug.xcconfig"; sourceTree = "<group>"; };
 		902168717EB0FAE06B4C9928 /* Pods-Event TimesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Event TimesTests.release.xcconfig"; path = "Target Support Files/Pods-Event TimesTests/Pods-Event TimesTests.release.xcconfig"; sourceTree = "<group>"; };
+		B81752D224BE71D700952196 /* Placemark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Placemark.h; sourceTree = "<group>"; };
+		B81752D324BE71D700952196 /* Placemark.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Placemark.m; sourceTree = "<group>"; };
+		B81752D524BE721300952196 /* Activity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Activity.h; sourceTree = "<group>"; };
+		B81752D624BE721300952196 /* Activity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
+		B81752D824BE724E00952196 /* Event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		B81752D924BE724E00952196 /* Event.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		B837BB5624BCFD37001D0DF5 /* Event Times.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Event Times.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B837BB5924BCFD37001D0DF5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B837BB5A24BCFD37001D0DF5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -106,7 +115,6 @@
 				390C29C39F99588851915A47 /* Pods-Event TimesTests.debug.xcconfig */,
 				902168717EB0FAE06B4C9928 /* Pods-Event TimesTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -118,6 +126,19 @@
 				EE593D864B9F7D4DEB08E791 /* Pods_Event_TimesTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B81752D124BE71BC00952196 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B81752D224BE71D700952196 /* Placemark.h */,
+				B81752D324BE71D700952196 /* Placemark.m */,
+				B81752D524BE721300952196 /* Activity.h */,
+				B81752D624BE721300952196 /* Activity.m */,
+				B81752D824BE724E00952196 /* Event.h */,
+				B81752D924BE724E00952196 /* Event.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		B837BB4D24BCFD37001D0DF5 = {
@@ -145,6 +166,7 @@
 		B837BB5824BCFD37001D0DF5 /* Event Times */ = {
 			isa = PBXGroup;
 			children = (
+				B81752D124BE71BC00952196 /* Models */,
 				B837BB5924BCFD37001D0DF5 /* AppDelegate.h */,
 				B837BB5A24BCFD37001D0DF5 /* AppDelegate.m */,
 				B837BB5C24BCFD37001D0DF5 /* SceneDelegate.h */,
@@ -418,8 +440,11 @@
 			files = (
 				B837BB6124BCFD37001D0DF5 /* ViewController.m in Sources */,
 				B837BB5B24BCFD37001D0DF5 /* AppDelegate.m in Sources */,
+				B81752D424BE71D700952196 /* Placemark.m in Sources */,
 				B837BB6C24BCFD38001D0DF5 /* main.m in Sources */,
+				B81752D724BE721300952196 /* Activity.m in Sources */,
 				B837BB5E24BCFD37001D0DF5 /* SceneDelegate.m in Sources */,
+				B81752DA24BE724E00952196 /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
