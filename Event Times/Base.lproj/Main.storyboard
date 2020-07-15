@@ -10,38 +10,71 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hT1-ru-cvw">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hT1-ru-cvw">
                                 <rect key="frame" x="188" y="433" width="38" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="onLoginPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="56K-3x-4vr"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zET-oc-Vtt">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zET-oc-Vtt">
                                 <rect key="frame" x="180" y="471" width="54" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
                                     <action selector="onSignUpPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cte-ji-dEu"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zgt-N4-Qa9">
+                                <rect key="frame" x="100" y="349" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bfd-MH-67n">
+                                <rect key="frame" x="100" y="391" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="hT1-ru-cvw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1eg-cP-UW9"/>
+                            <constraint firstItem="zgt-N4-Qa9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="4eU-Ia-euX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zgt-N4-Qa9" secondAttribute="trailing" constant="100" id="I6b-p3-NoQ"/>
+                            <constraint firstItem="Bfd-MH-67n" firstAttribute="top" secondItem="zgt-N4-Qa9" secondAttribute="bottom" constant="8" id="JLS-eg-9ah"/>
+                            <constraint firstItem="hT1-ru-cvw" firstAttribute="centerX" secondItem="Bfd-MH-67n" secondAttribute="centerX" id="Q43-Zx-NEo"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Bfd-MH-67n" secondAttribute="trailing" constant="100" id="UiD-yS-gmI"/>
+                            <constraint firstItem="hT1-ru-cvw" firstAttribute="centerX" secondItem="zgt-N4-Qa9" secondAttribute="centerX" id="cRu-Pb-D5Q"/>
+                            <constraint firstItem="Bfd-MH-67n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="dI2-Zp-rJJ"/>
+                            <constraint firstItem="zET-oc-Vtt" firstAttribute="top" secondItem="hT1-ru-cvw" secondAttribute="bottom" constant="8" id="lPV-6l-wNP"/>
+                            <constraint firstItem="hT1-ru-cvw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pMv-em-Mv2"/>
+                            <constraint firstItem="hT1-ru-cvw" firstAttribute="top" secondItem="Bfd-MH-67n" secondAttribute="bottom" constant="8" id="q1g-Sy-dgY"/>
+                            <constraint firstItem="zET-oc-Vtt" firstAttribute="centerX" secondItem="hT1-ru-cvw" secondAttribute="centerX" id="qAw-Sy-xfe"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="V0h-fn-CKX" appends="YES" id="tOK-s1-lJc"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="6U7-J7-gpX"/>
                     <connections>
+                        <outlet property="passwordField" destination="Bfd-MH-67n" id="wAC-lg-4Ow"/>
+                        <outlet property="usernameField" destination="zgt-N4-Qa9" id="eJ2-uM-pS7"/>
                         <segue destination="0Ov-Dk-N2a" kind="show" identifier="signUpSegue" id="vpS-P3-67C"/>
                         <segue destination="Qnf-Q9-Lrd" kind="show" identifier="loginSegue" id="q5z-jI-WRp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="V0h-fn-CKX">
+                    <connections>
+                        <action selector="onScreenTap:" destination="BYZ-38-t0r" id="oqJ-Le-dPx"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="126.5625"/>
         </scene>
@@ -87,7 +120,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="IB2-Kb-g9h"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="Vjv-Yt-PFT"/>
+                    <navigationItem key="navigationItem" title="Profile" id="Vjv-Yt-PFT">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="tjQ-kg-NGf">
+                            <connections>
+                                <action selector="onLogoutPress:" destination="zkx-2x-Nbw" id="YxW-RM-gdG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fv-80-KFB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -121,23 +160,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8E-fK-jSU">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8E-fK-jSU">
                                 <rect key="frame" x="180" y="433" width="54" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
                                     <action selector="onSignUpPress:" destination="0Ov-Dk-N2a" eventType="touchUpInside" id="A0y-xP-MNk"/>
-                                    <segue destination="19r-pQ-Clv" kind="unwind" unwindAction="unwindToLogin:" id="fof-HO-0JP"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vdM-Vf-cys">
+                                <rect key="frame" x="100" y="391" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PtT-0j-gYf">
+                                <rect key="frame" x="100" y="349" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="email"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qdd-mD-fVu">
+                                <rect key="frame" x="100" y="307" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAV-Ug-Zfp">
+                                <rect key="frame" x="190" y="471" width="34" height="30"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="19r-pQ-Clv" kind="unwind" identifier="unwindToLogin" unwindAction="unwindToLogin:" id="bDe-7y-JX6"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="F8E-fK-jSU" firstAttribute="top" secondItem="vdM-Vf-cys" secondAttribute="bottom" constant="8" id="6sX-gJ-5yL"/>
+                            <constraint firstItem="CAV-Ug-Zfp" firstAttribute="top" secondItem="F8E-fK-jSU" secondAttribute="bottom" constant="8" id="8iL-LD-Z9k"/>
+                            <constraint firstItem="F8E-fK-jSU" firstAttribute="centerX" secondItem="vdM-Vf-cys" secondAttribute="centerX" id="BEk-Mh-wih"/>
+                            <constraint firstItem="lN5-ND-nVS" firstAttribute="trailing" secondItem="PtT-0j-gYf" secondAttribute="trailing" constant="100" id="GTD-FA-Zr2"/>
+                            <constraint firstItem="F8E-fK-jSU" firstAttribute="centerX" secondItem="PtT-0j-gYf" secondAttribute="centerX" id="Jfl-qV-Dlh"/>
+                            <constraint firstItem="Qdd-mD-fVu" firstAttribute="leading" secondItem="lN5-ND-nVS" secondAttribute="leading" constant="100" id="Zfj-h3-F1o"/>
+                            <constraint firstItem="F8E-fK-jSU" firstAttribute="centerX" secondItem="Qdd-mD-fVu" secondAttribute="centerX" id="fbK-pN-DAo"/>
+                            <constraint firstItem="PtT-0j-gYf" firstAttribute="top" secondItem="Qdd-mD-fVu" secondAttribute="bottom" constant="8" id="kQ1-4j-qV9"/>
+                            <constraint firstItem="PtT-0j-gYf" firstAttribute="leading" secondItem="lN5-ND-nVS" secondAttribute="leading" constant="100" id="l47-nO-9eS"/>
+                            <constraint firstItem="F8E-fK-jSU" firstAttribute="centerY" secondItem="C0e-gG-YdP" secondAttribute="centerY" id="mf9-34-fO2"/>
+                            <constraint firstItem="vdM-Vf-cys" firstAttribute="leading" secondItem="lN5-ND-nVS" secondAttribute="leading" constant="100" id="s0f-mw-inY"/>
+                            <constraint firstItem="vdM-Vf-cys" firstAttribute="top" secondItem="PtT-0j-gYf" secondAttribute="bottom" constant="8" id="saC-1P-Zz5"/>
+                            <constraint firstItem="CAV-Ug-Zfp" firstAttribute="centerX" secondItem="F8E-fK-jSU" secondAttribute="centerX" id="tDL-X7-2uV"/>
+                            <constraint firstItem="lN5-ND-nVS" firstAttribute="trailing" secondItem="vdM-Vf-cys" secondAttribute="trailing" constant="100" id="ukv-BE-2Xi"/>
+                            <constraint firstItem="F8E-fK-jSU" firstAttribute="centerX" secondItem="C0e-gG-YdP" secondAttribute="centerX" id="y0X-eu-wL1"/>
+                            <constraint firstItem="lN5-ND-nVS" firstAttribute="trailing" secondItem="Qdd-mD-fVu" secondAttribute="trailing" constant="100" id="z00-jT-IGM"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="lN5-ND-nVS"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="WjG-P9-yje" appends="YES" id="S0B-La-bvJ"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="Kqj-vb-k2r"/>
+                    <connections>
+                        <outlet property="emailField" destination="PtT-0j-gYf" id="fDT-as-F3A"/>
+                        <outlet property="passwordField" destination="vdM-Vf-cys" id="uuf-CO-RPY"/>
+                        <outlet property="usernameField" destination="Qdd-mD-fVu" id="mYp-gN-UCc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="taY-sI-Uft" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="19r-pQ-Clv" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="WjG-P9-yje">
+                    <connections>
+                        <action selector="onScreenTap:" destination="0Ov-Dk-N2a" id="AD5-lV-Ogc"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1188" y="127"/>
         </scene>

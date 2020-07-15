@@ -7,8 +7,13 @@
 //
 
 #import "ProfileViewController.h"
+#import "SceneDelegate.h"
+#import "LoginViewController.h"
+#import <Parse/Parse.h>
 
 @interface ProfileViewController ()
+
+- (IBAction)onLogoutPress:(id)sender;
 
 @end
 
@@ -17,6 +22,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (IBAction)onLogoutPress:(id)sender {
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"Error: %@", error.localizedDescription);
+            
+            UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error During Logout" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
+            [errorAlert addAction:okAction];
+            
+            [self presentViewController:errorAlert animated:YES completion:nil];
+        }
+        else {
+            SceneDelegate *sceneDelegate = (SceneDelegate *) self.view.window.windowScene.delegate;
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            
+            sceneDelegate.window.rootViewController = loginViewController;
+        }
+    }];
+    
 }
 
 /*
