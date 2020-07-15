@@ -13,9 +13,13 @@
 		B81752D424BE71D700952196 /* Placemark.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752D324BE71D700952196 /* Placemark.m */; };
 		B81752D724BE721300952196 /* Activity.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752D624BE721300952196 /* Activity.m */; };
 		B81752DA24BE724E00952196 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752D924BE724E00952196 /* Event.m */; };
+		B81752DE24BF535800952196 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752DD24BF535800952196 /* LoginViewController.m */; };
+		B81752E124BF538600952196 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752E024BF538600952196 /* SignUpViewController.m */; };
+		B81752E424BF547700952196 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752E324BF547700952196 /* EventsViewController.m */; };
+		B81752F324BF55AD00952196 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752F224BF55AD00952196 /* CalendarViewController.m */; };
+		B81752F624BF55C800952196 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752F524BF55C800952196 /* ProfileViewController.m */; };
 		B837BB5B24BCFD37001D0DF5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B837BB5A24BCFD37001D0DF5 /* AppDelegate.m */; };
 		B837BB5E24BCFD37001D0DF5 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B837BB5D24BCFD37001D0DF5 /* SceneDelegate.m */; };
-		B837BB6124BCFD37001D0DF5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B837BB6024BCFD37001D0DF5 /* ViewController.m */; };
 		B837BB6424BCFD37001D0DF5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B837BB6224BCFD37001D0DF5 /* Main.storyboard */; };
 		B837BB6624BCFD37001D0DF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B837BB6524BCFD37001D0DF5 /* Assets.xcassets */; };
 		B837BB6924BCFD38001D0DF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B837BB6724BCFD38001D0DF5 /* LaunchScreen.storyboard */; };
@@ -53,13 +57,21 @@
 		B81752D624BE721300952196 /* Activity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Activity.m; sourceTree = "<group>"; };
 		B81752D824BE724E00952196 /* Event.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		B81752D924BE724E00952196 /* Event.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		B81752DC24BF535800952196 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		B81752DD24BF535800952196 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		B81752DF24BF538600952196 /* SignUpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		B81752E024BF538600952196 /* SignUpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		B81752E224BF547700952196 /* EventsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
+		B81752E324BF547700952196 /* EventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
+		B81752F124BF55AD00952196 /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		B81752F224BF55AD00952196 /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		B81752F424BF55C800952196 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		B81752F524BF55C800952196 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		B837BB5624BCFD37001D0DF5 /* Event Times.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Event Times.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B837BB5924BCFD37001D0DF5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B837BB5A24BCFD37001D0DF5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B837BB5C24BCFD37001D0DF5 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		B837BB5D24BCFD37001D0DF5 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		B837BB5F24BCFD37001D0DF5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B837BB6024BCFD37001D0DF5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B837BB6324BCFD37001D0DF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B837BB6524BCFD37001D0DF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B837BB6824BCFD38001D0DF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -141,6 +153,23 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		B81752DB24BF532500952196 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B81752DC24BF535800952196 /* LoginViewController.h */,
+				B81752DD24BF535800952196 /* LoginViewController.m */,
+				B81752DF24BF538600952196 /* SignUpViewController.h */,
+				B81752E024BF538600952196 /* SignUpViewController.m */,
+				B81752E224BF547700952196 /* EventsViewController.h */,
+				B81752E324BF547700952196 /* EventsViewController.m */,
+				B81752F124BF55AD00952196 /* CalendarViewController.h */,
+				B81752F224BF55AD00952196 /* CalendarViewController.m */,
+				B81752F424BF55C800952196 /* ProfileViewController.h */,
+				B81752F524BF55C800952196 /* ProfileViewController.m */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		B837BB4D24BCFD37001D0DF5 = {
 			isa = PBXGroup;
 			children = (
@@ -166,13 +195,12 @@
 		B837BB5824BCFD37001D0DF5 /* Event Times */ = {
 			isa = PBXGroup;
 			children = (
+				B81752DB24BF532500952196 /* View Controllers */,
 				B81752D124BE71BC00952196 /* Models */,
 				B837BB5924BCFD37001D0DF5 /* AppDelegate.h */,
 				B837BB5A24BCFD37001D0DF5 /* AppDelegate.m */,
 				B837BB5C24BCFD37001D0DF5 /* SceneDelegate.h */,
 				B837BB5D24BCFD37001D0DF5 /* SceneDelegate.m */,
-				B837BB5F24BCFD37001D0DF5 /* ViewController.h */,
-				B837BB6024BCFD37001D0DF5 /* ViewController.m */,
 				B837BB6224BCFD37001D0DF5 /* Main.storyboard */,
 				B837BB6524BCFD37001D0DF5 /* Assets.xcassets */,
 				B837BB6724BCFD38001D0DF5 /* LaunchScreen.storyboard */,
@@ -438,12 +466,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B837BB6124BCFD37001D0DF5 /* ViewController.m in Sources */,
 				B837BB5B24BCFD37001D0DF5 /* AppDelegate.m in Sources */,
 				B81752D424BE71D700952196 /* Placemark.m in Sources */,
 				B837BB6C24BCFD38001D0DF5 /* main.m in Sources */,
+				B81752F624BF55C800952196 /* ProfileViewController.m in Sources */,
 				B81752D724BE721300952196 /* Activity.m in Sources */,
+				B81752DE24BF535800952196 /* LoginViewController.m in Sources */,
+				B81752F324BF55AD00952196 /* CalendarViewController.m in Sources */,
 				B837BB5E24BCFD37001D0DF5 /* SceneDelegate.m in Sources */,
+				B81752E124BF538600952196 /* SignUpViewController.m in Sources */,
+				B81752E424BF547700952196 /* EventsViewController.m in Sources */,
 				B81752DA24BE724E00952196 /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
