@@ -18,6 +18,7 @@
 		B81752E424BF547700952196 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752E324BF547700952196 /* EventsViewController.m */; };
 		B81752F324BF55AD00952196 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752F224BF55AD00952196 /* CalendarViewController.m */; };
 		B81752F624BF55C800952196 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752F524BF55C800952196 /* ProfileViewController.m */; };
+		B81752FC24C0BCD200952196 /* EventCreationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B81752FB24C0BCD200952196 /* EventCreationTableViewController.m */; };
 		B837BB5B24BCFD37001D0DF5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B837BB5A24BCFD37001D0DF5 /* AppDelegate.m */; };
 		B837BB5E24BCFD37001D0DF5 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B837BB5D24BCFD37001D0DF5 /* SceneDelegate.m */; };
 		B837BB6424BCFD37001D0DF5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B837BB6224BCFD37001D0DF5 /* Main.storyboard */; };
@@ -67,6 +68,8 @@
 		B81752F224BF55AD00952196 /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		B81752F424BF55C800952196 /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		B81752F524BF55C800952196 /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		B81752FA24C0BCD200952196 /* EventCreationTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventCreationTableViewController.h; sourceTree = "<group>"; };
+		B81752FB24C0BCD200952196 /* EventCreationTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventCreationTableViewController.m; sourceTree = "<group>"; };
 		B837BB5624BCFD37001D0DF5 /* Event Times.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Event Times.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B837BB5924BCFD37001D0DF5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B837BB5A24BCFD37001D0DF5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 				B81752F224BF55AD00952196 /* CalendarViewController.m */,
 				B81752F424BF55C800952196 /* ProfileViewController.h */,
 				B81752F524BF55C800952196 /* ProfileViewController.m */,
+				B81752FA24C0BCD200952196 /* EventCreationTableViewController.h */,
+				B81752FB24C0BCD200952196 /* EventCreationTableViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -477,6 +482,7 @@
 				B81752E124BF538600952196 /* SignUpViewController.m in Sources */,
 				B81752E424BF547700952196 /* EventsViewController.m in Sources */,
 				B81752DA24BE724E00952196 /* Event.m in Sources */,
+				B81752FC24C0BCD200952196 /* EventCreationTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
