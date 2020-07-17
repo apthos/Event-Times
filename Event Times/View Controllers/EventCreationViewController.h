@@ -1,5 +1,5 @@
 //
-//  EventCreationTableViewController.h
+//  EventCreationViewController.h
 //  Event Times
 //
 //  Created by David Lara on 7/16/20.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EventCreationTableViewController : UITableViewController
+@interface EventCreationViewController : UIViewController
 
 @end
 
