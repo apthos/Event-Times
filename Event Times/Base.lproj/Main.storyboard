@@ -221,7 +221,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="vQl-fY-iCP">
+                                                <datePicker tag="99" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="vQl-fY-iCP">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <connections>
@@ -247,12 +247,47 @@
                     </navigationItem>
                     <connections>
                         <outlet property="eventTableView" destination="TLT-wI-mJa" id="yFF-s4-xD9"/>
+                        <segue destination="6Py-Tv-hPA" kind="presentation" identifier="locationSegue" id="OIJ-Z4-29E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mb-xj-Usm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="tL2-wC-MwB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-2168.1159420289855" y="3997.7678571428569"/>
+        </scene>
+        <!--Location Search View Controller-->
+        <scene sceneID="5tW-Vv-aga">
+            <objects>
+                <viewController id="6Py-Tv-hPA" customClass="LocationSearchViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vzs-y8-Mgs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N51-0K-GEO">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bvB-w1-Bhj">
+                                <rect key="frame" x="0.0" y="44" width="414" height="798"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="uiz-XI-TXD"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kKM-ii-fB0"/>
+                    <connections>
+                        <outlet property="locationsTableView" destination="bvB-w1-Bhj" id="C4i-Qm-M0w"/>
+                        <outlet property="searchBar" destination="N51-0K-GEO" id="7QZ-Mn-fQN"/>
+                        <segue destination="UoU-Tb-UIp" kind="unwind" identifier="unwindToEventCreation" unwindAction="unwindToEventCreation:" id="FWX-cu-4XV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hMB-69-21F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="UoU-Tb-UIp" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-1359" y="3998"/>
         </scene>
         <!--Calendar-->
         <scene sceneID="TlC-jL-4vx">
