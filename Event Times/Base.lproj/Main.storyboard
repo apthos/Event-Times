@@ -330,7 +330,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="9ml-Wj-Hmn">
             <objects>
-                <tabBarController modalPresentationStyle="fullScreen" id="Qnf-Q9-Lrd" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" modalPresentationStyle="fullScreen" id="Qnf-Q9-Lrd" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="e1g-wt-Lkr"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="f0R-B9-0EL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
