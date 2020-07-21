@@ -9,6 +9,8 @@
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
 
+#pragma mark -
+
 @interface LoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -20,6 +22,8 @@
 
 @end
 
+#pragma mark -
+
 @implementation LoginViewController
 
 - (void)viewDidLoad {
@@ -27,6 +31,10 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark - Parse
+
+/** Logs user into the Parse database with the user input from text fields.
+ */
 - (void)loginUser {
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
@@ -49,16 +57,12 @@
     
 }
 
-- (IBAction)onScreenTap:(id)sender {
-    [self.view endEditing:YES];
-    
-}
+#pragma mark - Actions
 
-- (IBAction)onSignUpPress:(id)sender {
-    [self performSegueWithIdentifier:@"signUpSegue" sender:nil];
-    
-}
-
+/** User chose to login with the provided information by pressing the "Login" button.
+ 
+ @param sender The "Login" UIButton
+ */
 - (IBAction)onLoginPress:(id)sender {
     if ([self.usernameField.text isEqualToString:@""] || [self.passwordField.text isEqualToString:@""]) {
         UIAlertController *emptyFieldAlert = [UIAlertController alertControllerWithTitle:@"Empty Field" message:@"Missing username or password." preferredStyle:UIAlertControllerStyleAlert];
@@ -74,18 +78,32 @@
     
 }
 
-- (IBAction)unwindToLogin:(UIStoryboardSegue *)unwindSegue {
+/** User chose to end editing by tapping on the background view.
+ 
+ @param sender The UITapGestureRecognizer attached to the background view.
+ */
+- (IBAction)onScreenTap:(id)sender {
+    [self.view endEditing:YES];
     
 }
 
-/*
+/** User chose to head to the sign up view controller by pressing the "Sign Up" button.
+ 
+ @param sender The "Sign Up" UIButton
+ */
+- (IBAction)onSignUpPress:(id)sender {
+    [self performSegueWithIdentifier:@"signUpSegue" sender:nil];
+    
+}
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+/** Creates an unwind segue to this view controller.
+ 
+ @param unwindSegue The unwind segue called.
+ */
+- (IBAction)unwindToLogin:(UIStoryboardSegue *)unwindSegue {
+    
 }
-*/
 
 @end
