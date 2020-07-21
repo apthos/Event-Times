@@ -9,6 +9,8 @@
 #import "LocationSearchViewController.h"
 #import <MapKit/MapKit.h>
 
+#pragma mark -
+
 @interface LocationSearchViewController () <CLLocationManagerDelegate, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
@@ -20,6 +22,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *locationsTableView;
 
 @end
+
+#pragma mark -
 
 @implementation LocationSearchViewController
 
@@ -34,11 +38,34 @@
     
     self.searchBar.delegate = self;
     
-    self.localSearchCompleter = [MKLocalSearchCompleter new];
-//    self.localSearchCompleter.delegate = self;
-    
     self.locationsTableView.delegate = self;
     self.locationsTableView.dataSource = self;
+    
+}
+
+#pragma mark - Search
+
+/** Searches for locations based on the provided string. Places the obtained MKMapItems in the locations array.
+ 
+ @param query The text to search for.
+ */
+- (void)searchFor:(NSString *)query {
+    MKLocalSearchRequest *searchRequest = [MKLocalSearchRequest new];
+    searchRequest.naturalLanguageQuery = query;
+    
+    MKCoordinateSpan span = MKCoordinateSpanMake(10.0, 10.0);
+    searchRequest.region = MKCoordinateRegionMake(self.userLocation.coordinate, span);
+    
+    MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:searchRequest];
+    [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
+        if (response) {
+            self.locations = response.mapItems;
+            [self.locationsTableView reloadData];
+        }
+        else if (error) {
+            //TODO: IMPLEMENT ERROR HANDLING
+        }
+    }];
     
 }
 
@@ -57,17 +84,6 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     //TODO: IMPLEMENT ERROR HANDLING
 }
-
-#pragma mark - MKLocalSearchCompleterDelegate
-
-//- (void)completerDidUpdateResults:(MKLocalSearchCompleter *)completer {
-//    self.locations = completer.results;
-//    [self.locationsTableView reloadData];
-//}
-//
-//- (void)completer:(MKLocalSearchCompleter *)completer didFailWithError:(NSError *)error {
-//    //TODO: IMPLEMENT ERROR HANDLING
-//}
 
 #pragma mark - UISearchBarDelegate
 
@@ -105,40 +121,20 @@
     if ([self.locationsTableView cellForRowAtIndexPath:indexPath] != nil) {
         self.mapItem = self.locations[indexPath.row];
         [self performSegueWithIdentifier:@"unwindToEventCreation" sender:self];
-        
     }
-    
-}
-
-#pragma mark - Utilities
-
-- (void)searchFor:(NSString *)query {
-    MKLocalSearchRequest *searchRequest = [MKLocalSearchRequest new];
-    searchRequest.naturalLanguageQuery = query;
-    
-    MKCoordinateSpan span = MKCoordinateSpanMake(10.0, 10.0);
-    searchRequest.region = MKCoordinateRegionMake(self.userLocation.coordinate, span);
-    
-    MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:searchRequest];
-    [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
-        if (response) {
-            self.locations = response.mapItems;
-            [self.locationsTableView reloadData];
-        }
-        else if (error) {
-            //TODO: IMPLEMENT ERROR HANDLING
-        }
-    }];
     
 }
 
 #pragma mark - Navigation
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
 }
 
+/** Unwinds to the creation view controller.
+ 
+ @param unwindSegue The unwind segue called.
+ */
 - (IBAction)unwindToEventCreation:(UIStoryboardSegue *)unwindSegue {
     
 }
