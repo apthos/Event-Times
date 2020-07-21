@@ -9,6 +9,8 @@
 #import "SignUpViewController.h"
 #import <Parse/Parse.h>
 
+#pragma mark -
+
 @interface SignUpViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -20,6 +22,8 @@
 
 @end
 
+#pragma mark -
+
 @implementation SignUpViewController
 
 - (void)viewDidLoad {
@@ -27,6 +31,10 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark - Parse
+
+/** Creates a new user in the Parse database using the user input from text fields.
+ */
 - (void)registerUser {
     PFUser *newUser = [PFUser new];
     
@@ -52,11 +60,21 @@
     
 }
 
+#pragma mark - Actions
+
+/** User chose to end editing by tapping on the background view.
+ 
+ @param sender The UITapGestureRecognizer attached to the background view.
+ */
 - (IBAction)onScreenTap:(id)sender {
     [self.view endEditing:YES];
 
 }
 
+/** User chose to sign up with the provided information by pressing the "Sign Up" button.
+ 
+ @param sender The "Sign Up" UIButton.
+ */
 - (IBAction)onSignUpPress:(id)sender {
     if ([self.usernameField.text isEqualToString:@""] || [self.emailField.text isEqualToString:@""] || [self.passwordField.text isEqualToString:@""]) {
         UIAlertController *emptyFieldAlert = [UIAlertController alertControllerWithTitle:@"Empty Field" message:@"Missing username, email or password." preferredStyle:UIAlertControllerStyleAlert];
@@ -71,19 +89,14 @@
     
 }
 
+#pragma mark - Navigation
+
+/** Unwinds to the login view controller.
+ 
+ @param unwindSegue The unwind segue called.
+ */
 - (IBAction)unwindToLogin:(UIStoryboardSegue *)unwindSegue {
     
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 @end
