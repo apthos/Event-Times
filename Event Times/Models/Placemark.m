@@ -19,26 +19,24 @@
 @dynamic postalCode;
 @dynamic country;
 
-- (instancetype)initWithPlacemark:(MKPlacemark *)placemark {
-    self = [super init];
+#pragma mark - Setters
+
+- (void)setWithPlacemark:(MKPlacemark *)placemark {
+    self.name = placemark.name;
     
-    if (self) {
-        self.name = placemark.name;
-        
-        self.location = [[PFGeoPoint alloc] init];
-        self.location.latitude = placemark.location.coordinate.latitude;
-        self.location.longitude = placemark.location.coordinate.longitude;
-        
-        self.street = placemark.thoroughfare;
-        self.city = placemark.locality;
-        self.state = placemark.administrativeArea;
-        self.postalCode = placemark.postalCode;
-        self.country = placemark.country;
-        
-    }
+    self.location = [[PFGeoPoint alloc] init];
+    self.location.latitude = placemark.location.coordinate.latitude;
+    self.location.longitude = placemark.location.coordinate.longitude;
     
-    return self;
+    self.street = placemark.thoroughfare;
+    self.city = placemark.locality;
+    self.state = placemark.administrativeArea;
+    self.postalCode = placemark.postalCode;
+    self.country = placemark.country;
+    
 }
+
+#pragma mark - PFSubclassing
 
 + (nonnull NSString *)parseClassName {
     return @"Placemark";

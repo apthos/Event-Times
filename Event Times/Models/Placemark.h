@@ -7,6 +7,7 @@
 //
 
 #import <Parse/Parse.h>
+#import <MapKit/MapKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *postalCode;
 @property (strong, nonatomic) NSString *country;
 
+- (void)setWithPlacemark:(MKPlacemark *)placemark;
 
 @end
 

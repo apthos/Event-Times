@@ -8,6 +8,8 @@
 
 #import "Event.h"
 
+#pragma mark -
+
 @implementation Event
 
 @dynamic author;
@@ -19,21 +21,7 @@
 @dynamic tags;
 @dynamic participants;
 
-- (instancetype)initWithName:(NSString *)name startDate:(NSDate *)startDate endDate:(NSDate *)endDate info:(NSString *)info location:(Placemark *)location tags:(NSArray *)tags {
-    self = [super init];
-    if (self) {
-        self.author = [PFUser currentUser];
-        self.name = name;
-        self.startDate = startDate;
-        self.endDate = endDate;
-        self.info = info;
-        self.location = location;
-        self.tags = tags;
-        
-    }
-    
-    return self;
-}
+#pragma mark - PFSubclassing
 
 + (nonnull NSString *)parseClassName {
     return @"Event";
