@@ -19,6 +19,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [self configureParse];
+    
+    return YES;
+}
+
+#pragma mark - Parse
+
+- (void)configureParse {
     ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
         configuration.applicationId = @"event-times";
@@ -27,7 +35,6 @@
     
     [Parse initializeWithConfiguration:config];
     
-    return YES;
 }
 
 

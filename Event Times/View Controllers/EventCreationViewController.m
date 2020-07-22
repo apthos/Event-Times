@@ -7,8 +7,12 @@
 //
 
 #import "EventCreationViewController.h"
-#import "Event.h"
 #import "LocationSearchViewController.h"
+#import "Event.h"
+#import "TextInputCell.h"
+#import "DateCell.h"
+#import "LocationCell.h"
+#import "DatePickerCell.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
@@ -17,17 +21,27 @@ static NSString *addActivityCellId = @"addActivityCell";
 static NSString *dateCellId = @"dateCell";
 static NSString *datePickerId = @"datePicker";
 static NSString *locationCellId = @"locationCell";
-static NSString *textFieldCellId = @"textFieldCell";
+static NSString *textInputCellId = @"textInputCell";
+
+typedef NS_ENUM(NSInteger, Details) {
+    EventName,
+    StartDate,
+    EndDate,
+    Location,
+    Info,
+    Tags
+};
 
 #pragma mark -
 
 @interface EventCreationViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 
+@property (strong, nonatomic) Event *event;
+
 @property (strong, nonatomic) NSMutableArray *activitiesArray;
 @property (strong, nonatomic) NSArray *detailsArray;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (strong, nonatomic) NSIndexPath *datePickerIndexPath;
-@property (strong, nonatomic) Event *event;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @property (strong, nonatomic) IBOutlet UITableView *eventTableView;
@@ -49,16 +63,18 @@ static NSString *textFieldCellId = @"textFieldCell";
         userLocation = [[CLLocation alloc] initWithLatitude:37.4530 longitude:-122.1817];
     }
     MKPlacemark *userPlacemark = [[MKPlacemark alloc] initWithCoordinate:userLocation.coordinate];
+
+    self.detailsArray = @[textInputCellId, dateCellId, dateCellId, locationCellId, textInputCellId];
+    
+    self.event = [Event new];
+    self.event.startDate = [NSDate date];
+    self.event.endDate = [NSDate date];
+    Placemark *newPlacemark = [Placemark new];
+    [newPlacemark setWithPlacemark:userPlacemark];
+    self.event.location = newPlacemark;
     
     self.eventTableView.delegate = self;
     self.eventTableView.dataSource = self;
-    
-    
-    NSMutableDictionary *eventName = [@{@"title" : @"Event Name", @"text" : @""} mutableCopy];
-    NSMutableDictionary *location = [@{@"title" : @"Location", @"location" : userPlacemark} mutableCopy];
-    NSMutableDictionary *startDate = [@{@"title" : @"Start Date", @"date" : [NSDate date]} mutableCopy];
-    NSMutableDictionary *endDate = [@{@"title" : @"End Date", @"date" : [NSDate date]} mutableCopy];
-    self.detailsArray = @[eventName, startDate, endDate, location];
     
     self.dateFormatter = [NSDateFormatter new];
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
@@ -71,40 +87,50 @@ static NSString *textFieldCellId = @"textFieldCell";
 
 #pragma mark - Utilities
 
+/**
+ */
 - (BOOL)indexPathHasDate:(NSIndexPath *)indexPath {
     BOOL hasDate = NO;
     
-    if (indexPath.section == 0 && [self.detailsArray[indexPath.row] valueForKey:@"date"] != nil) {
+    if (indexPath.section == 0 && (indexPath.row == StartDate || indexPath.row == EndDate)) {
         hasDate = YES;
     }
     
     return hasDate;
 }
 
+/**
+ */
 - (BOOL)indexPathHasDatePicker:(NSIndexPath *)indexPath {
     return self.datePickerIndexPath != nil && self.datePickerIndexPath.row == indexPath.row;
 }
 
+/**
+ */
 - (BOOL)indexPathHasLocation:(NSIndexPath *)indexPath {
     BOOL hasLocation = NO;
     
-    if (indexPath.section == 0 && [self.detailsArray[indexPath.row] valueForKey:@"location"] != nil) {
+    if (indexPath.section == 0 && indexPath.row == Location) {
         hasLocation = YES;
     }
     
     return hasLocation;
 }
 
+/**
+ */
 - (BOOL)indexPathHasString:(NSIndexPath *)indexPath {
     BOOL hasString = NO;
     
-    if (indexPath.section == 0 && [self.detailsArray[indexPath.row] valueForKey:@"text"] != nil) {
+    if (indexPath.section == 0 && (indexPath.row == EventName || indexPath.row == Info)) {
         hasString = YES;
     }
     
     return hasString;
 }
 
+/**
+ */
 - (NSString *)cellIdForIndexPath:(NSIndexPath *)indexPath {
     NSString *cellId = @"";
     
@@ -113,7 +139,7 @@ static NSString *textFieldCellId = @"textFieldCell";
     }
     
     if ([self indexPathHasString:indexPath]) {
-        cellId = textFieldCellId;
+        cellId = textInputCellId;
     }
     
     if ([self indexPathHasLocation:indexPath]) {
@@ -127,50 +153,23 @@ static NSString *textFieldCellId = @"textFieldCell";
     return cellId;
 }
 
+/**
+ */
 - (void)updateDatePicker {
     if (self.datePickerIndexPath != nil) {
         UITableViewCell *datePickerCell = [self.eventTableView cellForRowAtIndexPath:self.datePickerIndexPath];
         
-        UIDatePicker *datePicker = (UIDatePicker *)[datePickerCell viewWithTag:100];
+        UIDatePicker *datePicker = (UIDatePicker *)[datePickerCell viewWithTag:99];
         if (datePicker != nil) {
-            NSDictionary *dateObject = self.detailsArray[self.datePickerIndexPath.row - 1];
-            [datePicker setDate:[dateObject valueForKey:@"date"] animated:NO];
+            if (self.datePickerIndexPath.row - 1 == StartDate) {
+                [datePicker setDate:self.event.startDate animated:NO];
+            }
+            else {
+                [datePicker setDate:self.event.endDate animated:NO];
+            }
         }
-        
-        
     }
-}
-
-
-#pragma mark - Navigation
-
-/**
- */
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-}
-
-/**
- */
-- (IBAction)unwindToEvents:(UIStoryboardSegue *)unwindSegue {
-    
-}
-
-/**
- */
-- (IBAction)unwindToEventCreation:(UIStoryboardSegue *)unwindSegue {
-    if ([unwindSegue.sourceViewController isKindOfClass:[LocationSearchViewController class]]) {
-        LocationSearchViewController *sender = unwindSegue.sourceViewController;
-        MKMapItem *mapItem = sender.mapItem;
-        NSInteger locationRow = 3;
-
-        NSMutableDictionary *locationObject = self.detailsArray[locationRow];
-        [locationObject setValue:mapItem forKey:@"location"];
-        
-        NSIndexPath *locationIndexPath = [NSIndexPath indexPathForRow:locationRow inSection:0];
-        UITableViewCell *locationCell = [self.eventTableView cellForRowAtIndexPath:locationIndexPath];
-        locationCell.detailTextLabel.text = mapItem.name;
-    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -178,35 +177,56 @@ static NSString *textFieldCellId = @"textFieldCell";
 /**
  */
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    NSString *cellId = [self cellIdForIndexPath:indexPath];
-    UITableViewCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:cellId];
-    
     if (indexPath.section == 0) {
-        NSInteger arrayRow = indexPath.row;
-        if (self.datePickerIndexPath != nil && self.datePickerIndexPath.row <= indexPath.row) {
-            arrayRow--;
+        if (self.datePickerIndexPath != nil && self.datePickerIndexPath.row == indexPath.row) {
+            DatePickerCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:datePickerId];
+            return cell;
         }
-        
-        NSDictionary *detailObject = self.detailsArray[arrayRow];
-        
-        if ([cellId isEqualToString:textFieldCellId]) {
-            cell.textLabel.text = [detailObject valueForKey:@"title"];
+        else {
+            NSInteger arrayRow = indexPath.row;
+            if (self.datePickerIndexPath != nil && self.datePickerIndexPath.row < indexPath.row) {
+                arrayRow--;
+            }
             
+            switch(arrayRow) {
+                case EventName: {
+                    TextInputCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:textInputCellId];
+                    cell.placeholder = @"Event Name";
+                    return cell;
+                }
+                case StartDate: {
+                    DateCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:dateCellId];
+                    cell.textLabel.text = @"Start Date";
+                    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.event.startDate];
+                    return cell;
+                }
+                case EndDate: {
+                    DateCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:dateCellId];
+                    cell.textLabel.text = @"End Date";
+                    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.event.endDate];
+                    return cell;
+                }
+                case Location: {
+                    LocationCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:locationCellId];
+                    cell.detailTextLabel.text = self.event.location.name;
+                    return cell;
+                }
+                case Info: {
+                    TextInputCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:textInputCellId];
+                    cell.placeholder = @"Info";
+                    return cell;
+                }
+            }
         }
-        else if ([cellId isEqualToString:locationCellId]) {
-            cell.textLabel.text = [detailObject valueForKey:@"title"];
-            cell.detailTextLabel.text = [[detailObject valueForKey:@"location"] name];
-        }
-        else if ([cellId isEqualToString:dateCellId]) {
-            cell.textLabel.text = [detailObject valueForKey:@"title"];
-            cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[detailObject valueForKey:@"date"]];
-        }
+        
+        UITableViewCell *cell = [UITableViewCell new];
+        return cell;
     }
     else {
         //TODO: IMPLEMENT ACTIVITY CELLS IN SECTION 1
+        UITableViewCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:@""];
+        return cell;
     }
-    
-    return cell;
 }
 
 /**
@@ -246,7 +266,6 @@ static NSString *textFieldCellId = @"textFieldCell";
     if (self.datePickerIndexPath != nil) {
         [self.eventTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.datePickerIndexPath.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
         self.datePickerIndexPath = nil;
-        
     }
     
     if (!clickedSameCell) {
@@ -255,7 +274,6 @@ static NSString *textFieldCellId = @"textFieldCell";
         
         [self.eventTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPathBefore.row + 1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
         self.datePickerIndexPath = [NSIndexPath indexPathForRow:indexPathBefore.row + 1 inSection:0];
-        
     }
     
     [self.eventTableView endUpdates];
@@ -275,7 +293,6 @@ static NSString *textFieldCellId = @"textFieldCell";
     }
     else if (cell.reuseIdentifier == locationCellId) {
         [self performSegueWithIdentifier:@"locationSegue" sender:nil];
-        
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -284,18 +301,56 @@ static NSString *textFieldCellId = @"textFieldCell";
 
 #pragma mark - Actions
 
+/**
+ */
 - (IBAction)changedDate:(id)sender {
     NSIndexPath *dateCellIndexPath = [NSIndexPath indexPathForRow:self.datePickerIndexPath.row - 1 inSection:0];
     
-    UITableViewCell *cell = [self.eventTableView cellForRowAtIndexPath:dateCellIndexPath];
+    DateCell *cell = [self.eventTableView cellForRowAtIndexPath:dateCellIndexPath];
     UIDatePicker *datePicker = sender;
     
-    NSMutableDictionary *dateObject = self.detailsArray[dateCellIndexPath.row];
-    [dateObject setValue:datePicker.date forKey:@"date"];
+    if (dateCellIndexPath.row == StartDate) {
+        self.event.startDate = datePicker.date;
+    }
+    else {
+        self.event.endDate = datePicker.date;
+    }
     
     cell.detailTextLabel.text = [self.dateFormatter stringFromDate:datePicker.date];
     
 }
 
+#pragma mark - Navigation
+
+/**
+ */
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+}
+
+/**
+ */
+- (IBAction)unwindToEvents:(UIStoryboardSegue *)unwindSegue {
+    
+}
+
+/**
+ */
+- (IBAction)unwindToEventCreation:(UIStoryboardSegue *)unwindSegue {
+    if ([unwindSegue.sourceViewController isKindOfClass:[LocationSearchViewController class]]) {
+        LocationSearchViewController *sender = unwindSegue.sourceViewController;
+        MKMapItem *mapItem = sender.mapItem;
+        
+        Placemark *newLocation = [Placemark new];
+        [newLocation setWithPlacemark:mapItem.placemark];
+        
+        self.event.location = newLocation;
+        
+        NSIndexPath *locationIndexPath = [NSIndexPath indexPathForRow:Location inSection:0];
+        UITableViewCell *locationCell = [self.eventTableView cellForRowAtIndexPath:locationIndexPath];
+        locationCell.detailTextLabel.text = self.event.location.name;
+    }
+    
+}
 
 @end

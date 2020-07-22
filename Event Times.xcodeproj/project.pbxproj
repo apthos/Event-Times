@@ -28,6 +28,11 @@
 		B837BB6C24BCFD38001D0DF5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B837BB6B24BCFD38001D0DF5 /* main.m */; };
 		B837BB7624BCFD38001D0DF5 /* Event_TimesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B837BB7524BCFD38001D0DF5 /* Event_TimesTests.m */; };
 		B837BB8124BCFD38001D0DF5 /* Event_TimesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B837BB8024BCFD38001D0DF5 /* Event_TimesUITests.m */; };
+		B8894D4C24C6480D00D71A92 /* DatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D4B24C6480D00D71A92 /* DatePickerCell.m */; };
+		B8894D4F24C6483800D71A92 /* DateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D4E24C6483800D71A92 /* DateCell.m */; };
+		B8894D5224C6484900D71A92 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D5124C6484900D71A92 /* LocationCell.m */; };
+		B8894D5524C6487D00D71A92 /* TextInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D5424C6487D00D71A92 /* TextInputCell.m */; };
+		B8894D5B24C7A44E00D71A92 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D5A24C7A44E00D71A92 /* EventCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +94,16 @@
 		B837BB7C24BCFD38001D0DF5 /* Event TimesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Event TimesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B837BB8024BCFD38001D0DF5 /* Event_TimesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Event_TimesUITests.m; sourceTree = "<group>"; };
 		B837BB8224BCFD38001D0DF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B8894D4A24C6480D00D71A92 /* DatePickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DatePickerCell.h; sourceTree = "<group>"; };
+		B8894D4B24C6480D00D71A92 /* DatePickerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DatePickerCell.m; sourceTree = "<group>"; };
+		B8894D4D24C6483800D71A92 /* DateCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateCell.h; sourceTree = "<group>"; };
+		B8894D4E24C6483800D71A92 /* DateCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateCell.m; sourceTree = "<group>"; };
+		B8894D5024C6484900D71A92 /* LocationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
+		B8894D5124C6484900D71A92 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
+		B8894D5324C6487D00D71A92 /* TextInputCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextInputCell.h; sourceTree = "<group>"; };
+		B8894D5424C6487D00D71A92 /* TextInputCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextInputCell.m; sourceTree = "<group>"; };
+		B8894D5924C7A44E00D71A92 /* EventCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
+		B8894D5A24C7A44E00D71A92 /* EventCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
 		CEB692B76F3B18631B660E96 /* Pods-Event Times-Event TimesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Event Times-Event TimesUITests.release.xcconfig"; path = "Target Support Files/Pods-Event Times-Event TimesUITests/Pods-Event Times-Event TimesUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DB36BEA98F20A582F8BA9EDB /* Pods_Event_Times_Event_TimesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Event_Times_Event_TimesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE593D864B9F7D4DEB08E791 /* Pods_Event_TimesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Event_TimesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +220,7 @@
 		B837BB5824BCFD37001D0DF5 /* Event Times */ = {
 			isa = PBXGroup;
 			children = (
+				B8894D4924C647CD00D71A92 /* Views */,
 				B81752DB24BF532500952196 /* View Controllers */,
 				B81752D124BE71BC00952196 /* Models */,
 				B837BB5924BCFD37001D0DF5 /* AppDelegate.h */,
@@ -236,6 +252,23 @@
 				B837BB8224BCFD38001D0DF5 /* Info.plist */,
 			);
 			path = "Event TimesUITests";
+			sourceTree = "<group>";
+		};
+		B8894D4924C647CD00D71A92 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B8894D4A24C6480D00D71A92 /* DatePickerCell.h */,
+				B8894D4B24C6480D00D71A92 /* DatePickerCell.m */,
+				B8894D4D24C6483800D71A92 /* DateCell.h */,
+				B8894D4E24C6483800D71A92 /* DateCell.m */,
+				B8894D5024C6484900D71A92 /* LocationCell.h */,
+				B8894D5124C6484900D71A92 /* LocationCell.m */,
+				B8894D5324C6487D00D71A92 /* TextInputCell.h */,
+				B8894D5424C6487D00D71A92 /* TextInputCell.m */,
+				B8894D5924C7A44E00D71A92 /* EventCell.h */,
+				B8894D5A24C7A44E00D71A92 /* EventCell.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -478,16 +511,21 @@
 			files = (
 				B837BB5B24BCFD37001D0DF5 /* AppDelegate.m in Sources */,
 				B817530224C1FD6C00952196 /* LocationSearchViewController.m in Sources */,
+				B8894D5224C6484900D71A92 /* LocationCell.m in Sources */,
 				B81752D424BE71D700952196 /* Placemark.m in Sources */,
 				B837BB6C24BCFD38001D0DF5 /* main.m in Sources */,
 				B81752F624BF55C800952196 /* ProfileViewController.m in Sources */,
 				B81752D724BE721300952196 /* Activity.m in Sources */,
+				B8894D4F24C6483800D71A92 /* DateCell.m in Sources */,
 				B81752DE24BF535800952196 /* LoginViewController.m in Sources */,
+				B8894D4C24C6480D00D71A92 /* DatePickerCell.m in Sources */,
 				B81752FF24C1110900952196 /* EventCreationViewController.m in Sources */,
 				B81752F324BF55AD00952196 /* CalendarViewController.m in Sources */,
 				B837BB5E24BCFD37001D0DF5 /* SceneDelegate.m in Sources */,
 				B81752E124BF538600952196 /* SignUpViewController.m in Sources */,
+				B8894D5524C6487D00D71A92 /* TextInputCell.m in Sources */,
 				B81752E424BF547700952196 /* EventsViewController.m in Sources */,
+				B8894D5B24C7A44E00D71A92 /* EventCell.m in Sources */,
 				B81752DA24BE724E00952196 /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
