@@ -9,6 +9,7 @@
 #import "EventCreationViewController.h"
 #import "LocationSearchViewController.h"
 #import "Event.h"
+#import "EventData.h"
 #import "TextInputCell.h"
 #import "DateCell.h"
 #import "LocationCell.h"
@@ -22,15 +23,6 @@ static NSString *dateCellId = @"dateCell";
 static NSString *datePickerId = @"datePicker";
 static NSString *locationCellId = @"locationCell";
 static NSString *textInputCellId = @"textInputCell";
-
-typedef NS_ENUM(NSInteger, Details) {
-    EventName,
-    StartDate,
-    EndDate,
-    Location,
-    Info,
-    Tags
-};
 
 #pragma mark -
 
@@ -64,14 +56,14 @@ typedef NS_ENUM(NSInteger, Details) {
     }
     MKPlacemark *userPlacemark = [[MKPlacemark alloc] initWithCoordinate:userLocation.coordinate];
 
-    self.detailsArray = @[textInputCellId, dateCellId, dateCellId, locationCellId, textInputCellId];
-    
     self.event = [Event new];
     self.event.startDate = [NSDate date];
     self.event.endDate = [NSDate date];
     Placemark *newPlacemark = [Placemark new];
     [newPlacemark setWithPlacemark:userPlacemark];
     self.event.location = newPlacemark;
+    
+    self.detailsArray = [self createEventDataArray];
     
     self.eventTableView.delegate = self;
     self.eventTableView.dataSource = self;
@@ -82,7 +74,6 @@ typedef NS_ENUM(NSInteger, Details) {
     [self.dateFormatter setTimeZone: [NSTimeZone systemTimeZone]];
     
 }
-
 
 
 #pragma mark - Utilities
@@ -161,12 +152,9 @@ typedef NS_ENUM(NSInteger, Details) {
         
         UIDatePicker *datePicker = (UIDatePicker *)[datePickerCell viewWithTag:99];
         if (datePicker != nil) {
-            if (self.datePickerIndexPath.row - 1 == StartDate) {
-                [datePicker setDate:self.event.startDate animated:NO];
-            }
-            else {
-                [datePicker setDate:self.event.endDate animated:NO];
-            }
+            EventData *eventData = self.detailsArray[self.datePickerIndexPath.row - 1];
+            NSDate *date = eventData.data;
+            [datePicker setDate:date animated:NO];
         }
     }
     
@@ -188,6 +176,8 @@ typedef NS_ENUM(NSInteger, Details) {
                 arrayRow--;
             }
             
+            EventData *eventData = self.detailsArray[arrayRow];
+            
             switch(arrayRow) {
                 case EventName: {
                     TextInputCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:textInputCellId];
@@ -197,18 +187,21 @@ typedef NS_ENUM(NSInteger, Details) {
                 case StartDate: {
                     DateCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:dateCellId];
                     cell.textLabel.text = @"Start Date";
-                    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.event.startDate];
+                    NSDate *date = eventData.data;
+                    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
                     return cell;
                 }
                 case EndDate: {
                     DateCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:dateCellId];
                     cell.textLabel.text = @"End Date";
-                    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.event.endDate];
+                    NSDate *date = eventData.data;
+                    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
                     return cell;
                 }
                 case Location: {
                     LocationCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:locationCellId];
-                    cell.detailTextLabel.text = self.event.location.name;
+                    Placemark *placemark = eventData.data;
+                    cell.detailTextLabel.text = placemark.name;
                     return cell;
                 }
                 case Info: {
@@ -282,6 +275,31 @@ typedef NS_ENUM(NSInteger, Details) {
     
 }
 
+- (NSArray<EventData *> *)createEventDataArray {
+    EventData *name = [EventData new];
+    name.data = self.event.name;
+    name.detailType = EventName;
+    
+    EventData *startDate = [EventData new];
+    startDate.data = self.event.startDate;
+    startDate.detailType = StartDate;
+    
+    EventData *endDate = [EventData new];
+    endDate.data = self.event.endDate;
+    endDate.detailType = EndDate;
+    
+    EventData *location = [EventData new];
+    location.data = self.event.location;
+    location.detailType = Location;
+    
+    EventData *info = [EventData new];
+    info.data = self.event.info;
+    info.detailType = Info;
+    
+    NSArray *tableData = @[name, startDate, endDate, location, info];
+    return tableData;
+}
+
 #pragma mark - UITableViewDelegate
 
 /**
@@ -309,12 +327,8 @@ typedef NS_ENUM(NSInteger, Details) {
     DateCell *cell = [self.eventTableView cellForRowAtIndexPath:dateCellIndexPath];
     UIDatePicker *datePicker = sender;
     
-    if (dateCellIndexPath.row == StartDate) {
-        self.event.startDate = datePicker.date;
-    }
-    else {
-        self.event.endDate = datePicker.date;
-    }
+    EventData *date = self.detailsArray[dateCellIndexPath.row];
+    date.data = datePicker.date;
     
     cell.detailTextLabel.text = [self.dateFormatter stringFromDate:datePicker.date];
     
@@ -344,11 +358,12 @@ typedef NS_ENUM(NSInteger, Details) {
         Placemark *newLocation = [Placemark new];
         [newLocation setWithPlacemark:mapItem.placemark];
         
-        self.event.location = newLocation;
+        EventData *location = self.detailsArray[Location];
+        location.data = newLocation;
         
         NSIndexPath *locationIndexPath = [NSIndexPath indexPathForRow:Location inSection:0];
         UITableViewCell *locationCell = [self.eventTableView cellForRowAtIndexPath:locationIndexPath];
-        locationCell.detailTextLabel.text = self.event.location.name;
+        locationCell.detailTextLabel.text = newLocation.name;
     }
     
 }

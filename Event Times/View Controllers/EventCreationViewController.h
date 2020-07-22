@@ -10,6 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, Details) {
+    EventName,
+    StartDate,
+    EndDate,
+    Location,
+    Info,
+    Tags
+};
+
 @interface EventCreationViewController : UIViewController
 
 @end
