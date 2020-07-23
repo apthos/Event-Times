@@ -10,6 +10,7 @@
 #import "LocationSearchViewController.h"
 #import "TagsViewController.h"
 #import "Event.h"
+#import "Activity.h"
 #import "EventData.h"
 #import "TextInputCell.h"
 #import "DateCell.h"
@@ -18,7 +19,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-static NSString *activityCell = @"activityCell";
+static NSString *activityCellId = @"activityCell";
 static NSString *addActivityCellId = @"addActivityCell";
 static NSString *dateCellId = @"dateCell";
 static NSString *datePickerId = @"datePicker";
@@ -66,6 +67,9 @@ static NSString *basicCellId = @"basicCell";
     self.event.location = newPlacemark;
     
     self.detailsArray = [self createEventDataArray];
+    if (self.activitiesArray == nil) {
+        self.activitiesArray = [@[] mutableCopy];
+    }
     
     self.eventTableView.delegate = self;
     self.eventTableView.dataSource = self;
@@ -75,8 +79,6 @@ static NSString *basicCellId = @"basicCell";
     [self.dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     [self.dateFormatter setTimeZone: [NSTimeZone systemTimeZone]];
     
-    [self performSegueWithIdentifier:@"tagsSegue" sender:nil];
-    
 }
 
 
@@ -84,68 +86,8 @@ static NSString *basicCellId = @"basicCell";
 
 /**
  */
-- (BOOL)indexPathHasDate:(NSIndexPath *)indexPath {
-    BOOL hasDate = NO;
-    
-    if (indexPath.section == 0 && (indexPath.row == StartDate || indexPath.row == EndDate)) {
-        hasDate = YES;
-    }
-    
-    return hasDate;
-}
-
-/**
- */
 - (BOOL)indexPathHasDatePicker:(NSIndexPath *)indexPath {
     return self.datePickerIndexPath != nil && self.datePickerIndexPath.row == indexPath.row;
-}
-
-/**
- */
-- (BOOL)indexPathHasLocation:(NSIndexPath *)indexPath {
-    BOOL hasLocation = NO;
-    
-    if (indexPath.section == 0 && indexPath.row == Location) {
-        hasLocation = YES;
-    }
-    
-    return hasLocation;
-}
-
-/**
- */
-- (BOOL)indexPathHasString:(NSIndexPath *)indexPath {
-    BOOL hasString = NO;
-    
-    if (indexPath.section == 0 && (indexPath.row == EventName || indexPath.row == Info)) {
-        hasString = YES;
-    }
-    
-    return hasString;
-}
-
-/**
- */
-- (NSString *)cellIdForIndexPath:(NSIndexPath *)indexPath {
-    NSString *cellId = @"";
-    
-    if ([self indexPathHasDate:indexPath]) {
-        cellId = dateCellId;
-    }
-    
-    if ([self indexPathHasString:indexPath]) {
-        cellId = textInputCellId;
-    }
-    
-    if ([self indexPathHasLocation:indexPath]) {
-        cellId = locationCellId;
-    }
-    
-    if ([self indexPathHasDatePicker:indexPath]) {
-        cellId = datePickerId;
-    }
-    
-    return cellId;
 }
 
 /**
@@ -169,10 +111,12 @@ static NSString *basicCellId = @"basicCell";
 /**
  */
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    UITableViewCell *cell = [UITableViewCell new];
+    
     if (indexPath.section == 0) {
-        if (self.datePickerIndexPath != nil && self.datePickerIndexPath.row == indexPath.row) {
-            DatePickerCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:datePickerId];
-            return cell;
+        if ([self indexPathHasDatePicker:indexPath]) {
+            DatePickerCell *datePickerCell = [self.eventTableView dequeueReusableCellWithIdentifier:datePickerId];
+            cell = datePickerCell;
         }
         else {
             NSInteger arrayRow = indexPath.row;
@@ -184,52 +128,62 @@ static NSString *basicCellId = @"basicCell";
             
             switch(arrayRow) {
                 case EventName: {
-                    TextInputCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:textInputCellId];
-                    cell.placeholder = @"Event Name";
-                    return cell;
+                    TextInputCell *eventNameCell = [self.eventTableView dequeueReusableCellWithIdentifier:textInputCellId];
+                    eventNameCell.placeholder = @"Event Name";
+                    cell = eventNameCell;
+                    break;
                 }
                 case StartDate: {
-                    DateCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:dateCellId];
-                    cell.textLabel.text = @"Start Date";
+                    DateCell *startDateCell = [self.eventTableView dequeueReusableCellWithIdentifier:dateCellId];
+                    startDateCell.textLabel.text = @"Start Date";
                     NSDate *date = eventData.data;
-                    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
-                    return cell;
+                    startDateCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
+                    cell = startDateCell;
+                    break;
                 }
                 case EndDate: {
-                    DateCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:dateCellId];
-                    cell.textLabel.text = @"End Date";
+                    DateCell *endDateCell = [self.eventTableView dequeueReusableCellWithIdentifier:dateCellId];
+                    endDateCell.textLabel.text = @"End Date";
                     NSDate *date = eventData.data;
-                    cell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
-                    return cell;
+                    endDateCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
+                    cell = endDateCell;
+                    break;
                 }
                 case Location: {
-                    LocationCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:locationCellId];
+                    LocationCell *locationCell = [self.eventTableView dequeueReusableCellWithIdentifier:locationCellId];
                     Placemark *placemark = eventData.data;
-                    cell.detailTextLabel.text = placemark.name;
-                    return cell;
+                    locationCell.detailTextLabel.text = placemark.name;
+                    cell = locationCell;
+                    break;
                 }
                 case Info: {
-                    TextInputCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:textInputCellId];
-                    cell.placeholder = @"Info";
-                    return cell;
+                    TextInputCell *infoCell = [self.eventTableView dequeueReusableCellWithIdentifier:textInputCellId];
+                    infoCell.placeholder = @"Info";
+                    cell = infoCell;
+                    break;
                 }
                 case Tags: {
-                    UITableViewCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:basicCellId];
-                    cell.textLabel.text = @"Tags";
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    return cell;
+                    UITableViewCell *tagsCell = [self.eventTableView dequeueReusableCellWithIdentifier:basicCellId];
+                    tagsCell.textLabel.text = @"Tags";
+                    tagsCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell = tagsCell;
+                    break;
                 }
             }
         }
-        
-        UITableViewCell *cell = [UITableViewCell new];
-        return cell;
     }
     else {
-        //TODO: IMPLEMENT ACTIVITY CELLS IN SECTION 1
-        UITableViewCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:@""];
-        return cell;
+        if (indexPath.row == 0) {
+            cell = [self.eventTableView dequeueReusableCellWithIdentifier:addActivityCellId];
+        }
+        else {
+            Activity *activity = self.activitiesArray[indexPath.row - 1];
+            
+            cell.textLabel.text = activity.name;
+        }
     }
+    
+    return cell;
 }
 
 /**
@@ -242,9 +196,19 @@ static NSString *basicCellId = @"basicCell";
         return self.detailsArray.count;
     }
     else {
-        return self.activitiesArray.count;
+        return self.activitiesArray.count + 1;
     }
     
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+/**
+ */
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return (section == 0) ? @"Details" : @"Activities";
 }
 
 /**
@@ -320,11 +284,21 @@ static NSString *basicCellId = @"basicCell";
  */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (cell.reuseIdentifier == dateCellId) {
+    
+    if ([cell.reuseIdentifier isEqualToString:dateCellId]) {
         [self displayDatePicker:indexPath];
     }
-    else if (cell.reuseIdentifier == locationCellId) {
+    else if ([cell.reuseIdentifier isEqualToString:locationCellId]) {
         [self performSegueWithIdentifier:@"locationSegue" sender:nil];
+    }
+    else if ([cell.reuseIdentifier isEqualToString:basicCellId]) {
+        [self performSegueWithIdentifier:@"tagsSegue" sender:nil];
+    }
+    else if ([cell.reuseIdentifier isEqualToString:addActivityCellId]) {
+        
+    }
+    else if ([cell.reuseIdentifier isEqualToString:activityCellId]) {
+        
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
