@@ -34,6 +34,7 @@
 		B8894D5524C6487D00D71A92 /* TextInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D5424C6487D00D71A92 /* TextInputCell.m */; };
 		B8894D5B24C7A44E00D71A92 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D5A24C7A44E00D71A92 /* EventCell.m */; };
 		B8894D6424C8E74A00D71A92 /* EventData.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D6324C8E74A00D71A92 /* EventData.m */; };
+		B8BA284024CA2D48009C11DF /* ActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BA283F24CA2D48009C11DF /* ActivityCell.m */; };
 		B8DC642124C9F11600DC7D62 /* TagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DC642024C9F11600DC7D62 /* TagsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,8 @@
 		B8894D5A24C7A44E00D71A92 /* EventCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
 		B8894D6224C8E74A00D71A92 /* EventData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventData.h; sourceTree = "<group>"; };
 		B8894D6324C8E74A00D71A92 /* EventData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventData.m; sourceTree = "<group>"; };
+		B8BA283E24CA2D48009C11DF /* ActivityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityCell.h; sourceTree = "<group>"; };
+		B8BA283F24CA2D48009C11DF /* ActivityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityCell.m; sourceTree = "<group>"; };
 		B8DC641F24C9F11600DC7D62 /* TagsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagsViewController.h; sourceTree = "<group>"; };
 		B8DC642024C9F11600DC7D62 /* TagsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagsViewController.m; sourceTree = "<group>"; };
 		CEB692B76F3B18631B660E96 /* Pods-Event Times-Event TimesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Event Times-Event TimesUITests.release.xcconfig"; path = "Target Support Files/Pods-Event Times-Event TimesUITests/Pods-Event Times-Event TimesUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -277,6 +280,8 @@
 				B8894D5424C6487D00D71A92 /* TextInputCell.m */,
 				B8894D5924C7A44E00D71A92 /* EventCell.h */,
 				B8894D5A24C7A44E00D71A92 /* EventCell.m */,
+				B8BA283E24CA2D48009C11DF /* ActivityCell.h */,
+				B8BA283F24CA2D48009C11DF /* ActivityCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -524,6 +529,7 @@
 				B817530224C1FD6C00952196 /* LocationSearchViewController.m in Sources */,
 				B8894D5224C6484900D71A92 /* LocationCell.m in Sources */,
 				B81752D424BE71D700952196 /* Placemark.m in Sources */,
+				B8BA284024CA2D48009C11DF /* ActivityCell.m in Sources */,
 				B837BB6C24BCFD38001D0DF5 /* main.m in Sources */,
 				B81752F624BF55C800952196 /* ProfileViewController.m in Sources */,
 				B81752D724BE721300952196 /* Activity.m in Sources */,

@@ -16,6 +16,7 @@
 #import "DateCell.h"
 #import "LocationCell.h"
 #import "DatePickerCell.h"
+#import "ActivityCell.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
@@ -179,7 +180,10 @@ static NSString *basicCellId = @"basicCell";
         else {
             Activity *activity = self.activitiesArray[indexPath.row - 1];
             
-            cell.textLabel.text = activity.name;
+            ActivityCell *activityCell = [self.eventTableView dequeueReusableCellWithIdentifier:activityCellId];
+            activityCell.textLabel.text = activity.name;
+            
+            cell = activityCell;
         }
     }
     
@@ -319,6 +323,21 @@ static NSString *basicCellId = @"basicCell";
     date.data = datePicker.date;
     
     cell.detailTextLabel.text = [self.dateFormatter stringFromDate:datePicker.date];
+    
+}
+
+- (IBAction)onRemovePress:(id)sender {
+    CGPoint buttonPoint = [sender convertPoint:CGPointZero toView:self.eventTableView];
+    NSIndexPath *buttonIndexPath = [self.eventTableView indexPathForRowAtPoint:buttonPoint];
+    
+    Activity *removedActivity = self.activitiesArray[buttonIndexPath.row - 1];
+    [self.activitiesArray removeObject:removedActivity];
+    
+    [self.eventTableView beginUpdates];
+    
+    [self.eventTableView deleteRowsAtIndexPaths:@[buttonIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    [self.eventTableView endUpdates];
     
 }
 
