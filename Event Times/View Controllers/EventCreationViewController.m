@@ -8,6 +8,7 @@
 
 #import "EventCreationViewController.h"
 #import "LocationSearchViewController.h"
+#import "TagsViewController.h"
 #import "Event.h"
 #import "EventData.h"
 #import "TextInputCell.h"
@@ -23,6 +24,7 @@ static NSString *dateCellId = @"dateCell";
 static NSString *datePickerId = @"datePicker";
 static NSString *locationCellId = @"locationCell";
 static NSString *textInputCellId = @"textInputCell";
+static NSString *basicCellId = @"basicCell";
 
 #pragma mark -
 
@@ -72,6 +74,8 @@ static NSString *textInputCellId = @"textInputCell";
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
     [self.dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     [self.dateFormatter setTimeZone: [NSTimeZone systemTimeZone]];
+    
+    [self performSegueWithIdentifier:@"tagsSegue" sender:nil];
     
 }
 
@@ -209,6 +213,12 @@ static NSString *textInputCellId = @"textInputCell";
                     cell.placeholder = @"Info";
                     return cell;
                 }
+                case Tags: {
+                    UITableViewCell *cell = [self.eventTableView dequeueReusableCellWithIdentifier:basicCellId];
+                    cell.textLabel.text = @"Tags";
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    return cell;
+                }
             }
         }
         
@@ -296,7 +306,11 @@ static NSString *textInputCellId = @"textInputCell";
     info.data = self.event.info;
     info.detailType = Info;
     
-    NSArray *tableData = @[name, startDate, endDate, location, info];
+    EventData *tags = [EventData new];
+    info.data = self.event.tags;
+    info.detailType = Tags;
+    
+    NSArray *tableData = @[name, startDate, endDate, location, info, tags];
     return tableData;
 }
 
@@ -364,6 +378,12 @@ static NSString *textInputCellId = @"textInputCell";
         NSIndexPath *locationIndexPath = [NSIndexPath indexPathForRow:Location inSection:0];
         UITableViewCell *locationCell = [self.eventTableView cellForRowAtIndexPath:locationIndexPath];
         locationCell.detailTextLabel.text = newLocation.name;
+    }
+    else if ([unwindSegue.sourceViewController isKindOfClass:[TagsViewController class]]) {
+        TagsViewController *sender = unwindSegue.sourceViewController;
+        
+        EventData *tags = self.detailsArray[Tags];
+        tags.data = sender.selectedTags;
     }
     
 }

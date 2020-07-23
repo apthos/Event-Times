@@ -34,6 +34,7 @@
 		B8894D5524C6487D00D71A92 /* TextInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D5424C6487D00D71A92 /* TextInputCell.m */; };
 		B8894D5B24C7A44E00D71A92 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D5A24C7A44E00D71A92 /* EventCell.m */; };
 		B8894D6424C8E74A00D71A92 /* EventData.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D6324C8E74A00D71A92 /* EventData.m */; };
+		B8DC642124C9F11600DC7D62 /* TagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DC642024C9F11600DC7D62 /* TagsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,8 @@
 		B8894D5A24C7A44E00D71A92 /* EventCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
 		B8894D6224C8E74A00D71A92 /* EventData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventData.h; sourceTree = "<group>"; };
 		B8894D6324C8E74A00D71A92 /* EventData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventData.m; sourceTree = "<group>"; };
+		B8DC641F24C9F11600DC7D62 /* TagsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagsViewController.h; sourceTree = "<group>"; };
+		B8DC642024C9F11600DC7D62 /* TagsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagsViewController.m; sourceTree = "<group>"; };
 		CEB692B76F3B18631B660E96 /* Pods-Event Times-Event TimesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Event Times-Event TimesUITests.release.xcconfig"; path = "Target Support Files/Pods-Event Times-Event TimesUITests/Pods-Event Times-Event TimesUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DB36BEA98F20A582F8BA9EDB /* Pods_Event_Times_Event_TimesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Event_Times_Event_TimesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE593D864B9F7D4DEB08E791 /* Pods_Event_TimesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Event_TimesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,6 +199,8 @@
 				B81752FE24C1110900952196 /* EventCreationViewController.m */,
 				B817530024C1FD6C00952196 /* LocationSearchViewController.h */,
 				B817530124C1FD6C00952196 /* LocationSearchViewController.m */,
+				B8DC641F24C9F11600DC7D62 /* TagsViewController.h */,
+				B8DC642024C9F11600DC7D62 /* TagsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -515,6 +520,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B837BB5B24BCFD37001D0DF5 /* AppDelegate.m in Sources */,
+				B8DC642124C9F11600DC7D62 /* TagsViewController.m in Sources */,
 				B817530224C1FD6C00952196 /* LocationSearchViewController.m in Sources */,
 				B8894D5224C6484900D71A92 /* LocationCell.m in Sources */,
 				B81752D424BE71D700952196 /* Placemark.m in Sources */,

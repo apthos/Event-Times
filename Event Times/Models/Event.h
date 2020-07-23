@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSDate *endDate;
 @property (strong, nonatomic) NSString *info;
 @property (strong, nonatomic) Placemark *location;
-@property (strong, nonatomic) NSArray *tags;
+@property (strong, nonatomic) NSSet *tags;
 @property (strong, nonatomic) PFRelation *participants;
 
 @end
