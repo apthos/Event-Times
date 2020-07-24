@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Event.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, Details) {
-    EventName,
+    Name,
     StartDate,
     EndDate,
     Location,
@@ -20,6 +21,8 @@ typedef NS_ENUM(NSInteger, Details) {
 };
 
 @interface EventCreationViewController : UIViewController
+
+@property (strong, nonatomic) Event *event;
 
 @end
 

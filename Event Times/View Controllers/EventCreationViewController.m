@@ -7,11 +7,12 @@
 //
 
 #import "EventCreationViewController.h"
+#import "ActivityCreationViewController.h"
 #import "LocationSearchViewController.h"
 #import "TagsViewController.h"
 #import "Event.h"
 #import "Activity.h"
-#import "EventData.h"
+#import "DetailData.h"
 #import "TextInputCell.h"
 #import "DateCell.h"
 #import "LocationCell.h"
@@ -32,8 +33,6 @@ static NSString *basicCellId = @"basicCell";
 
 @interface EventCreationViewController () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 
-@property (strong, nonatomic) Event *event;
-
 @property (strong, nonatomic) NSMutableArray *activitiesArray;
 @property (strong, nonatomic) NSArray *detailsArray;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
@@ -52,6 +51,7 @@ static NSString *basicCellId = @"basicCell";
  */
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.locationManager.delegate = self;
     [self.locationManager requestLocation];
     CLLocation *userLocation = [self.locationManager location];
@@ -99,8 +99,8 @@ static NSString *basicCellId = @"basicCell";
         
         UIDatePicker *datePicker = (UIDatePicker *)[datePickerCell viewWithTag:99];
         if (datePicker != nil) {
-            EventData *eventData = self.detailsArray[self.datePickerIndexPath.row - 1];
-            NSDate *date = eventData.data;
+            DetailData *dateData = self.detailsArray[self.datePickerIndexPath.row - 1];
+            NSDate *date = dateData.data;
             [datePicker setDate:date animated:NO];
         }
     }
@@ -125,10 +125,10 @@ static NSString *basicCellId = @"basicCell";
                 arrayRow--;
             }
             
-            EventData *eventData = self.detailsArray[arrayRow];
+            DetailData *detailData = self.detailsArray[arrayRow];
             
             switch(arrayRow) {
-                case EventName: {
+                case Name: {
                     TextInputCell *eventNameCell = [self.eventTableView dequeueReusableCellWithIdentifier:textInputCellId];
                     eventNameCell.placeholder = @"Event Name";
                     cell = eventNameCell;
@@ -137,7 +137,7 @@ static NSString *basicCellId = @"basicCell";
                 case StartDate: {
                     DateCell *startDateCell = [self.eventTableView dequeueReusableCellWithIdentifier:dateCellId];
                     startDateCell.textLabel.text = @"Start Date";
-                    NSDate *date = eventData.data;
+                    NSDate *date = detailData.data;
                     startDateCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
                     cell = startDateCell;
                     break;
@@ -145,14 +145,14 @@ static NSString *basicCellId = @"basicCell";
                 case EndDate: {
                     DateCell *endDateCell = [self.eventTableView dequeueReusableCellWithIdentifier:dateCellId];
                     endDateCell.textLabel.text = @"End Date";
-                    NSDate *date = eventData.data;
+                    NSDate *date = detailData.data;
                     endDateCell.detailTextLabel.text = [self.dateFormatter stringFromDate:date];
                     cell = endDateCell;
                     break;
                 }
                 case Location: {
                     LocationCell *locationCell = [self.eventTableView dequeueReusableCellWithIdentifier:locationCellId];
-                    Placemark *placemark = eventData.data;
+                    Placemark *placemark = detailData.data;
                     locationCell.detailTextLabel.text = placemark.name;
                     cell = locationCell;
                     break;
@@ -194,10 +194,7 @@ static NSString *basicCellId = @"basicCell";
  */
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        if (self.datePickerIndexPath != nil) {
-            return self.detailsArray.count + 1;
-        }
-        return self.detailsArray.count;
+        return (self.datePickerIndexPath != nil) ? self.detailsArray.count + 1 : self.detailsArray.count;
     }
     else {
         return self.activitiesArray.count + 1;
@@ -253,28 +250,28 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
-- (NSArray<EventData *> *)createEventDataArray {
-    EventData *name = [EventData new];
+- (NSArray<DetailData *> *)createEventDataArray {
+    DetailData *name = [DetailData new];
     name.data = self.event.name;
-    name.detailType = EventName;
+    name.detailType = Name;
     
-    EventData *startDate = [EventData new];
+    DetailData *startDate = [DetailData new];
     startDate.data = self.event.startDate;
     startDate.detailType = StartDate;
     
-    EventData *endDate = [EventData new];
+    DetailData *endDate = [DetailData new];
     endDate.data = self.event.endDate;
     endDate.detailType = EndDate;
     
-    EventData *location = [EventData new];
+    DetailData *location = [DetailData new];
     location.data = self.event.location;
     location.detailType = Location;
     
-    EventData *info = [EventData new];
+    DetailData *info = [DetailData new];
     info.data = self.event.info;
     info.detailType = Info;
     
-    EventData *tags = [EventData new];
+    DetailData *tags = [DetailData new];
     info.data = self.event.tags;
     info.detailType = Tags;
     
@@ -299,7 +296,7 @@ static NSString *basicCellId = @"basicCell";
         [self performSegueWithIdentifier:@"tagsSegue" sender:nil];
     }
     else if ([cell.reuseIdentifier isEqualToString:addActivityCellId]) {
-        
+        [self performSegueWithIdentifier:@"activityCreationSegue" sender:nil];
     }
     else if ([cell.reuseIdentifier isEqualToString:activityCellId]) {
         
@@ -319,13 +316,15 @@ static NSString *basicCellId = @"basicCell";
     DateCell *cell = [self.eventTableView cellForRowAtIndexPath:dateCellIndexPath];
     UIDatePicker *datePicker = sender;
     
-    EventData *date = self.detailsArray[dateCellIndexPath.row];
+    DetailData *date = self.detailsArray[dateCellIndexPath.row];
     date.data = datePicker.date;
     
     cell.detailTextLabel.text = [self.dateFormatter stringFromDate:datePicker.date];
     
 }
 
+/**
+ */
 - (IBAction)onRemovePress:(id)sender {
     CGPoint buttonPoint = [sender convertPoint:CGPointZero toView:self.eventTableView];
     NSIndexPath *buttonIndexPath = [self.eventTableView indexPathForRowAtPoint:buttonPoint];
@@ -357,28 +356,49 @@ static NSString *basicCellId = @"basicCell";
 
 /**
  */
-- (IBAction)unwindToEventCreation:(UIStoryboardSegue *)unwindSegue {
-    if ([unwindSegue.sourceViewController isKindOfClass:[LocationSearchViewController class]]) {
-        LocationSearchViewController *sender = unwindSegue.sourceViewController;
-        MKMapItem *mapItem = sender.mapItem;
+- (IBAction)unwindFromActivityCreation:(UIStoryboardSegue *)unwindSegue {
+    ActivityCreationViewController *sender = unwindSegue.sourceViewController;
+    if (sender.activity != nil) {
+        Activity *newActivity = sender.activity;
         
-        Placemark *newLocation = [Placemark new];
-        [newLocation setWithPlacemark:mapItem.placemark];
+        [self.activitiesArray addObject:newActivity];
         
-        EventData *location = self.detailsArray[Location];
-        location.data = newLocation;
+        [self.eventTableView beginUpdates];
         
-        NSIndexPath *locationIndexPath = [NSIndexPath indexPathForRow:Location inSection:0];
-        UITableViewCell *locationCell = [self.eventTableView cellForRowAtIndexPath:locationIndexPath];
-        locationCell.detailTextLabel.text = newLocation.name;
-    }
-    else if ([unwindSegue.sourceViewController isKindOfClass:[TagsViewController class]]) {
-        TagsViewController *sender = unwindSegue.sourceViewController;
+        NSIndexPath *newActivityIndexPath = [NSIndexPath indexPathForRow:self.activitiesArray.count inSection:1];
+        [self.eventTableView insertRowsAtIndexPaths:@[newActivityIndexPath] withRowAnimation:UITableViewRowAnimationFade];
         
-        EventData *tags = self.detailsArray[Tags];
-        tags.data = sender.selectedTags;
+        [self.eventTableView endUpdates];
+        
     }
     
+}
+
+/**
+ */
+- (IBAction)unwindFromLocation:(UIStoryboardSegue *)unwindSegue {
+    LocationSearchViewController *sender = unwindSegue.sourceViewController;
+    MKMapItem *mapItem = sender.mapItem;
+    
+    Placemark *newLocation = [Placemark new];
+    [newLocation setWithPlacemark:mapItem.placemark];
+    
+    DetailData *location = self.detailsArray[Location];
+    location.data = newLocation;
+    
+    NSIndexPath *locationIndexPath = [NSIndexPath indexPathForRow:Location inSection:0];
+    UITableViewCell *locationCell = [self.eventTableView cellForRowAtIndexPath:locationIndexPath];
+    locationCell.detailTextLabel.text = newLocation.name;
+    
+}
+
+/**
+ */
+- (IBAction)unwindFromTags:(UIStoryboardSegue *)unwindSegue {
+    TagsViewController *sender = unwindSegue.sourceViewController;
+    
+    DetailData *tags = self.detailsArray[Tags];
+    tags.data = sender.selectedTags;
 }
 
 @end

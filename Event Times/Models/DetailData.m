@@ -6,8 +6,8 @@
 //  Copyright © 2020 David Lara. All rights reserved.
 //
 
-#import "EventData.h"
+#import "DetailData.h"
 
-@implementation EventData
+@implementation DetailData
 
 @end

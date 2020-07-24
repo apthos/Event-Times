@@ -120,7 +120,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self.locationsTableView cellForRowAtIndexPath:indexPath] != nil) {
         self.mapItem = self.locations[indexPath.row];
-        [self performSegueWithIdentifier:@"unwindToEventCreation" sender:self];
+        [self performSegueWithIdentifier:@"unwindFromLocation" sender:self];
     }
     
 }
@@ -131,11 +131,11 @@
 
 }
 
-/** Unwinds to the creation view controller.
+/** Unwinds to the parent view controller.
  
  @param unwindSegue The unwind segue called.
  */
-- (IBAction)unwindToEventCreation:(UIStoryboardSegue *)unwindSegue {
+- (IBAction)unwindFromLocation:(UIStoryboardSegue *)unwindSegue {
     
 }
 

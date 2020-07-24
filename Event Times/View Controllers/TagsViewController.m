@@ -77,16 +77,19 @@
 #pragma mark - Actions
 
 - (IBAction)onCancelPress:(id)sender {
+    self.tags = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (IBAction)onDonePress:(id)sender {
-    [self performSegueWithIdentifier:@"unwindToEventCreation" sender:self];
+    [self performSegueWithIdentifier:@"unwindFromTags" sender:self];
+    
 }
 
 #pragma mark - Navigation
 
-- (IBAction)unwindToEventCreation:(UIStoryboardSegue *)unwindSegue {
+- (IBAction)unwindFromTags:(UIStoryboardSegue *)unwindSegue {
     
 }
 

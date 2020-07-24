@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@interface EventData : NSObject
+@interface DetailData : NSObject
 
 @property (assign, nonatomic) Details detailType;
 @property (strong, nonatomic) id data;
