@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ActivityCreationViewController : UIViewController
 
 @property (strong, nonatomic) Activity *activity;
+@property (assign, nonatomic) BOOL editingActivity;
 
 @end
 

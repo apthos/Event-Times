@@ -38,6 +38,7 @@ static NSString *basicCellId = @"basicCell";
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (strong, nonatomic) NSIndexPath *datePickerIndexPath;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSIndexPath *editedActivityIndexPath;
 
 @property (strong, nonatomic) IBOutlet UITableView *eventTableView;
 
@@ -146,7 +147,7 @@ static NSString *basicCellId = @"basicCell";
             
             DetailData *detailData = self.detailsArray[arrayRow];
             
-            switch(arrayRow) {
+            switch(detailData.detailType) {
                 case Name: {
                     TextInputCell *eventNameCell = [self.eventTableView dequeueReusableCellWithIdentifier:textInputCellId];
                     eventNameCell.placeholder = @"Event Name";
@@ -314,11 +315,8 @@ static NSString *basicCellId = @"basicCell";
     else if ([cell.reuseIdentifier isEqualToString:basicCellId]) {
         [self performSegueWithIdentifier:@"tagsSegue" sender:nil];
     }
-    else if ([cell.reuseIdentifier isEqualToString:addActivityCellId]) {
-        [self performSegueWithIdentifier:@"activityCreationSegue" sender:nil];
-    }
-    else if ([cell.reuseIdentifier isEqualToString:activityCellId]) {
-        
+    else if ([cell.reuseIdentifier isEqualToString:addActivityCellId] || [cell.reuseIdentifier isEqualToString:activityCellId]) {
+        [self performSegueWithIdentifier:@"activityCreationSegue" sender:cell];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -421,6 +419,22 @@ static NSString *basicCellId = @"basicCell";
  */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
+    if ([[segue identifier] isEqualToString:@"tagsSegue"]) {
+        
+    }
+    else if ([[segue identifier] isEqualToString:@"activityCreationSegue"]) {
+        ActivityCell *cell = (ActivityCell *)sender;
+        NSIndexPath *indexPath = [self.eventTableView indexPathForCell:cell];
+        if (indexPath.row != 0) {
+            self.editedActivityIndexPath = indexPath;
+            
+            UINavigationController *navigationController = (UINavigationController *) segue.destinationViewController;
+            ActivityCreationViewController *controller = (ActivityCreationViewController *) navigationController.topViewController;
+            
+            Activity *activity = self.activitiesArray[indexPath.row - 1];
+            controller.activity = activity;
+        }
+    }
 }
 
 /**
@@ -434,17 +448,24 @@ static NSString *basicCellId = @"basicCell";
 - (IBAction)unwindFromActivityCreation:(UIStoryboardSegue *)unwindSegue {
     ActivityCreationViewController *sender = unwindSegue.sourceViewController;
     if (sender.activity != nil) {
-        Activity *newActivity = sender.activity;
-        
-        [self.activitiesArray addObject:newActivity];
-        
-        [self.eventTableView beginUpdates];
-        
-        NSIndexPath *newActivityIndexPath = [NSIndexPath indexPathForRow:self.activitiesArray.count inSection:1];
-        [self.eventTableView insertRowsAtIndexPaths:@[newActivityIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-        [self.eventTableView endUpdates];
-        
+        if (sender.editingActivity) {
+            [self.activitiesArray setObject:sender.activity atIndexedSubscript:self.editedActivityIndexPath.row - 1];
+            
+            [self.eventTableView reloadRowsAtIndexPaths:@[self.editedActivityIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        else {
+            Activity *newActivity = sender.activity;
+            
+            [self.activitiesArray addObject:newActivity];
+            
+            [self.eventTableView beginUpdates];
+            
+            NSIndexPath *newActivityIndexPath = [NSIndexPath indexPathForRow:self.activitiesArray.count inSection:1];
+            [self.eventTableView insertRowsAtIndexPaths:@[newActivityIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+            [self.eventTableView endUpdates];
+            
+        }
     }
     
 }

@@ -57,12 +57,17 @@ static NSString *basicCellId = @"basicCell";
     }
     MKPlacemark *userPlacemark = [[MKPlacemark alloc] initWithCoordinate:userLocation.coordinate];
 
-    self.activity = [Activity new];
-    self.activity.startDate = [NSDate date];
-    self.activity.endDate = [NSDate date];
-    Placemark *newPlacemark = [Placemark new];
-    [newPlacemark setWithPlacemark:userPlacemark];
-    self.activity.location = newPlacemark;
+    if (self.activity == nil) {
+        self.activity = [Activity new];
+        self.activity.startDate = [NSDate date];
+        self.activity.endDate = [NSDate date];
+        Placemark *newPlacemark = [Placemark new];
+        [newPlacemark setWithPlacemark:userPlacemark];
+        self.activity.location = newPlacemark;
+    }
+    else {
+        self.editingActivity = YES;
+    }
     
     self.detailsArray = [self createActivityDataArray];
     
@@ -120,7 +125,7 @@ static NSString *basicCellId = @"basicCell";
         switch(arrayRow) {
             case Name: {
                 TextInputCell *eventNameCell = [self.activityTableView dequeueReusableCellWithIdentifier:textInputCellId];
-                eventNameCell.placeholder = @"Event Name";
+                eventNameCell.placeholder = @"Activity Name";
                 if (detailData.data != nil) {
                     eventNameCell.textView.text = detailData.data;
                 }
@@ -268,6 +273,13 @@ static NSString *basicCellId = @"basicCell";
 /**
  */
 - (IBAction)onCancelPress:(id)sender {
+    if (self.editing) {
+        
+    }
+    else {
+        self.activity = nil;
+    }
+    
     [self performSegueWithIdentifier:@"unwindFromActivityCreation" sender:self];
     
 }
@@ -276,7 +288,7 @@ static NSString *basicCellId = @"basicCell";
  */
 - (IBAction)onCreatePress:(id)sender {
     self.activity.author = [PFUser currentUser];
-    
+
     for (DetailData *detailData in self.detailsArray) {
         switch (detailData.detailType) {
             case Name: {
