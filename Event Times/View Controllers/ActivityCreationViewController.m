@@ -275,6 +275,8 @@ static NSString *basicCellId = @"basicCell";
 /**
  */
 - (IBAction)onCreatePress:(id)sender {
+    self.activity.author = [PFUser currentUser];
+    
     for (DetailData *detailData in self.detailsArray) {
         switch (detailData.detailType) {
             case Name: {

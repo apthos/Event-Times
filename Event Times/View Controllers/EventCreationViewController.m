@@ -107,6 +107,25 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
+#pragma mark - Parse
+
+/**
+ */
+- (void)saveActivities {
+    for (Activity *activity in self.activitiesArray) {
+        activity.event = self.event;
+        
+        [activity saveInBackgroundWithBlock:^(BOOL succeded, NSError *error) {
+            if (succeded) {
+                
+            }
+            else {
+                //TODO: IMPLEMENT ERROR HANDLING
+            }
+        }];
+    }
+}
+
 #pragma mark - UITableViewDataSource
 
 /**
@@ -272,8 +291,8 @@ static NSString *basicCellId = @"basicCell";
     info.detailType = Info;
     
     DetailData *tags = [DetailData new];
-    info.data = self.event.tags;
-    info.detailType = Tags;
+    tags.data = self.event.tags;
+    tags.detailType = Tags;
     
     NSArray *tableData = @[name, startDate, endDate, location, info, tags];
     return tableData;
@@ -325,6 +344,57 @@ static NSString *basicCellId = @"basicCell";
 
 /**
  */
+- (IBAction)onCreatePress:(id)sender {
+    self.event.author = [PFUser currentUser];
+    
+    for (DetailData *detailData in self.detailsArray) {
+        
+        switch (detailData.detailType) {
+            case Name: {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:Name inSection:0];
+                TextInputCell *textInputCell = [self.eventTableView cellForRowAtIndexPath:indexPath];
+                self.event.name = textInputCell.textView.text;
+                break;
+            }
+            case StartDate: {
+                self.event.startDate = detailData.data;
+                break;
+            }
+            case EndDate: {
+                self.event.endDate = detailData.data;
+                break;
+            }
+            case Location: {
+                self.event.location = detailData.data;
+                break;
+            }
+            case Info: {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:Info inSection:0];
+                TextInputCell *textInputCell = [self.eventTableView cellForRowAtIndexPath:indexPath];
+                self.event.info = textInputCell.textView.text;
+                break;
+            }
+            case Tags: {
+                self.event.tags = detailData.data;
+                break;
+            }
+        }
+    }
+
+    [self.event saveInBackgroundWithBlock:^(BOOL succeded, NSError *error) {
+        if (succeded) {
+            [self saveActivities];
+            [self performSegueWithIdentifier:@"unwindToEvents" sender:nil];
+        }
+        else {
+            //TODO: IMPLEMENT ERROR HANDLING
+        }
+    }];
+
+}
+
+/**
+ */
 - (IBAction)onRemovePress:(id)sender {
     CGPoint buttonPoint = [sender convertPoint:CGPointZero toView:self.eventTableView];
     NSIndexPath *buttonIndexPath = [self.eventTableView indexPathForRowAtPoint:buttonPoint];
@@ -337,6 +407,11 @@ static NSString *basicCellId = @"basicCell";
     [self.eventTableView deleteRowsAtIndexPaths:@[buttonIndexPath] withRowAnimation:UITableViewRowAnimationFade];
     
     [self.eventTableView endUpdates];
+    
+}
+
+- (IBAction)onTapGesture:(id)sender {
+    [self.view endEditing:YES];
     
 }
 
@@ -398,7 +473,8 @@ static NSString *basicCellId = @"basicCell";
     TagsViewController *sender = unwindSegue.sourceViewController;
     
     DetailData *tags = self.detailsArray[Tags];
-    tags.data = sender.selectedTags;
+    tags.data = [sender.selectedTags allObjects];
+    
 }
 
 @end

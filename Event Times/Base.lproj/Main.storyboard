@@ -314,15 +314,23 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="9G8-6A-4Cl"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="0V5-DA-y5v" appends="YES" id="fT2-Zr-uwp"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="Cbd-Yq-qEL">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="Vf0-eG-XBi">
                             <connections>
-                                <segue destination="tL2-wC-MwB" kind="unwind" unwindAction="unwindToEvents:" id="e2z-oB-8e2"/>
+                                <segue destination="tL2-wC-MwB" kind="unwind" identifier="unwindToEvents" unwindAction="unwindToEvents:" id="e2z-oB-8e2"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Create" id="lvq-yP-UF8"/>
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="lvq-yP-UF8">
+                            <connections>
+                                <action selector="onCreatePress:" destination="G00-ck-3Ox" id="0BH-yU-Afe"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="eventTableView" destination="TLT-wI-mJa" id="yFF-s4-xD9"/>
@@ -333,6 +341,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mb-xj-Usm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="tL2-wC-MwB" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="0V5-DA-y5v">
+                    <connections>
+                        <action selector="onTapGesture:" destination="G00-ck-3Ox" id="PlJ-St-Qx3"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1549" y="2498"/>
         </scene>
@@ -813,7 +826,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="uZi-xy-6NZ"/>
+        <segue reference="OIJ-Z4-29E"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

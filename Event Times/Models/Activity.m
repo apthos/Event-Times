@@ -19,21 +19,7 @@
 @dynamic participants;
 @dynamic event;
 
-- (instancetype)initWithName:(NSString *)name startDate:(NSDate *)startDate endDate:(NSDate *)endDate info:(NSString *)info location:(Placemark *)location event:(Event *)event {
-    self = [super init];
-    if (self) {
-        self.author = [PFUser currentUser];
-        self.name = name;
-        self.startDate = startDate;
-        self.endDate = endDate;
-        self.info = info;
-        self.location = location;
-        self.event = event;
-        
-    }
-    
-    return self;
-}
+#pragma mark - PFSubclassing
 
 + (nonnull NSString *)parseClassName {
     return @"Activity";
