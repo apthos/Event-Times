@@ -24,6 +24,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.eventsTableView.delegate = self;
+    self.eventsTableView.dataSource = self;
+    
     [self fetchEvents];
     
 }
@@ -32,6 +35,7 @@
 - (void)fetchEvents {
     PFQuery *query = [PFQuery queryWithClassName:@"Event"];
     [query orderByDescending:@"createdAt"];
+    [query includeKeys:@[@"name", @"startDate", @"endDate", @"location"]];
     query.limit = 20;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {

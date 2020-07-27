@@ -91,7 +91,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="109" id="Vdk-Tn-e7z" customClass="EventCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="eventCell" rowHeight="109" id="Vdk-Tn-e7z" customClass="EventCell">
                                         <rect key="frame" x="0.0" y="28" width="414" height="109"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vdk-Tn-e7z" id="ith-X5-oin">
@@ -120,6 +120,7 @@
                                             <constraints>
                                                 <constraint firstItem="Yb0-9R-s6M" firstAttribute="top" secondItem="Lyk-L5-g3h" secondAttribute="bottom" constant="8" id="TEN-Jd-6e3"/>
                                                 <constraint firstItem="naC-b1-bLA" firstAttribute="leading" secondItem="ith-X5-oin" secondAttribute="leading" constant="20" id="Ygl-fC-2qJ"/>
+                                                <constraint firstItem="naC-b1-bLA" firstAttribute="bottom" secondItem="ith-X5-oin" secondAttribute="bottomMargin" id="acc-g4-ZYe"/>
                                                 <constraint firstItem="Lyk-L5-g3h" firstAttribute="leading" secondItem="ith-X5-oin" secondAttribute="leading" constant="20" id="iO7-uk-yvK"/>
                                                 <constraint firstItem="Lyk-L5-g3h" firstAttribute="top" secondItem="ith-X5-oin" secondAttribute="top" constant="11" id="lqR-wS-Xap"/>
                                                 <constraint firstItem="naC-b1-bLA" firstAttribute="top" secondItem="Yb0-9R-s6M" secondAttribute="bottom" constant="8" id="sel-kF-PYQ"/>

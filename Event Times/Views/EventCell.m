@@ -28,7 +28,12 @@
     self.nameLabel.text = event.name;
     self.locationLabel.text = event.location.name;
     
-    NSString *dates = [NSString stringWithFormat:@"%@ - %@", event.startDate.description, event.endDate.description];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeZone: [NSTimeZone systemTimeZone]];
+    
+    NSString *dates = [NSString stringWithFormat:@"%@ - %@", [dateFormatter stringFromDate:event.startDate], [dateFormatter stringFromDate:event.endDate]];
     self.datesLabel.text = dates;
 }
 
