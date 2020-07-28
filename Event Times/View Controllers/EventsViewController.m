@@ -10,6 +10,8 @@
 #import "EventCell.h"
 #import "Event.h"
 
+#import "EventCreationViewController.h"
+
 @interface EventsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *events;
@@ -32,10 +34,11 @@
 }
 
 #pragma mark - Parse
+
 - (void)fetchEvents {
     PFQuery *query = [PFQuery queryWithClassName:@"Event"];
     [query orderByDescending:@"createdAt"];
-    [query includeKeys:@[@"name", @"startDate", @"endDate", @"location"]];
+    [query includeKeys:@[@"name", @"startDate", @"endDate", @"location",  @"author", @"info", @"tags"]];
     query.limit = 20;
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
@@ -66,7 +69,31 @@
     return self.events.count;
 }
 
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    [self performSegueWithIdentifier:@"eventEdit" sender:cell];
+    
+    [self.eventsTableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 #pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"eventEdit"]) {
+        EventCell *cell = (EventCell *)sender;
+        NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:cell];
+        if (indexPath.row != 0) {
+            UINavigationController *navigationController = (UINavigationController *) segue.destinationViewController;
+            EventCreationViewController *controller = (EventCreationViewController *) navigationController.topViewController;
+            
+            Event *event = self.events[indexPath.row];
+            controller.event = event;
+        }
+    }
+}
 
 - (IBAction)unwindToEvents:(UIStoryboardSegue *)sender {
     

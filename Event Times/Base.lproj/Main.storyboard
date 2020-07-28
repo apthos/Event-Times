@@ -131,6 +131,7 @@
                                             <outlet property="datesLabel" destination="naC-b1-bLA" id="mtu-0I-Dkf"/>
                                             <outlet property="locationLabel" destination="Yb0-9R-s6M" id="bP7-7G-qfG"/>
                                             <outlet property="nameLabel" destination="Lyk-L5-g3h" id="X1s-Eb-hra"/>
+                                            <segue destination="5fS-3v-00r" kind="presentation" identifier="eventEdit" id="EQc-E1-ll3"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -327,7 +328,7 @@
                                 <segue destination="tL2-wC-MwB" kind="unwind" identifier="unwindToEvents" unwindAction="unwindToEvents:" id="e2z-oB-8e2"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Create" id="lvq-yP-UF8">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="lvq-yP-UF8">
                             <connections>
                                 <action selector="onCreatePress:" destination="G00-ck-3Ox" id="0BH-yU-Afe"/>
                             </connections>
@@ -559,7 +560,7 @@
                                 <action selector="onCancelPress:" destination="O0f-XM-EZc" id="yEN-TM-7lB"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Create" id="s0K-7d-ljz">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="s0K-7d-ljz">
                             <connections>
                                 <action selector="onCreatePress:" destination="O0f-XM-EZc" id="0up-Hy-7Ig"/>
                             </connections>
@@ -827,7 +828,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="OIJ-Z4-29E"/>
+        <segue reference="EQc-E1-ll3"/>
+        <segue reference="uZi-xy-6NZ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

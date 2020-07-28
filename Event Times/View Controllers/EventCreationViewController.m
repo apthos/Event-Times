@@ -61,17 +61,23 @@ static NSString *basicCellId = @"basicCell";
     }
     MKPlacemark *userPlacemark = [[MKPlacemark alloc] initWithCoordinate:userLocation.coordinate];
 
-    self.event = [Event new];
-    self.event.startDate = [NSDate date];
-    self.event.endDate = [NSDate date];
-    Placemark *newPlacemark = [Placemark new];
-    [newPlacemark setWithPlacemark:userPlacemark];
-    self.event.location = newPlacemark;
     
-    self.detailsArray = [self createEventDataArray];
-    if (self.activitiesArray == nil) {
+    if (self.event == nil) {
+        self.event = [Event new];
+        self.event.startDate = [NSDate date];
+        self.event.endDate = [NSDate date];
+        Placemark *newPlacemark = [Placemark new];
+        [newPlacemark setWithPlacemark:userPlacemark];
+        self.event.location = newPlacemark;
+        
         self.activitiesArray = [@[] mutableCopy];
     }
+    else {
+        [self fetchActivitiesForEvent];
+    }
+
+    self.detailsArray = [self createEventDataArray];
+
     
     self.eventTableView.delegate = self;
     self.eventTableView.dataSource = self;
@@ -151,6 +157,9 @@ static NSString *basicCellId = @"basicCell";
                 case Name: {
                     TextInputCell *eventNameCell = [self.eventTableView dequeueReusableCellWithIdentifier:textInputCellId];
                     eventNameCell.placeholder = @"Event Name";
+                    if (detailData.data != nil) {
+                        eventNameCell.textView.text = detailData.data;
+                    }
                     cell = eventNameCell;
                     break;
                 }
@@ -180,6 +189,9 @@ static NSString *basicCellId = @"basicCell";
                 case Info: {
                     TextInputCell *infoCell = [self.eventTableView dequeueReusableCellWithIdentifier:textInputCellId];
                     infoCell.placeholder = @"Info";
+                    if (detailData.data != nil) {
+                        infoCell.textView.text = detailData.data;
+                    }
                     cell = infoCell;
                     break;
                 }
@@ -297,6 +309,27 @@ static NSString *basicCellId = @"basicCell";
     
     NSArray *tableData = @[name, startDate, endDate, location, info, tags];
     return tableData;
+}
+
+- (void)fetchActivitiesForEvent {
+    PFQuery *query = [PFQuery queryWithClassName:@"Activity"];
+    [query orderByDescending:@"createdAt"];
+    [query includeKeys:@[@"name", @"startDate", @"endDate", @"location",  @"author", @"info", @"tags"]];
+    [query whereKey:@"event" equalTo:self.event];
+    
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+        if (activities != nil) {
+            self.activitiesArray = (NSMutableArray *) activities;
+            
+            [self.eventTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+            
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+    
 }
 
 #pragma mark - UITableViewDelegate
@@ -418,9 +451,13 @@ static NSString *basicCellId = @"basicCell";
 /**
  */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
     if ([[segue identifier] isEqualToString:@"tagsSegue"]) {
-        
+        if (self.event.tags != nil) {
+            UINavigationController *navigationController = (UINavigationController *) segue.destinationViewController;
+            TagsViewController *controller = (TagsViewController *) navigationController.topViewController;
+            
+            controller.selectedTags = [[NSSet setWithArray:self.event.tags] mutableCopy];
+        }
     }
     else if ([[segue identifier] isEqualToString:@"activityCreationSegue"]) {
         ActivityCell *cell = (ActivityCell *)sender;
@@ -435,6 +472,7 @@ static NSString *basicCellId = @"basicCell";
             controller.activity = activity;
         }
     }
+    
 }
 
 /**
@@ -464,7 +502,6 @@ static NSString *basicCellId = @"basicCell";
             [self.eventTableView insertRowsAtIndexPaths:@[newActivityIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             
             [self.eventTableView endUpdates];
-            
         }
     }
     
@@ -483,8 +520,8 @@ static NSString *basicCellId = @"basicCell";
     location.data = newLocation;
     
     NSIndexPath *locationIndexPath = [NSIndexPath indexPathForRow:Location inSection:0];
-    UITableViewCell *locationCell = [self.eventTableView cellForRowAtIndexPath:locationIndexPath];
-    locationCell.detailTextLabel.text = newLocation.name;
+
+    [self.eventTableView reloadRowsAtIndexPaths:@[locationIndexPath] withRowAnimation:UITableViewRowAnimationFade];
     
 }
 

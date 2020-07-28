@@ -273,12 +273,7 @@ static NSString *basicCellId = @"basicCell";
 /**
  */
 - (IBAction)onCancelPress:(id)sender {
-    if (self.editing) {
-        
-    }
-    else {
-        self.activity = nil;
-    }
+    self.activity = nil;
     
     [self performSegueWithIdentifier:@"unwindFromActivityCreation" sender:self];
     

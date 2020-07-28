@@ -27,10 +27,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.tags = @[@"One",@"Two",@"Three"];
-    self.selectedTags = [NSMutableSet new];
+    
+    if (self.selectedTags == nil) {
+        self.selectedTags = [NSMutableSet new];
+    }
     
     self.tagsTableView.delegate = self;
     self.tagsTableView.dataSource = self;
@@ -77,7 +79,6 @@
 #pragma mark - Actions
 
 - (IBAction)onCancelPress:(id)sender {
-    self.tags = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
