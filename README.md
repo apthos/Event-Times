@@ -33,7 +33,7 @@ Event Times is an app centered around scheduling events. Users can create events
 * Users can take a photo with their camera and display it as their profile picture or put it as the image for the event
 * Users can create an event and the itinerary for it
 * Users can join events and obtain the itinerary
-* Users can view a calendar in the app
+* Users can the list of activities they are attending
 * Users can choose specific activities on the itineraries to attend
 * Users can use gestures to edit their itinerary (holding down on an activity will bring up an option to add/remove)
 * Animations appear when going through views
@@ -43,6 +43,7 @@ Event Times is an app centered around scheduling events. Users can create events
 
 * Users can collaborate on the itinerary
 * Users may view directions to an activity on the itinerary inside the app or with Apple/Google Maps
+* Users view the a calendar displaying the activities on a certain day/days in a week with at least 1 activity/months
 * Users can export their calendar to other calendar apps such as Google Calendar
 
 ### 2. Screen Archetypes
@@ -55,7 +56,7 @@ Event Times is an app centered around scheduling events. Users can create events
 * Event Creation
     * Users can create an event and the itinerary for it
 * Calendar
-   * Users can view a calendar in the app
+   * Users can view a list of activities
    * Users can use gestures to edit their itinerary (holding down on an activity will bring up an option to add/remove)
 * Login page
    * Users can login to/create an account
@@ -106,7 +107,6 @@ https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
 | profileImage | PFFileObject | selected profile image |
 | activities | Relation | list of activities the user is attending |
 | events | Relation | list of events the user is attending |
-| createdEvents | Relation | list of events the user has created |
 
 #### Event Data Model
 | Property | Type | Description |
@@ -170,6 +170,19 @@ https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
     * (Update/PUT) Update the user profile image
 * My Events
     * (Read/GET) Query for events that the user is attending (including those created by them)
-
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+## Journal
+#### July 14
+- Decided to use Apple MapKit over the Google Maps SDK due to simplicity of implementation. The MapKit would not need an external SDK installed. Additionally, location auto complete is possible with MapKit alone rather than needing the Google Places SDK.
+- Decided on using a custom PFObject to store the placemark of the locations the events will be held at. MKPlacemarks nor MKMapItems may be stored in Parse, so a custom PFObject containing the relevant information must be made. Upon requesting the location to be displayed on a map, an MKPlacemark will be made using the information from the custom PFObject.
+#### July 16
+- Decided to implement event creation with a dynamic table view instead of a static table view. When I was using a static table, the date picker cell would not appear. After looking into the issue, I discovered that adding more cells to a static table would not work no matter which method I tried. 
+#### July 17 
+- Implemented the location picker feature resulting in it returning an MKMapItem. I chose to use an MKMapItem as it has a method that opens the Apple Maps app and displays the location for the user.
+#### July 22
+- Decided to use an enum to define the order of the event/activity creation tables.
+- Implemented a new data object that stores data and an enum describing what kind of data it is, such as the location of an event/activity. By implementing this data object, I am able to create an array of one type and use that array to decided what to display for a given row. The choice of what is to be displayed and what kind of cell should be used will be decided by the enum that the data object has. The enums are defined by the enum that defines the order of the event/activity creation tables.
+- Decided to change the storing of a tags from an NSArray to an NSSet. This is due to not needing the indexes and being able to add/delete items quicker.
+#### July 23
+- Went back on my decision to change the storing of tags. Upon further inspection, an NSSet is not allowed to be stored in Parse. However, using an NSSet in the tags view controller is beneficial, so it is still in use while the user is selecting and unselecting tags. When the tags property of the event is set, the set is turned into an array for storage purposes.
+#### July 24
+- Decided to not save the activity upon activity creation. The activity will only be saved to the database when the event is saved. This will prevent creating activities with no attached event, in the case the user decides not to save the event they were creating.
