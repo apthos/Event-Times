@@ -1,8 +1,8 @@
 //
-//  CalendarViewController.h
+//  ScheduleViewController.h
 //  Event Times
 //
-//  Created by David Lara on 7/15/20.
+//  Created by David Lara on 7/29/20.
 //  Copyright © 2020 David Lara. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CalendarViewController : UIViewController
+@interface ScheduleViewController : UIViewController
 
 @end
 

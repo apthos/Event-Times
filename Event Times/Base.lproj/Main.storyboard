@@ -357,7 +357,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K4u-ed-P9g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-710.14492753623199" y="2509.8214285714284"/>
+            <point key="canvasLocation" x="767" y="2510"/>
         </scene>
         <!--Event Creation View Controller-->
         <scene sceneID="1fT-nS-Ea2">
@@ -781,21 +781,76 @@
             </objects>
             <point key="canvasLocation" x="-4694" y="3273"/>
         </scene>
-        <!--Calendar-->
+        <!--Schedule-->
         <scene sceneID="TlC-jL-4vx">
             <objects>
-                <viewController id="cwZ-gU-gWs" customClass="CalendarViewController" sceneMemberID="viewController">
+                <viewController id="cwZ-gU-gWs" customClass="ScheduleViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QkT-Nx-Wyk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E0N-92-ozH">
+                                <rect key="frame" x="0.0" y="56" width="414" height="703"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="detailsCell" rowHeight="109" id="64e-KD-9GG" customClass="DetailsCell">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="109"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="64e-KD-9GG" id="bsn-RB-rK6">
+                                            <rect key="frame" x="0.0" y="0.0" width="351" height="109"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O00-YW-h1s">
+                                                    <rect key="frame" x="20" y="11" width="144" height="29"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Date - End Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oip-WQ-at5">
+                                                    <rect key="frame" x="20" y="77" width="165" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ESV-Yi-iFZ">
+                                                    <rect key="frame" x="20" y="48" width="66" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Oip-WQ-at5" firstAttribute="top" secondItem="ESV-Yi-iFZ" secondAttribute="bottom" constant="8" id="CAb-AL-EBu"/>
+                                                <constraint firstItem="ESV-Yi-iFZ" firstAttribute="leading" secondItem="bsn-RB-rK6" secondAttribute="leading" constant="20" id="FKV-CS-4Nh"/>
+                                                <constraint firstItem="Oip-WQ-at5" firstAttribute="leading" secondItem="bsn-RB-rK6" secondAttribute="leading" constant="20" id="MHU-hf-d6Q"/>
+                                                <constraint firstItem="Oip-WQ-at5" firstAttribute="bottom" secondItem="bsn-RB-rK6" secondAttribute="bottomMargin" id="TTv-yz-Jvu"/>
+                                                <constraint firstItem="O00-YW-h1s" firstAttribute="leading" secondItem="bsn-RB-rK6" secondAttribute="leading" constant="20" id="ixV-jh-zKm"/>
+                                                <constraint firstItem="ESV-Yi-iFZ" firstAttribute="top" secondItem="O00-YW-h1s" secondAttribute="bottom" constant="8" id="k17-00-x5K"/>
+                                                <constraint firstItem="O00-YW-h1s" firstAttribute="top" secondItem="bsn-RB-rK6" secondAttribute="top" constant="11" id="r3d-SV-trm"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="datesLabel" destination="Oip-WQ-at5" id="spV-Az-qyX"/>
+                                            <outlet property="locationLabel" destination="ESV-Yi-iFZ" id="YzW-25-poI"/>
+                                            <outlet property="nameLabel" destination="O00-YW-h1s" id="0oR-Nk-2E1"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Dq5-JG-bhH"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Calendar" id="rRj-5w-MpE"/>
+                    <navigationItem key="navigationItem" title="Schedule" id="rRj-5w-MpE"/>
+                    <connections>
+                        <outlet property="activitiesTableView" destination="E0N-92-ozH" id="7aR-I3-nsZ"/>
+                        <segue destination="62y-pj-wI5" kind="presentation" identifier="detailSegue" id="rwh-N0-82c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FyQ-UG-cmT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="768" y="1767"/>
+            <point key="canvasLocation" x="766.66666666666674" y="1766.5178571428571"/>
         </scene>
         <!--Profile-->
         <scene sceneID="RCR-iE-rm5">
@@ -938,11 +993,11 @@
             </objects>
             <point key="canvasLocation" x="-2168" y="1767"/>
         </scene>
-        <!--Calendar-->
+        <!--Schedule-->
         <scene sceneID="lzF-QY-Lmk">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="kR4-DU-TAb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Calendar" image="calendar" catalog="system" id="Lwf-E9-CQ6"/>
+                    <tabBarItem key="tabBarItem" title="Schedule" image="calendar" catalog="system" id="Lwf-E9-CQ6"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ymh-Q5-mKY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
@@ -1033,6 +1088,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="uZi-xy-6NZ"/>
+        <segue reference="rwh-N0-82c"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="calendar" catalog="system" width="128" height="106"/>

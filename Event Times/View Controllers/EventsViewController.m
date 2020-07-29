@@ -12,6 +12,8 @@
 #import "Event.h"
 #import <Parse/Parse.h>
 
+#pragma mark -
+
 @interface EventsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *events;
@@ -19,6 +21,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *eventsTableView;
 
 @end
+
+#pragma mark -
 
 @implementation EventsViewController
 
