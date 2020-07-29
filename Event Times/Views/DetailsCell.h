@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Event.h"
+#import "Activity.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface EventCell : UITableViewCell
+@interface DetailsCell : UITableViewCell
 
 @property (strong, nonatomic) Event *event;
+@property (strong, nonatomic) Activity *activity;
 
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *locationLabel;

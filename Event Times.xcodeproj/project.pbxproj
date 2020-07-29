@@ -32,10 +32,11 @@
 		B8894D4F24C6483800D71A92 /* DateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D4E24C6483800D71A92 /* DateCell.m */; };
 		B8894D5224C6484900D71A92 /* LocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D5124C6484900D71A92 /* LocationCell.m */; };
 		B8894D5524C6487D00D71A92 /* TextInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D5424C6487D00D71A92 /* TextInputCell.m */; };
-		B8894D5B24C7A44E00D71A92 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D5A24C7A44E00D71A92 /* EventCell.m */; };
+		B8894D5B24C7A44E00D71A92 /* DetailsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D5A24C7A44E00D71A92 /* DetailsCell.m */; };
 		B8894D6424C8E74A00D71A92 /* DetailData.m in Sources */ = {isa = PBXBuildFile; fileRef = B8894D6324C8E74A00D71A92 /* DetailData.m */; };
 		B8BA284024CA2D48009C11DF /* ActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BA283F24CA2D48009C11DF /* ActivityCell.m */; };
 		B8BA284324CB338E009C11DF /* ActivityCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BA284224CB338E009C11DF /* ActivityCreationViewController.m */; };
+		B8BA284624D0B54D009C11DF /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BA284524D0B54D009C11DF /* EventDetailsViewController.m */; };
 		B8DC642124C9F11600DC7D62 /* TagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DC642024C9F11600DC7D62 /* TagsViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -106,14 +107,16 @@
 		B8894D5124C6484900D71A92 /* LocationCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
 		B8894D5324C6487D00D71A92 /* TextInputCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextInputCell.h; sourceTree = "<group>"; };
 		B8894D5424C6487D00D71A92 /* TextInputCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextInputCell.m; sourceTree = "<group>"; };
-		B8894D5924C7A44E00D71A92 /* EventCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
-		B8894D5A24C7A44E00D71A92 /* EventCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
+		B8894D5924C7A44E00D71A92 /* DetailsCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsCell.h; sourceTree = "<group>"; };
+		B8894D5A24C7A44E00D71A92 /* DetailsCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsCell.m; sourceTree = "<group>"; };
 		B8894D6224C8E74A00D71A92 /* DetailData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailData.h; sourceTree = "<group>"; };
 		B8894D6324C8E74A00D71A92 /* DetailData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailData.m; sourceTree = "<group>"; };
 		B8BA283E24CA2D48009C11DF /* ActivityCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityCell.h; sourceTree = "<group>"; };
 		B8BA283F24CA2D48009C11DF /* ActivityCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityCell.m; sourceTree = "<group>"; };
 		B8BA284124CB338E009C11DF /* ActivityCreationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityCreationViewController.h; sourceTree = "<group>"; };
 		B8BA284224CB338E009C11DF /* ActivityCreationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityCreationViewController.m; sourceTree = "<group>"; };
+		B8BA284424D0B54D009C11DF /* EventDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventDetailsViewController.h; sourceTree = "<group>"; };
+		B8BA284524D0B54D009C11DF /* EventDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		B8DC641F24C9F11600DC7D62 /* TagsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagsViewController.h; sourceTree = "<group>"; };
 		B8DC642024C9F11600DC7D62 /* TagsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagsViewController.m; sourceTree = "<group>"; };
 		CEB692B76F3B18631B660E96 /* Pods-Event Times-Event TimesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Event Times-Event TimesUITests.release.xcconfig"; path = "Target Support Files/Pods-Event Times-Event TimesUITests/Pods-Event Times-Event TimesUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				B8DC642024C9F11600DC7D62 /* TagsViewController.m */,
 				B8BA284124CB338E009C11DF /* ActivityCreationViewController.h */,
 				B8BA284224CB338E009C11DF /* ActivityCreationViewController.m */,
+				B8BA284424D0B54D009C11DF /* EventDetailsViewController.h */,
+				B8BA284524D0B54D009C11DF /* EventDetailsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -283,8 +288,8 @@
 				B8894D5124C6484900D71A92 /* LocationCell.m */,
 				B8894D5324C6487D00D71A92 /* TextInputCell.h */,
 				B8894D5424C6487D00D71A92 /* TextInputCell.m */,
-				B8894D5924C7A44E00D71A92 /* EventCell.h */,
-				B8894D5A24C7A44E00D71A92 /* EventCell.m */,
+				B8894D5924C7A44E00D71A92 /* DetailsCell.h */,
+				B8894D5A24C7A44E00D71A92 /* DetailsCell.m */,
 				B8BA283E24CA2D48009C11DF /* ActivityCell.h */,
 				B8BA283F24CA2D48009C11DF /* ActivityCell.m */,
 			);
@@ -540,6 +545,7 @@
 				B81752F624BF55C800952196 /* ProfileViewController.m in Sources */,
 				B81752D724BE721300952196 /* Activity.m in Sources */,
 				B8894D4F24C6483800D71A92 /* DateCell.m in Sources */,
+				B8BA284624D0B54D009C11DF /* EventDetailsViewController.m in Sources */,
 				B81752DE24BF535800952196 /* LoginViewController.m in Sources */,
 				B8894D6424C8E74A00D71A92 /* DetailData.m in Sources */,
 				B8894D4C24C6480D00D71A92 /* DatePickerCell.m in Sources */,
@@ -549,7 +555,7 @@
 				B81752E124BF538600952196 /* SignUpViewController.m in Sources */,
 				B8894D5524C6487D00D71A92 /* TextInputCell.m in Sources */,
 				B81752E424BF547700952196 /* EventsViewController.m in Sources */,
-				B8894D5B24C7A44E00D71A92 /* EventCell.m in Sources */,
+				B8894D5B24C7A44E00D71A92 /* DetailsCell.m in Sources */,
 				B81752DA24BE724E00952196 /* Event.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

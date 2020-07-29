@@ -20,6 +20,7 @@
 #import "ActivityCell.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import <Parse/Parse.h>
 
 static NSString *activityCellId = @"activityCell";
 static NSString *addActivityCellId = @"addActivityCell";
@@ -131,6 +132,30 @@ static NSString *basicCellId = @"basicCell";
             }
         }];
     }
+    
+}
+
+/**
+ */
+- (void)fetchActivitiesForEvent {
+    PFQuery *query = [PFQuery queryWithClassName:@"Activity"];
+    [query orderByDescending:@"createdAt"];
+    [query includeKeys:@[@"name", @"startDate", @"endDate", @"location",  @"author", @"info", @"tags"]];
+    [query whereKey:@"event" equalTo:self.event];
+    
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+        if (activities != nil) {
+            self.activitiesArray = (NSMutableArray *) activities;
+            
+            [self.eventTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+            
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -311,26 +336,6 @@ static NSString *basicCellId = @"basicCell";
     return tableData;
 }
 
-- (void)fetchActivitiesForEvent {
-    PFQuery *query = [PFQuery queryWithClassName:@"Activity"];
-    [query orderByDescending:@"createdAt"];
-    [query includeKeys:@[@"name", @"startDate", @"endDate", @"location",  @"author", @"info", @"tags"]];
-    [query whereKey:@"event" equalTo:self.event];
-    
-    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-        if (activities != nil) {
-            self.activitiesArray = (NSMutableArray *) activities;
-            
-            [self.eventTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
-            
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
-    
-}
 
 #pragma mark - UITableViewDelegate
 

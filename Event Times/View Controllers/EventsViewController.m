@@ -7,10 +7,10 @@
 //
 
 #import "EventsViewController.h"
-#import "EventCell.h"
+#import "EventDetailsViewController.h"
+#import "DetailsCell.h"
 #import "Event.h"
-
-#import "EventCreationViewController.h"
+#import <Parse/Parse.h>
 
 @interface EventsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -57,7 +57,7 @@
 #pragma mark - UITableViewDataSource
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    EventCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"eventCell"];
+    DetailsCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"detailsCell"];
     
     Event *event = self.events[indexPath.row];
     [cell setEvent:event];
@@ -74,7 +74,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
-    [self performSegueWithIdentifier:@"eventEdit" sender:cell];
+    [self performSegueWithIdentifier:@"detailSegue" sender:cell];
     
     [self.eventsTableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -82,16 +82,14 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"eventEdit"]) {
-        EventCell *cell = (EventCell *)sender;
+    if ([[segue identifier] isEqualToString:@"detailSegue"]) {
+        EventDetailsViewController *controller = (EventDetailsViewController *) segue.destinationViewController;
+        
+        DetailsCell *cell = (DetailsCell *)sender;
         NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:cell];
-        if (indexPath.row != 0) {
-            UINavigationController *navigationController = (UINavigationController *) segue.destinationViewController;
-            EventCreationViewController *controller = (EventCreationViewController *) navigationController.topViewController;
-            
-            Event *event = self.events[indexPath.row];
-            controller.event = event;
-        }
+        Event *event = self.events[indexPath.row];
+        
+        controller.event = event;
     }
 }
 

@@ -22,6 +22,8 @@
     // Configure the view for the selected state
 }
 
+#pragma mark - Setters
+
 - (void)setEvent:(Event *)event {
     _event = event;
     
@@ -38,7 +40,18 @@
 }
 
 - (void)setActivity:(Activity *)activity {
+    _activity = activity;
     
+    self.nameLabel.text = activity.name;
+    self.locationLabel.text = activity.location.name;
+    
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeZone: [NSTimeZone systemTimeZone]];
+    
+    NSString *dates = [NSString stringWithFormat:@"%@ - %@", [dateFormatter stringFromDate:activity.startDate], [dateFormatter stringFromDate:activity.endDate]];
+    self.datesLabel.text = dates;
 }
 
 @end
