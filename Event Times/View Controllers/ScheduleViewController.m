@@ -47,7 +47,11 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
         if (activities != nil) {
-            self.activities = (NSMutableArray *) activities;
+            self.activities = [activities sortedArrayUsingComparator:^NSComparisonResult(id activityOne, id activityTwo) {
+                NSDate *dateOne = [(Activity *) activityOne startDate];
+                NSDate *dateTwo = [(Activity *) activityTwo startDate];
+                return [dateOne compare:dateTwo];
+            }];
             
             [self.activitiesTableView reloadData];
             
