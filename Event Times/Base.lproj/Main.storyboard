@@ -271,11 +271,93 @@
                         <outlet property="locationLabel" destination="sta-Xg-Gvi" id="ZiN-kb-aoB"/>
                         <outlet property="nameLabel" destination="zJc-W7-3wv" id="7jG-pp-9Qn"/>
                         <outlet property="tagsLabel" destination="yO3-aN-gh2" id="Skh-lj-yX4"/>
+                        <segue destination="62y-pj-wI5" kind="presentation" identifier="activitySegue" id="UXd-CS-jJj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fm6-KI-JzD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1549.2753623188407" y="2509.8214285714284"/>
+        </scene>
+        <!--Activity Details View Controller-->
+        <scene sceneID="8GR-15-fZV">
+            <objects>
+                <viewController id="62y-pj-wI5" customClass="ActivityDetailsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kkg-yh-uYz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buz-OB-jyo">
+                                <rect key="frame" x="135" y="76" width="144" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEG-5e-8Cl">
+                                <rect key="frame" x="189" y="113" width="36" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4mr-kb-Hy2">
+                                <rect key="frame" x="20" y="171" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0E-yi-LDO">
+                                <rect key="frame" x="174" y="142" width="66" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6kn-DR-Xlv">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem id="EGM-Ak-cNe">
+                                        <barButtonItem key="rightBarButtonItem" title="Join" id="3q0-dd-3TD">
+                                            <connections>
+                                                <action selector="onJoinPress:" destination="62y-pj-wI5" id="wt6-yK-VsP"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="H7E-dP-ZuM" firstAttribute="trailing" secondItem="6kn-DR-Xlv" secondAttribute="trailing" id="4QC-rc-jgB"/>
+                            <constraint firstItem="OEG-5e-8Cl" firstAttribute="centerX" secondItem="buz-OB-jyo" secondAttribute="centerX" id="7OR-h9-wHZ"/>
+                            <constraint firstItem="OEG-5e-8Cl" firstAttribute="centerX" secondItem="f0E-yi-LDO" secondAttribute="centerX" id="BpM-pA-fmp"/>
+                            <constraint firstItem="f0E-yi-LDO" firstAttribute="top" secondItem="OEG-5e-8Cl" secondAttribute="bottom" constant="8" id="DgK-Nf-c8L"/>
+                            <constraint firstItem="buz-OB-jyo" firstAttribute="top" secondItem="6kn-DR-Xlv" secondAttribute="bottom" constant="20" id="S3Y-kO-4aT"/>
+                            <constraint firstItem="H7E-dP-ZuM" firstAttribute="trailing" secondItem="4mr-kb-Hy2" secondAttribute="trailing" constant="20" id="T6K-OM-BAn"/>
+                            <constraint firstItem="buz-OB-jyo" firstAttribute="centerX" secondItem="kkg-yh-uYz" secondAttribute="centerX" id="U1q-xg-Rs8"/>
+                            <constraint firstItem="OEG-5e-8Cl" firstAttribute="top" secondItem="buz-OB-jyo" secondAttribute="bottom" constant="8" id="cQw-no-2YU"/>
+                            <constraint firstItem="6kn-DR-Xlv" firstAttribute="leading" secondItem="kkg-yh-uYz" secondAttribute="leading" id="naS-F6-dWD"/>
+                            <constraint firstItem="4mr-kb-Hy2" firstAttribute="leading" secondItem="H7E-dP-ZuM" secondAttribute="leading" constant="20" id="rAJ-fs-Xfd"/>
+                            <constraint firstItem="4mr-kb-Hy2" firstAttribute="top" secondItem="f0E-yi-LDO" secondAttribute="bottom" constant="8" id="rdQ-0e-3K3"/>
+                            <constraint firstItem="6kn-DR-Xlv" firstAttribute="top" secondItem="H7E-dP-ZuM" secondAttribute="top" id="wyV-EP-kOY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="H7E-dP-ZuM"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Te8-si-cAQ">
+                        <barButtonItem key="rightBarButtonItem" title="Join" id="LeM-06-aMc">
+                            <connections>
+                                <action selector="onJoinPress:" destination="62y-pj-wI5" id="pgD-Gq-chS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="dateLabel" destination="OEG-5e-8Cl" id="wAi-ws-dRm"/>
+                        <outlet property="infoLabel" destination="4mr-kb-Hy2" id="9lc-eP-mg4"/>
+                        <outlet property="joinButton" destination="3q0-dd-3TD" id="FBr-gb-9bk"/>
+                        <outlet property="locationLabel" destination="f0E-yi-LDO" id="Pvs-si-yd8"/>
+                        <outlet property="nameLabel" destination="buz-OB-jyo" id="JML-y6-bNt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K4u-ed-P9g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-710.14492753623199" y="2509.8214285714284"/>
         </scene>
         <!--Event Creation View Controller-->
         <scene sceneID="1fT-nS-Ea2">

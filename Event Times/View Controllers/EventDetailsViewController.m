@@ -7,6 +7,7 @@
 //
 
 #import "EventDetailsViewController.h"
+#import "ActivityDetailsViewController.h"
 #import "DetailsCell.h"
 
 @interface EventDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -106,10 +107,27 @@
 
 #pragma mark - UITableViewDelegate
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    [self performSegueWithIdentifier:@"activitySegue" sender:cell];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+    if ([[segue identifier] isEqualToString:@"activitySegue"]) {
+        DetailsCell *cell = (DetailsCell *)sender;
+        NSIndexPath *indexPath = [self.activitiesTableView indexPathForCell:cell];
+        
+        ActivityDetailsViewController *controller = (ActivityDetailsViewController *) segue.destinationViewController;
+        
+        Activity *activity = self.activities[indexPath.row];
+        controller.activity = activity;
+    }
+
 }
 
 @end

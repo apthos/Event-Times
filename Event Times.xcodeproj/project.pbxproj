@@ -38,6 +38,7 @@
 		B8BA284324CB338E009C11DF /* ActivityCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BA284224CB338E009C11DF /* ActivityCreationViewController.m */; };
 		B8BA284624D0B54D009C11DF /* EventDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BA284524D0B54D009C11DF /* EventDetailsViewController.m */; };
 		B8DC642124C9F11600DC7D62 /* TagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8DC642024C9F11600DC7D62 /* TagsViewController.m */; };
+		B8FB4B3424D1D51600EADAC1 /* ActivityDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FB4B3324D1D51600EADAC1 /* ActivityDetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,8 @@
 		B8BA284524D0B54D009C11DF /* EventDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventDetailsViewController.m; sourceTree = "<group>"; };
 		B8DC641F24C9F11600DC7D62 /* TagsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagsViewController.h; sourceTree = "<group>"; };
 		B8DC642024C9F11600DC7D62 /* TagsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagsViewController.m; sourceTree = "<group>"; };
+		B8FB4B3224D1D51600EADAC1 /* ActivityDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityDetailsViewController.h; sourceTree = "<group>"; };
+		B8FB4B3324D1D51600EADAC1 /* ActivityDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityDetailsViewController.m; sourceTree = "<group>"; };
 		CEB692B76F3B18631B660E96 /* Pods-Event Times-Event TimesUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Event Times-Event TimesUITests.release.xcconfig"; path = "Target Support Files/Pods-Event Times-Event TimesUITests/Pods-Event Times-Event TimesUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DB36BEA98F20A582F8BA9EDB /* Pods_Event_Times_Event_TimesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Event_Times_Event_TimesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE593D864B9F7D4DEB08E791 /* Pods_Event_TimesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Event_TimesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +217,8 @@
 				B8BA284224CB338E009C11DF /* ActivityCreationViewController.m */,
 				B8BA284424D0B54D009C11DF /* EventDetailsViewController.h */,
 				B8BA284524D0B54D009C11DF /* EventDetailsViewController.m */,
+				B8FB4B3224D1D51600EADAC1 /* ActivityDetailsViewController.h */,
+				B8FB4B3324D1D51600EADAC1 /* ActivityDetailsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -546,6 +551,7 @@
 				B81752D724BE721300952196 /* Activity.m in Sources */,
 				B8894D4F24C6483800D71A92 /* DateCell.m in Sources */,
 				B8BA284624D0B54D009C11DF /* EventDetailsViewController.m in Sources */,
+				B8FB4B3424D1D51600EADAC1 /* ActivityDetailsViewController.m in Sources */,
 				B81752DE24BF535800952196 /* LoginViewController.m in Sources */,
 				B8894D6424C8E74A00D71A92 /* DetailData.m in Sources */,
 				B8894D4C24C6480D00D71A92 /* DatePickerCell.m in Sources */,
