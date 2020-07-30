@@ -358,9 +358,11 @@
                         <outlet property="joinButton" destination="3q0-dd-3TD" id="FBr-gb-9bk"/>
                         <outlet property="locationLabel" destination="f0E-yi-LDO" id="Pvs-si-yd8"/>
                         <outlet property="nameLabel" destination="buz-OB-jyo" id="JML-y6-bNt"/>
+                        <segue destination="u5k-WQ-fHN" kind="unwind" identifier="unwindFromActivityDetails" unwindAction="unwindFromActivityDetails:" id="3Xq-dT-iiV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K4u-ed-P9g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="u5k-WQ-fHN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="767" y="2510"/>
         </scene>

@@ -15,7 +15,7 @@
 
 @interface ScheduleViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) NSArray *activities;
+@property (retain, nonatomic) NSMutableArray *activities;
 
 @property (strong, nonatomic) IBOutlet UITableView *activitiesTableView;
 
@@ -47,11 +47,12 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
         if (activities != nil) {
-            self.activities = [activities sortedArrayUsingComparator:^NSComparisonResult(id activityOne, id activityTwo) {
+            NSArray *sortedActivities = [activities sortedArrayUsingComparator:^NSComparisonResult(id activityOne, id activityTwo) {
                 NSDate *dateOne = [(Activity *) activityOne startDate];
                 NSDate *dateTwo = [(Activity *) activityTwo startDate];
                 return [dateOne compare:dateTwo];
             }];
+            self.activities = [sortedActivities mutableCopy];
             
             [self.activitiesTableView reloadData];
             
@@ -98,6 +99,22 @@
         
         controller.activity = activity;
     }
+}
+
+/**
+ */
+- (IBAction)unwindFromActivityDetails:(UIStoryboardSegue *)unwindSegue {
+    
+    ActivityDetailsViewController *sender = unwindSegue.sourceViewController;
+    
+    if (!sender.participant) {
+        Activity *activity = sender.activity;
+        
+        [self.activities removeObject:activity];
+        [self.activitiesTableView reloadData];
+        
+    }
+    
 }
 
 @end

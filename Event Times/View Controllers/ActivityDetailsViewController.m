@@ -12,8 +12,6 @@
 
 @interface ActivityDetailsViewController ()
 
-@property (assign, nonatomic) BOOL participant;
-
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) IBOutlet UILabel *locationLabel;
@@ -98,7 +96,17 @@
     }
     
     [self.activity saveInBackground];
-    [PFUser.currentUser saveInBackground];
+    [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self performSegueWithIdentifier:@"unwindFromActivityDetails" sender:nil];
+    }];
+    
+}
+
+#pragma mark - Navigation
+
+/**
+ */
+- (IBAction)unwindFromActivityDetails:(UIStoryboardSegue *)unwindSegue {
     
 }
 

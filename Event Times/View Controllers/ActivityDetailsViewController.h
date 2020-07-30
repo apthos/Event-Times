@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ActivityDetailsViewController : UIViewController
 
 @property (strong, nonatomic) Activity *activity;
+@property (assign, nonatomic) BOOL participant;
 
 @end
 
