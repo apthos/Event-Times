@@ -83,14 +83,16 @@ static NSString *basicCellId = @"basicCell";
 
 #pragma mark - Utilities
 
-/**
- */
+/** Determines whether index path corresponds to the date picker's index path.
+
+@param indexPath The indexPath to check if it has a date picker.
+*/
 - (BOOL)indexPathHasDatePicker:(NSIndexPath *)indexPath {
     return self.datePickerIndexPath != nil && self.datePickerIndexPath.row == indexPath.row;
 }
 
-/**
- */
+/** Updates the date picker with the date of the cell above it.
+*/
 - (void)updateDatePicker {
     if (self.datePickerIndexPath != nil) {
         UITableViewCell *datePickerCell = [self.activityTableView cellForRowAtIndexPath:self.datePickerIndexPath];
@@ -178,8 +180,10 @@ static NSString *basicCellId = @"basicCell";
     return ([self indexPathHasDatePicker:indexPath]) ? 216 : self.activityTableView.rowHeight;
 }
 
-/**
- */
+/** Display date picker below the given index path.
+
+@param indexPath The index path to display the date picker under.
+*/
 - (void)displayDatePicker:(NSIndexPath *)indexPath {
     [self.activityTableView beginUpdates];
     
@@ -210,6 +214,8 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
+/** Returns an array containing DetailData objects corresponding to the activity details.
+ */
 - (NSArray<DetailData *> *)createActivityDataArray {
     DetailData *name = [DetailData new];
     name.data = self.activity.name;
@@ -237,8 +243,6 @@ static NSString *basicCellId = @"basicCell";
 
 #pragma mark - UITableViewDelegate
 
-/**
- */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
@@ -255,8 +259,10 @@ static NSString *basicCellId = @"basicCell";
 
 #pragma mark - Actions
 
-/**
- */
+/** User changed the date in the UIDatePicker.
+
+@param sender The UIDatePicker attached to the DatePickerCell.
+*/
 - (IBAction)changedDate:(id)sender {
     NSIndexPath *dateCellIndexPath = [NSIndexPath indexPathForRow:self.datePickerIndexPath.row - 1 inSection:0];
     
@@ -270,7 +276,9 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
-/**
+/** User chose to cancel editing the tags of the event by "Cancel" UIButton.
+
+@param sender The "Cancel" UIButton.
  */
 - (IBAction)onCancelPress:(id)sender {
     self.activity = nil;
@@ -279,8 +287,10 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
-/**
- */
+/** User chose to create/edit the activity by pressing the "Save" button.
+
+@param sender The "Save" UIButton.
+  */
 - (IBAction)onCreatePress:(id)sender {
     self.activity.author = [PFUser currentUser];
 
@@ -322,14 +332,18 @@ static NSString *basicCellId = @"basicCell";
 
 #pragma mark - Navigation
 
-/**
- */
+/** Creates an unwind segue from this view controller.
+
+@param unwindSegue The unwind segue called.
+*/
 - (IBAction)unwindFromActivityCreation:(UIStoryboardSegue *)unwindSegue {
     
 }
 
-/**
- */
+/** Unwinds from the location view controller and sets the location of the event.
+
+@param unwindSegue The unwind segue called.
+*/
 - (IBAction)unwindFromLocation:(UIStoryboardSegue *)unwindSegue {
     LocationSearchViewController *sender = unwindSegue.sourceViewController;
     MKMapItem *mapItem = sender.mapItem;

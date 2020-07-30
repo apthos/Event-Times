@@ -38,6 +38,8 @@
 
 #pragma mark - Parse
 
+/** Fetch activities for the current user from the Parse database.
+*/
 - (void)fetchActivities {
     PFRelation *activities = [PFUser.currentUser relationForKey:@"activities"];
     PFQuery *query = activities.query;
@@ -101,7 +103,9 @@
     }
 }
 
-/**
+/** Unwinds from the activity details view controller and removes the activity if the user is no longer a participant.
+ 
+ @param unwindSegue The unwind segue called.
  */
 - (IBAction)unwindFromActivityDetails:(UIStoryboardSegue *)unwindSegue {
     

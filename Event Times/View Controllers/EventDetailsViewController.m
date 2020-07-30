@@ -36,11 +36,9 @@
     
 }
 
-#pragma mark - Utilities
-
 #pragma mark - Setup
 
-/**
+/** Displays the details of the event.
  */
 - (void)displayDetails {
     self.nameLabel.text = self.event.name;
@@ -61,7 +59,7 @@
 
 #pragma mark - Parse
 
-/**
+/** Fetchs the activities of the displayed event.
  */
 - (void)fetchActivitiesForEvent {
     PFQuery *query = [PFQuery queryWithClassName:@"Activity"];
@@ -130,7 +128,9 @@
 
 }
 
-/**
+/** Unwinds from the activity details view controller.
+ 
+ @param unwindSegue The unwind segue called.
  */
 - (IBAction)unwindFromActivityDetails:(UIStoryboardSegue *)unwindSegue {
     

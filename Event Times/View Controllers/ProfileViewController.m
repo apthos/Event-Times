@@ -11,11 +11,15 @@
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
 
+#pragma mark -
+
 @interface ProfileViewController ()
 
 - (IBAction)onLogoutPress:(id)sender;
 
 @end
+
+#pragma mark -
 
 @implementation ProfileViewController
 
@@ -24,6 +28,12 @@
     // Do any additional setup after loading the view.
 }
 
+#pragma mark - Actions
+
+/** User chose to logout by pressing the "Logout" button.
+
+@param sender The "Logout" UIButton
+*/
 - (IBAction)onLogoutPress:(id)sender {
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
         if (error) {
@@ -47,15 +57,5 @@
     }];
     
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

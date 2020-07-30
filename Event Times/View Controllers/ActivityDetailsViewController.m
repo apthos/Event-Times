@@ -36,7 +36,7 @@
  
 #pragma mark - Setup
 
-/**
+/** Displays the details of the activity.
  */
 - (void)displayDetails {
     self.nameLabel.text = self.activity.name;
@@ -56,6 +56,8 @@
 
 #pragma mark - Parse
 
+/** Determines if the user is a participant of the displayed activity.
+ */
 - (void)checkIfUserIsParticipant {
     PFRelation *participants = self.activity.participants;
     PFQuery *query = [participants query];
@@ -76,8 +78,10 @@
 
 #pragma mark - Actions
 
-/**
- */
+/** User chose to join/leave the activity by pressing the "Join"/"Leave" button.
+
+@param sender The "Join"/"Leave" UIButton.
+  */
 - (IBAction)onJoinPress:(id)sender {
     PFRelation *activityRelation = [self.activity relationForKey:@"participants"];
     PFRelation *userRelation = [PFUser.currentUser relationForKey:@"activities"];
@@ -104,7 +108,9 @@
 
 #pragma mark - Navigation
 
-/**
+/** Creates an unwind segue from this view controller.
+ 
+ @param unwindSegue The unwind segue called.
  */
 - (IBAction)unwindFromActivityDetails:(UIStoryboardSegue *)unwindSegue {
     

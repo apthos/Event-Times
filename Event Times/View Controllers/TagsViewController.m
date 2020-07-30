@@ -78,11 +78,19 @@
 
 #pragma mark - Actions
 
+/** User chose to cancel editing the tags of the event by "Cancel" UIButton.
+
+@param sender The "Cancel" UIButton.
+*/
 - (IBAction)onCancelPress:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 
+/** User chose to finish editing the tags of the event by "Done" UIButton.
+
+@param sender The "Done" UIButton.
+*/
 - (IBAction)onDonePress:(id)sender {
     [self performSegueWithIdentifier:@"unwindFromTags" sender:self];
     
@@ -90,6 +98,10 @@
 
 #pragma mark - Navigation
 
+/** Creates an unwind segue from this view controller.
+ 
+ @param unwindSegue The unwind segue called.
+ */
 - (IBAction)unwindFromTags:(UIStoryboardSegue *)unwindSegue {
     
 }

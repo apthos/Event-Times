@@ -26,8 +26,10 @@
 
 #pragma mark - Parse
 
+/** Configures Parse to connect to the appropriate application.
+ */
 - (void)configureParse {
-    ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+    ParseClientConfiguration *config = [ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
         
         configuration.applicationId = @"event-times";
         configuration.server = @"http://event-times.herokuapp.com/parse";

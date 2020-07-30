@@ -39,6 +39,8 @@
 
 #pragma mark - Parse
 
+/** Fetch events from the Parse database.
+*/
 - (void)fetchEvents {
     PFQuery *query = [PFQuery queryWithClassName:@"Event"];
     [query orderByDescending:@"createdAt"];
@@ -97,7 +99,11 @@
     }
 }
 
-- (IBAction)unwindToEvents:(UIStoryboardSegue *)sender {
+/** Creates an unwind segue to this view controller.
+
+@param unwindSegue The unwind segue called.
+*/
+- (IBAction)unwindToEvents:(UIStoryboardSegue *)unwindSegue {
     
 }
 

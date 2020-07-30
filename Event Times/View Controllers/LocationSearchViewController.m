@@ -127,12 +127,8 @@
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+/** Creates an unwind segue from this view controller.
 
-}
-
-/** Unwinds to the parent view controller.
- 
  @param unwindSegue The unwind segue called.
  */
 - (IBAction)unwindFromLocation:(UIStoryboardSegue *)unwindSegue {

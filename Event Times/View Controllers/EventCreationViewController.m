@@ -49,8 +49,6 @@ static NSString *basicCellId = @"basicCell";
 
 @implementation EventCreationViewController
 
-/**
- */
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -93,13 +91,15 @@ static NSString *basicCellId = @"basicCell";
 
 #pragma mark - Utilities
 
-/**
+/** Determines whether index path corresponds to the date picker's index path.
+ 
+ @param indexPath The indexPath to check if it has a date picker.
  */
 - (BOOL)indexPathHasDatePicker:(NSIndexPath *)indexPath {
     return self.datePickerIndexPath != nil && self.datePickerIndexPath.row == indexPath.row;
 }
 
-/**
+/** Updates the date picker with the date of the cell above it.
  */
 - (void)updateDatePicker {
     if (self.datePickerIndexPath != nil) {
@@ -117,7 +117,7 @@ static NSString *basicCellId = @"basicCell";
 
 #pragma mark - Parse
 
-/**
+/** Saves Activity objects from the activities array to the Parse database.
  */
 - (void)saveActivities {
     for (Activity *activity in self.activitiesArray) {
@@ -135,7 +135,7 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
-/**
+/** Fetch activities corresponding to the event being edited from the Parse database.
  */
 - (void)fetchActivitiesForEvent {
     PFQuery *query = [PFQuery queryWithClassName:@"Activity"];
@@ -160,8 +160,6 @@ static NSString *basicCellId = @"basicCell";
 
 #pragma mark - UITableViewDataSource
 
-/**
- */
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewCell *cell = [UITableViewCell new];
     
@@ -247,8 +245,6 @@ static NSString *basicCellId = @"basicCell";
     return cell;
 }
 
-/**
- */
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return (self.datePickerIndexPath != nil) ? self.detailsArray.count + 1 : self.detailsArray.count;
@@ -275,7 +271,9 @@ static NSString *basicCellId = @"basicCell";
     return ([self indexPathHasDatePicker:indexPath]) ? 216 : self.eventTableView.rowHeight;
 }
 
-/**
+/** Display date picker below the given index path.
+ 
+ @param indexPath The index path to display the date picker under.
  */
 - (void)displayDatePicker:(NSIndexPath *)indexPath {
     [self.eventTableView beginUpdates];
@@ -307,6 +305,8 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
+/** Returns an array containing DetailData objects corresponding to the event details.
+ */
 - (NSArray<DetailData *> *)createEventDataArray {
     DetailData *name = [DetailData new];
     name.data = self.event.name;
@@ -339,8 +339,6 @@ static NSString *basicCellId = @"basicCell";
 
 #pragma mark - UITableViewDelegate
 
-/**
- */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
@@ -363,7 +361,9 @@ static NSString *basicCellId = @"basicCell";
 
 #pragma mark - Actions
 
-/**
+/** User changed the date in the UIDatePicker.
+ 
+ @param sender The UIDatePicker attached to the DatePickerCell.
  */
 - (IBAction)changedDate:(id)sender {
     NSIndexPath *dateCellIndexPath = [NSIndexPath indexPathForRow:self.datePickerIndexPath.row - 1 inSection:0];
@@ -378,7 +378,9 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
-/**
+/** User chose to create/edit the event by pressing the "Save" button.
+ 
+ @param sender The "Save" UIButton.
  */
 - (IBAction)onCreatePress:(id)sender {
     self.event.author = [PFUser currentUser];
@@ -429,7 +431,9 @@ static NSString *basicCellId = @"basicCell";
 
 }
 
-/**
+/** User chose to remove activity by pressing the "X" button on the activity's corresponding cell.
+ 
+ @param sender The "X" UIButton.
  */
 - (IBAction)onRemovePress:(id)sender {
     CGPoint buttonPoint = [sender convertPoint:CGPointZero toView:self.eventTableView];
@@ -453,8 +457,6 @@ static NSString *basicCellId = @"basicCell";
 
 #pragma mark - Navigation
 
-/**
- */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"tagsSegue"]) {
         if (self.event.tags != nil) {
@@ -480,13 +482,17 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
-/**
+/** Unwinds to the events view controller.
+
+ @param unwindSegue The unwind segue called.
  */
 - (IBAction)unwindToEvents:(UIStoryboardSegue *)unwindSegue {
     
 }
 
-/**
+/** Unwinds from the activity creation view controller and adds the created activity to the activities table.
+ 
+ @param unwindSegue The unwind segue called.
  */
 - (IBAction)unwindFromActivityCreation:(UIStoryboardSegue *)unwindSegue {
     ActivityCreationViewController *sender = unwindSegue.sourceViewController;
@@ -512,7 +518,9 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
-/**
+/** Unwinds from the location view controller and sets the location of the event.
+ 
+ @param unwindSegue The unwind segue called.
  */
 - (IBAction)unwindFromLocation:(UIStoryboardSegue *)unwindSegue {
     LocationSearchViewController *sender = unwindSegue.sourceViewController;
@@ -530,8 +538,10 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
-/**
- */
+/** Unwinds from the location view controller and sets the tags of the event.
+
+@param unwindSegue The unwind segue called.
+*/
 - (IBAction)unwindFromTags:(UIStoryboardSegue *)unwindSegue {
     TagsViewController *sender = unwindSegue.sourceViewController;
     
