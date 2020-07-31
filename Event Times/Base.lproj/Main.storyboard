@@ -871,7 +871,39 @@
                     <view key="view" contentMode="scaleToFill" id="LAJ-hE-dyR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bBv-Qw-low" customClass="PFImageView">
+                                <rect key="frame" x="20" y="76" width="128" height="128"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="kcL-C5-TsZ"/>
+                                    <constraint firstAttribute="width" constant="128" id="rXB-Vm-Mxg"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tnK-jL-DHz">
+                                <rect key="frame" x="156" y="175" width="238" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJb-52-lZM">
+                                <rect key="frame" x="156" y="138" width="238" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="bBv-Qw-low" firstAttribute="top" secondItem="IB2-Kb-g9h" secondAttribute="top" constant="20" id="4Nn-ov-qbN"/>
+                            <constraint firstItem="tnK-jL-DHz" firstAttribute="leading" secondItem="bBv-Qw-low" secondAttribute="trailing" constant="8" id="9X5-HP-7li"/>
+                            <constraint firstItem="tnK-jL-DHz" firstAttribute="bottom" secondItem="bBv-Qw-low" secondAttribute="bottom" id="cIS-I2-Ptw"/>
+                            <constraint firstItem="tnK-jL-DHz" firstAttribute="top" secondItem="uJb-52-lZM" secondAttribute="bottom" constant="8" id="jkR-sh-0lJ"/>
+                            <constraint firstItem="IB2-Kb-g9h" firstAttribute="trailing" secondItem="uJb-52-lZM" secondAttribute="trailing" constant="20" id="reK-Pm-LxE"/>
+                            <constraint firstItem="uJb-52-lZM" firstAttribute="leading" secondItem="bBv-Qw-low" secondAttribute="trailing" constant="8" id="v32-O7-zQI"/>
+                            <constraint firstItem="IB2-Kb-g9h" firstAttribute="trailing" secondItem="tnK-jL-DHz" secondAttribute="trailing" constant="20" id="wNf-it-zZY"/>
+                            <constraint firstItem="bBv-Qw-low" firstAttribute="leading" secondItem="IB2-Kb-g9h" secondAttribute="leading" constant="20" id="zGb-Hv-Oms"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="IB2-Kb-g9h"/>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="Vjv-Yt-PFT">
@@ -881,10 +913,15 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="emailLabel" destination="tnK-jL-DHz" id="3LV-N4-X42"/>
+                        <outlet property="profileImageView" destination="bBv-Qw-low" id="yps-Rt-E28"/>
+                        <outlet property="usernameLabel" destination="uJb-52-lZM" id="hR9-48-Z7k"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fv-80-KFB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3065" y="1767"/>
+            <point key="canvasLocation" x="3063.768115942029" y="1766.5178571428571"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="9ml-Wj-Hmn">
