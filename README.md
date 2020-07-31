@@ -186,3 +186,6 @@ https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
 - Went back on my decision to change the storing of tags. Upon further inspection, an NSSet is not allowed to be stored in Parse. However, using an NSSet in the tags view controller is beneficial, so it is still in use while the user is selecting and unselecting tags. When the tags property of the event is set, the set is turned into an array for storage purposes.
 #### July 24
 - Decided to not save the activity upon activity creation. The activity will only be saved to the database when the event is saved. This will prevent creating activities with no attached event, in the case the user decides not to save the event they were creating.
+#### July 31
+- Decided to display the user's created events on the profile view controller. Originally, I planned on displaying a new view controller, but it is unnecessary to split the profile and the user's created events into two different view controllers. 
+- Decided to implement a long press gesture recognizer for managing a users' events. By holding down on an event in the "My Events" table, an action sheet appears with options to either edit or delete the event. 
