@@ -82,11 +82,13 @@
     NSData *imageData = UIImagePNGRepresentation(resizedPhoto);
     PFFileObject *imageFile = [PFFileObject fileObjectWithName:@"image.png" data:imageData];
     
-    self.profileImageView.file = imageFile;
-    [self.profileImageView loadInBackground];
-    
     [PFUser.currentUser setObject:imageFile forKey:@"profileImage"];
-    [PFUser.currentUser saveInBackground];
+    [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeded, NSError *error) {
+        if (succeded) {
+            self.profileImageView.file = imageFile;
+            [self.profileImageView loadInBackground];
+        }
+    }];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
