@@ -72,8 +72,6 @@
             self.events = (NSMutableArray *) events;
             
             [self fetchRecommendedEvent];
-
-            [self.eventsTableView reloadData];
         } else {
             //TODO: IMPLEMENT ERROR HANDLING
         }
@@ -113,6 +111,8 @@
             }
             
             self.recommendedEvent = self.events[maxIndex];
+            
+            [self.eventsTableView reloadData];
         }
     }];
     
@@ -123,20 +123,28 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     DetailsCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"detailsCell"];
     
-    Event *event = self.events[indexPath.row];
+    Event *event = (indexPath.section == 0) ? self.recommendedEvent : self.events[indexPath.row];
     [cell setEvent:event];
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.events.count;
+    return (section == 0) ? 1 : self.events.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return (section == 0) ? @"Recommended Events" : @"All Events";
 }
 
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    DetailsCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     [self performSegueWithIdentifier:@"detailSegue" sender:cell];
     
@@ -150,10 +158,7 @@
         EventDetailsViewController *controller = (EventDetailsViewController *) segue.destinationViewController;
         
         DetailsCell *cell = (DetailsCell *)sender;
-        NSIndexPath *indexPath = [self.eventsTableView indexPathForCell:cell];
-        Event *event = self.events[indexPath.row];
-        
-        controller.event = event;
+        controller.event = cell.event;
     }
 }
 
