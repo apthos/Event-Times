@@ -76,6 +76,55 @@
     
 }
 
+/** Determines if the user is a participant of the given Event.
+ */
+- (void)checkIfUserAttendsEvent:(Event *)event {
+    PFRelation *userActivities = [PFUser.currentUser relationForKey:@"activities"];
+    PFQuery *query = [userActivities query];
+    [query whereKey:@"event" equalTo:event];
+    
+    [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
+        if (error) {
+            //TODO: IMPLEMENT ERROR HANDLING
+        }
+        else {
+            if (count == 1) {
+                [self addUserToEvent:event];
+            }
+            else  if (count == 0){
+                [self removeUserFromEvent:event];
+            }
+        }
+    }];
+    
+}
+
+/** Adds the current user to the given Event in the database.
+ */
+- (void)addUserToEvent:(Event *)event {
+    PFRelation *userEvents = [PFUser.currentUser relationForKey:@"events"];
+    PFRelation *eventParticipants = [event relationForKey:@"participants"];
+    
+    [eventParticipants addObject:PFUser.currentUser];
+    [userEvents addObject:event];
+    
+    [event saveInBackground];
+    [PFUser.currentUser saveInBackground];
+}
+
+/** Removes the current user to the given Event in the database.
+ */
+- (void)removeUserFromEvent:(Event *)event {
+    PFRelation *userEvents = [PFUser.currentUser relationForKey:@"events"];
+    PFRelation *eventParticipants = [event relationForKey:@"participants"];
+    
+    [eventParticipants removeObject:PFUser.currentUser];
+    [userEvents removeObject:event];
+    
+    [event saveInBackground];
+    [PFUser.currentUser saveInBackground];
+}
+
 #pragma mark - Actions
 
 /** User chose to join/leave the activity by pressing the "Join"/"Leave" button.
@@ -83,24 +132,26 @@
 @param sender The "Join"/"Leave" UIButton.
   */
 - (IBAction)onJoinPress:(id)sender {
-    PFRelation *activityRelation = [self.activity relationForKey:@"participants"];
-    PFRelation *userRelation = [PFUser.currentUser relationForKey:@"activities"];
+    PFRelation *userActivities = [PFUser.currentUser relationForKey:@"activities"];
+    PFRelation *activityParticipants = [self.activity relationForKey:@"participants"];
     
     if (self.participant) {
         self.participant = NO;
         self.joinButton.title = @"Join";
-        [activityRelation removeObject:PFUser.currentUser];
-        [userRelation removeObject:self.activity];
+        [activityParticipants removeObject:PFUser.currentUser];
+        [userActivities removeObject:self.activity];
+        
     }
     else {
         self.participant = YES;
         self.joinButton.title = @"Leave";
-        [activityRelation addObject:PFUser.currentUser];
-        [userRelation addObject:self.activity];
+        [activityParticipants addObject:PFUser.currentUser];
+        [userActivities addObject:self.activity];
     }
     
     [self.activity saveInBackground];
     [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self checkIfUserAttendsEvent:self.activity.event];
         [self performSegueWithIdentifier:@"unwindFromActivityDetails" sender:nil];
     }];
     
