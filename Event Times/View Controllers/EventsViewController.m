@@ -17,6 +17,8 @@
 @interface EventsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *events;
+@property (strong, nonatomic) NSMutableSet *userTags;
+@property (strong, nonatomic) Event *recommendedEvent;
 
 @property (strong, nonatomic) IBOutlet UITableView *eventsTableView;
 
@@ -37,6 +39,24 @@
     
 }
 
+#pragma mark - Utilities
+
+/** Returns the amount of overlapping tags between the given NSArray and the user's tags.
+ 
+ @param tags The NSArray of NSString tags.
+ */
+- (NSNumber *)computeOverlap:(NSArray *)tags {
+    int count = 0;
+    
+    for (NSString *tag in tags) {
+        if ([self.userTags containsObject:tag]) {
+            count += 1;
+        }
+    }
+    
+    return [NSNumber numberWithInt:count];
+}
+
 #pragma mark - Parse
 
 /** Fetch events from the Parse database.
@@ -51,10 +71,48 @@
         if (events != nil) {
             self.events = (NSMutableArray *) events;
             
+            [self fetchRecommendedEvent];
+
             [self.eventsTableView reloadData];
-            
         } else {
-            NSLog(@"%@", error.localizedDescription);
+            //TODO: IMPLEMENT ERROR HANDLING
+        }
+    }];
+    
+}
+
+/** Fetch recommended event for the current user.
+ */
+- (void)fetchRecommendedEvent {
+    PFRelation *userEvents = [PFUser.currentUser relationForKey:@"events"];
+    PFQuery *query = [userEvents query];
+    [query includeKey:@"tags"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
+        if (error) {
+            //TODO: IMPLEMENT ERROR HANDLING
+        }
+        else {
+            self.userTags = [NSMutableSet new];
+            for (Event *event in events) {
+                for (NSString *tag in event.tags) {
+                    [self.userTags addObject:tag];
+            
+                }
+            }
+            
+            NSNumber *max = [NSNumber numberWithInt:0];
+            NSUInteger maxIndex = 0;
+            
+            for (Event *event in self.events) {
+                NSNumber *overlap = [self computeOverlap:event.tags];
+                if ([max compare:overlap] == NSOrderedAscending) {
+                    max = overlap;
+                    maxIndex = [self.events indexOfObject:event];
+                }
+            }
+            
+            self.recommendedEvent = self.events[maxIndex];
         }
     }];
     
