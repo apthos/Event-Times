@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSMutableArray *events;
 @property (strong, nonatomic) NSMutableSet *userTags;
 @property (strong, nonatomic) Event *recommendedEvent;
+@property (strong, nonatomic) NSMutableArray *recommendedEvents;
 
 @property (strong, nonatomic) IBOutlet UITableView *eventsTableView;
 
@@ -71,7 +72,7 @@
         if (events != nil) {
             self.events = (NSMutableArray *) events;
             
-            [self fetchRecommendedEvent];
+            [self fetchRecommendedEvents];
         } else {
             //TODO: IMPLEMENT ERROR HANDLING
         }
@@ -79,9 +80,9 @@
     
 }
 
-/** Fetch recommended event for the current user.
+/** Fetch recommended events for the current user.
  */
-- (void)fetchRecommendedEvent {
+- (void)fetchRecommendedEvents {
     PFRelation *userEvents = [PFUser.currentUser relationForKey:@"events"];
     PFQuery *query = [userEvents query];
     [query includeKey:@"tags"];
@@ -99,18 +100,27 @@
                 }
             }
             
-            NSNumber *max = [NSNumber numberWithInt:0];
-            NSUInteger maxIndex = 0;
+            NSMutableArray *overlaps = [NSMutableArray arrayWithCapacity:self.events.count];
             
             for (Event *event in self.events) {
-                NSNumber *overlap = [self computeOverlap:event.tags];
-                if ([max compare:overlap] == NSOrderedAscending) {
-                    max = overlap;
-                    maxIndex = [self.events indexOfObject:event];
-                }
+                [overlaps addObject:[self computeOverlap:event.tags]];
             }
             
-            self.recommendedEvent = self.events[maxIndex];
+            NSMutableArray *rankedEvents = [[self.events sortedArrayUsingComparator:^NSComparisonResult(id event1, id event2) {
+                NSUInteger index1 = [self.events indexOfObject:event1];
+                NSUInteger index2 = [self.events indexOfObject:event2];
+                NSNumber *overlap1 = [overlaps objectAtIndex:index1];
+                NSNumber *overlap2 = [overlaps objectAtIndex:index2];
+                
+                return [overlap2 compare:overlap1];
+            }] mutableCopy];
+            
+            if (rankedEvents.count > 3) {
+                NSRange tail = NSMakeRange(3, rankedEvents.count - 3);
+                [rankedEvents removeObjectsInRange:tail];
+            }
+            
+            self.recommendedEvents = rankedEvents;
             
             [self.eventsTableView reloadData];
         }
@@ -123,14 +133,14 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     DetailsCell *cell = [self.eventsTableView dequeueReusableCellWithIdentifier:@"detailsCell"];
     
-    Event *event = (indexPath.section == 0) ? self.recommendedEvent : self.events[indexPath.row];
+    Event *event = (indexPath.section == 0) ? self.recommendedEvents[indexPath.row] : self.events[indexPath.row];
     [cell setEvent:event];
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (section == 0) ? 1 : self.events.count;
+    return (section == 0) ? self.recommendedEvents.count : self.events.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
