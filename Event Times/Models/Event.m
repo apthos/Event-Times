@@ -21,6 +21,12 @@
 @dynamic tags;
 @dynamic participants;
 
+#pragma mark - NSObject
+
+- (BOOL)isEqual:(Event *)otherEvent {
+    return [self.objectId isEqual:otherEvent.objectId];
+}
+
 #pragma mark - PFSubclassing
 
 + (nonnull NSString *)parseClassName {

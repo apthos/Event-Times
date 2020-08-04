@@ -18,7 +18,6 @@
 
 @property (strong, nonatomic) NSMutableArray *events;
 @property (strong, nonatomic) NSMutableSet *userTags;
-@property (strong, nonatomic) Event *recommendedEvent;
 @property (strong, nonatomic) NSMutableArray *recommendedEvents;
 
 @property (strong, nonatomic) IBOutlet UITableView *eventsTableView;
@@ -85,7 +84,7 @@
 - (void)fetchRecommendedEvents {
     PFRelation *userEvents = [PFUser.currentUser relationForKey:@"events"];
     PFQuery *query = [userEvents query];
-    [query includeKey:@"tags"];
+    [query includeKeys:@[@"name", @"startDate", @"endDate", @"location", @"author", @"info", @"tags"]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
         if (error) {
@@ -100,15 +99,21 @@
                 }
             }
             
-            NSMutableArray *overlaps = [NSMutableArray arrayWithCapacity:self.events.count];
-            
+            NSMutableArray *unjoinedEvents = [NSMutableArray new];
             for (Event *event in self.events) {
+                if (![events containsObject:event]) {
+                    [unjoinedEvents addObject:event];
+                }
+            }
+            
+            NSMutableArray *overlaps = [NSMutableArray arrayWithCapacity:unjoinedEvents.count];
+            for (Event *event in unjoinedEvents) {
                 [overlaps addObject:[self computeOverlap:event.tags]];
             }
             
-            NSMutableArray *rankedEvents = [[self.events sortedArrayUsingComparator:^NSComparisonResult(id event1, id event2) {
-                NSUInteger index1 = [self.events indexOfObject:event1];
-                NSUInteger index2 = [self.events indexOfObject:event2];
+            NSMutableArray *rankedEvents = [[unjoinedEvents sortedArrayUsingComparator:^NSComparisonResult(id event1, id event2) {
+                NSUInteger index1 = [unjoinedEvents indexOfObject:event1];
+                NSUInteger index2 = [unjoinedEvents indexOfObject:event2];
                 NSNumber *overlap1 = [overlaps objectAtIndex:index1];
                 NSNumber *overlap2 = [overlaps objectAtIndex:index2];
                 
