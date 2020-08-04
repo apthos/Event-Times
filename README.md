@@ -5,9 +5,10 @@ Original App Design Project
 
 ## Table of Contents
 1. [Overview](#Overview)
-1. [Product Spec](#Product-Spec)
-1. [Wireframes](#Wireframes)
-2. [Schema](#Schema)
+2. [Product Spec](#Product-Spec)
+3. [Wireframes](#Wireframes)
+4. [Schema](#Schema)
+5. [Journal](#Journal)
 
 ## Overview
 ### Description
@@ -42,7 +43,7 @@ Event Times is an app centered around scheduling events. Users can create events
 **Optional Nice-to-have Stories**
 
 * Users can collaborate on the itinerary
-* Users may view directions to an activity on the itinerary inside the app or with Apple/Google Maps
+* Users may view directions to an activity/event with Apple Maps
 * Users view the a calendar displaying the activities on a certain day/days in a week with at least 1 activity/months
 * Users can export their calendar to other calendar apps such as Google Calendar
 
@@ -170,6 +171,7 @@ https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
     * (Update/PUT) Update the user profile image
 * My Events
     * (Read/GET) Query for events that the user is attending (including those created by them)
+    
 ## Journal
 #### July 14
 - Decided to use Apple MapKit over the Google Maps SDK due to simplicity of implementation. The MapKit would not need an external SDK installed. Additionally, location auto complete is possible with MapKit alone rather than needing the Google Places SDK.
@@ -189,3 +191,5 @@ https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
 #### July 31
 - Decided to display the user's created events on the profile view controller. Originally, I planned on displaying a new view controller, but it is unnecessary to split the profile and the user's created events into two different view controllers. 
 - Decided to implement a long press gesture recognizer for managing a users' events. By holding down on an event in the "My Events" table, an action sheet appears with options to either edit or delete the event. 
+#### August 4
+- Decided to add visual polish by incorporating the Material Design library by Google. Material Design includes many components that can enhance the user experience of my app. The implementation seems to be mainly programmatic, which will require some refactoring in my code. 
