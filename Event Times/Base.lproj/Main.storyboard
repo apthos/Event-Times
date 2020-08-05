@@ -14,48 +14,8 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hT1-ru-cvw">
-                                <rect key="frame" x="188" y="433" width="38" height="30"/>
-                                <state key="normal" title="Login"/>
-                                <connections>
-                                    <action selector="onLoginPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="56K-3x-4vr"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zET-oc-Vtt">
-                                <rect key="frame" x="180" y="471" width="54" height="30"/>
-                                <state key="normal" title="Sign Up"/>
-                                <connections>
-                                    <action selector="onSignUpPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cte-ji-dEu"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zgt-N4-Qa9">
-                                <rect key="frame" x="100" y="349" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bfd-MH-67n">
-                                <rect key="frame" x="100" y="391" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
-                        <constraints>
-                            <constraint firstItem="hT1-ru-cvw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1eg-cP-UW9"/>
-                            <constraint firstItem="zgt-N4-Qa9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="4eU-Ia-euX"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zgt-N4-Qa9" secondAttribute="trailing" constant="100" id="I6b-p3-NoQ"/>
-                            <constraint firstItem="Bfd-MH-67n" firstAttribute="top" secondItem="zgt-N4-Qa9" secondAttribute="bottom" constant="8" id="JLS-eg-9ah"/>
-                            <constraint firstItem="hT1-ru-cvw" firstAttribute="centerX" secondItem="Bfd-MH-67n" secondAttribute="centerX" id="Q43-Zx-NEo"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Bfd-MH-67n" secondAttribute="trailing" constant="100" id="UiD-yS-gmI"/>
-                            <constraint firstItem="hT1-ru-cvw" firstAttribute="centerX" secondItem="zgt-N4-Qa9" secondAttribute="centerX" id="cRu-Pb-D5Q"/>
-                            <constraint firstItem="Bfd-MH-67n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="dI2-Zp-rJJ"/>
-                            <constraint firstItem="zET-oc-Vtt" firstAttribute="top" secondItem="hT1-ru-cvw" secondAttribute="bottom" constant="8" id="lPV-6l-wNP"/>
-                            <constraint firstItem="hT1-ru-cvw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pMv-em-Mv2"/>
-                            <constraint firstItem="hT1-ru-cvw" firstAttribute="top" secondItem="Bfd-MH-67n" secondAttribute="bottom" constant="8" id="q1g-Sy-dgY"/>
-                            <constraint firstItem="zET-oc-Vtt" firstAttribute="centerX" secondItem="hT1-ru-cvw" secondAttribute="centerX" id="qAw-Sy-xfe"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="V0h-fn-CKX" appends="YES" id="tOK-s1-lJc"/>
@@ -63,8 +23,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="6U7-J7-gpX"/>
                     <connections>
-                        <outlet property="passwordField" destination="Bfd-MH-67n" id="wAC-lg-4Ow"/>
-                        <outlet property="usernameField" destination="zgt-N4-Qa9" id="eJ2-uM-pS7"/>
                         <segue destination="0Ov-Dk-N2a" kind="show" identifier="signUpSegue" id="vpS-P3-67C"/>
                         <segue destination="Qnf-Q9-Lrd" kind="show" identifier="loginSegue" id="q5z-jI-WRp"/>
                     </connections>

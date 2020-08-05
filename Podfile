@@ -8,6 +8,7 @@ target 'Event Times' do
   # Pods for Event Times
   pod 'Parse'
   pod 'Parse/UI'
+  pod 'MaterialComponents'
 
   target 'Event TimesTests' do
     inherit! :search_paths
