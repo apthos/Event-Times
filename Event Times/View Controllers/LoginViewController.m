@@ -8,13 +8,21 @@
 
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
+#import <MaterialComponents/MaterialTextFields.h>
+#import <MaterialComponents/MaterialButtons.h>
+#import <MaterialComponents/MaterialSnackbar.h>
 
 #pragma mark -
 
 @interface LoginViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *usernameField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) MDCTextInputControllerFilled *usernameController;
+@property (strong, nonatomic) MDCTextInputControllerFilled *passwordController;
+@property (strong, nonatomic) MDCTextField *usernameField;
+@property (strong, nonatomic) MDCTextField *passwordField;
+@property (strong, nonatomic) MDCButton *loginButton;
+@property (strong, nonatomic) MDCButton *signUpButton;
 
 - (IBAction)onLoginPress:(id)sender;
 - (IBAction)onSignUpPress:(id)sender;
@@ -29,6 +37,107 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self configureTitle];
+    [self configureTextFields];
+    [self configureButtons];
+    [self configureLayoutConstraints];
+}
+
+#pragma mark - UI Setup
+
+/** Configure MDCButtons and add to view.
+ */
+- (void)configureButtons {
+    self.loginButton = [[MDCButton alloc] initWithFrame:CGRectZero];
+    self.loginButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
+    [self.loginButton addTarget:self action:@selector(onLoginPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.loginButton];
+    
+    self.signUpButton = [MDCButton new];
+    self.signUpButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.signUpButton setTitle:@"Sign Up" forState:UIControlStateNormal];
+    [self.signUpButton addTarget:self action:@selector(onSignUpPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.signUpButton];
+    
+}
+
+/** Configure Auto Layout constraints for the view.
+ */
+- (void)configureLayoutConstraints {
+    NSMutableArray<NSLayoutConstraint *> *constraints = [NSMutableArray new];
+    
+    //Title Label Constraints
+    NSLayoutConstraint *topTitleConstraint = [NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:self.view.frame.size.height * 0.33];
+    [constraints addObject:topTitleConstraint];
+    
+    NSLayoutConstraint *centerXTitleConstraint = [NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f];
+    [constraints addObject:centerXTitleConstraint];
+    
+    //Username Text Field Constraints
+    NSLayoutConstraint *topUsernameConstraint = [NSLayoutConstraint constraintWithItem:self.usernameField  attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.titleLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:24];
+    [constraints addObject:topUsernameConstraint];
+    
+    NSLayoutConstraint *centerXUsernameConstraint = [NSLayoutConstraint constraintWithItem:self.usernameField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f];
+    [constraints addObject:centerXUsernameConstraint];
+    
+    NSArray<NSLayoutConstraint *> *horizontalUsernameConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[username]-|" options:0 metrics:nil views:@{@"username" : self.usernameField}];
+    [constraints addObjectsFromArray:horizontalUsernameConstraints];
+    
+    //Password Text Field Constraints
+    NSLayoutConstraint *topPasswordConstraint = [NSLayoutConstraint constraintWithItem:self.passwordField  attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.usernameField attribute:NSLayoutAttributeBottom multiplier:1 constant:8];
+    [constraints addObject:topPasswordConstraint];
+    
+    NSLayoutConstraint *centerXPasswordConstraint = [NSLayoutConstraint constraintWithItem:self.passwordField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f];
+    [constraints addObject:centerXPasswordConstraint];
+    
+    NSArray<NSLayoutConstraint *> *horizontalPasswordConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[password]-|" options:0 metrics:nil views:@{@"password" : self.passwordField}];
+    [constraints addObjectsFromArray:horizontalPasswordConstraints];
+    
+    //Login/Sign Up Buttons Constraints
+    NSLayoutConstraint *topLoginConstraint = [NSLayoutConstraint constraintWithItem:self.loginButton attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.passwordField attribute:NSLayoutAttributeBottom multiplier:1 constant:8];
+    [constraints addObject:topLoginConstraint];
+    
+    NSLayoutConstraint *centerButtonsContraint = [NSLayoutConstraint constraintWithItem:self.loginButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.signUpButton attribute:NSLayoutAttributeCenterY multiplier:1.f constant:0.f];
+    [constraints addObject:centerButtonsContraint];
+    
+    NSArray<NSLayoutConstraint *> *horizontalButtonConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[login]-[signup]-|" options:0 metrics:nil views:@{@"login": self.loginButton, @"signup": self.signUpButton}];
+    [constraints addObjectsFromArray:horizontalButtonConstraints];
+    
+    [NSLayoutConstraint activateConstraints:constraints];
+}
+
+/** Configure MDCTextFields and add to view.
+ */
+- (void)configureTextFields {
+    self.usernameField = [MDCTextField new];
+    self.usernameField.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.usernameField];
+    
+    self.usernameController = [[MDCTextInputControllerFilled alloc] initWithTextInput:self.usernameField];
+    self.usernameController.placeholderText = @"Username";
+    
+    self.passwordField = [MDCTextField new];
+    self.passwordField.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:self.passwordField];
+    
+    self.passwordController = [[MDCTextInputControllerFilled alloc] initWithTextInput:self.passwordField];
+    self.passwordController.placeholderText = @"Password";
+    
+}
+
+/** Configure title UILabel and add to view.
+ */
+- (void)configureTitle {
+    self.titleLabel = [UILabel new];
+    self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    UIFont *titleFont = [UIFont fontWithName:@"Menlo-Regular" size:48];
+    [self.titleLabel setFont:titleFont];
+    self.titleLabel.text = @"Event Times";
+    [self.titleLabel sizeToFit];
+    
+    [self.view addSubview:self.titleLabel];
 }
 
 #pragma mark - Parse
