@@ -12,12 +12,12 @@ Original App Design Project
 
 ## Overview
 ### Description
-Event Times is an app centered around scheduling events. Users can create events that other users join and obtain the itinerary for it. The app provides a way to look over an itinerary on the go and customize your own itinerary.
+Event Times is an app centered around scheduling events. Users can create events that other users join. The app provides a way to look over an event on the go and plan their experience.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
 - **Category:** Productivity, Travel
-- **Mobile:** The app allows users to look at their itinerary on the go while they're at the event. It can, also, display the location for activities that can be shown on a map.
+- **Mobile:** The app allows users to look at their schedule on the go while they're at the event. It can, also, display the location for activities that can be shown on a map.
 - **Story:** Users can better manage trips and events, and personalize their experience given the opportunity.
 - **Market:** Users include event goers and travelers. Being able to organize your schedule on the day of an event or trip makes enjoying your time there much easier.
 - **Habit:** For avid event goers and travelers, they might use this app once a month. Users would be personalizing their experience mainly but some must create the events/main itinerary for others to attend.
@@ -30,48 +30,42 @@ Event Times is an app centered around scheduling events. Users can create events
 **Required Must-have Stories**
 
 * Setting up a database to store events, profiles, etc.
-* Users can login to/create an account
-* Users can take a photo with their camera and display it as their profile picture or put it as the image for the event
-* Users can create an event and the itinerary for it
-* Users can join events and obtain the itinerary
-* Users can the list of activities they are attending
-* Users can choose specific activities on the itineraries to attend
-* Users can use gestures to edit their itinerary (holding down on an activity will bring up an option to add/remove)
-* Animations appear when going through views
-* Use an external library for UI
+* Users can login to/logout of/sign up for an account
+* Users can take a photo with their camera and display it as their profile picture
+* Users can create and post an event with information pertaining to the event and a list of activities
+* Users can view the details of an event and activities
+* Users can join/leave activities of an event
+* Users can view the list of activities they have signed up for in order of occurence
+* Users can edit/delete events they have created
 
 **Optional Nice-to-have Stories**
 
-* Users can collaborate on the itinerary
 * Users may view directions to an activity/event with Apple Maps
-* Users view the a calendar displaying the activities on a certain day/days in a week with at least 1 activity/months
-* Users can export their calendar to other calendar apps such as Google Calendar
 
 ### 2. Screen Archetypes
 
 * Events
-   * Users can view events and obtain the itinerary
-   * Users can create an event and the itinerary for it
+   * Users can view a list of recommended and public events
 * Event Details
-    * Users can choose specific activities on the itineraries to attend
+    * Users can view the event's information (location, dates, description) and a list of its activities
 * Event Creation
-    * Users can create an event and the itinerary for it
-* Calendar
+    * Users can input information regarding the event being created
+* Schedule
    * Users can view a list of activities
-   * Users can use gestures to edit their itinerary (holding down on an activity will bring up an option to add/remove)
 * Login page
-   * Users can login to/create an account
-* Create account page
-   * Users can login to/create an account
+   * Users can login to an account
+* Sign Up page
+   * Users can create an account
 * Profile
-    * Users can take a photo with their camera and display it as their profile picture or put it as the image for the event
+    * Users can take a photo with their camera and display it as their profile picture
+    * Users can view a list of their created events and choose to edit or delete them
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
 * Events
-* Calendar
+* Schedule
 * Profile
 
 **Flow Navigation** (Screen to Screen)
@@ -83,17 +77,14 @@ Event Times is an app centered around scheduling events. Users can create events
     * Activity Details
 * Event Creation
     * Activity Creation
-* Calendar
+* Schedule
    * Activity Details
-   * Activity Creation
 * Profile
-    * My Events
-    * Settings
+   * Event Details
+   * Event Creation
 
-## Wireframes
-https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
-
-## Schema 
+#### 4. Recommendation Algorithm
+The app recommends events for the user to attend. The algorithm obtains a set of the tags of the events a user is currently attending. Then, the tags of events a user is not attending are compared to the aforementioned set of tags. Events with the highest amount of tag overlap are chosen as recommendations for the user.
 
 ### Models
 
@@ -141,7 +132,7 @@ https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
 | Property | Type | Description |
 | -------- | ---- | ----------- |
 | name | String | placemark name |
-| location | PFGeoPoint | location containing latitude and longitude |
+| location | PFGeopoint | location containing latitude and longitude |
 | street | String | street name for the address |
 | city | String | city name for the address |
 | state | String | state name for the address |
@@ -151,26 +142,20 @@ https://www.figma.com/file/n2yZHyJQqym1NHQA8zysuo/Independent?node-id=0%3A1
 ### Networking
 * Events
    * (Read/GET) Query all events
-   * (Read/GET) Query events that are recommended to the user
+   * (Read/GET) Query events the user is attending
 * Event Details
     * (Read/GET) Query for event details including activities
     * (Update/PUT) Update whether the user is attending a select activity
 * Event Creation
     * (Create/POST) Create an event object
-    * (Delete/DELETE) Delete a created activity
-* Activity Creation
-    * (Create/POST) Create an activity object
-* Activity Edit
-    * (Update/PUT) Update an existing activity object
+    * (Create/POST) Create an activity object for each activity
 * Calendar
    * (Read/GET) Query activities user is attending
    * (Update/PUT) Update whether the user is attending a select activity
-   * (Delete/DELETE) Delete a personal activity
 * Profile
-    * (Read/GET) Query logged in user object
-    * (Update/PUT) Update the user profile image
-* My Events
     * (Read/GET) Query for events that the user is attending (including those created by them)
+    * (Update/PUT) Update the user profile image
+    * (Delete/DELETE) Delete an existing event
     
 ## Journal
 #### July 14
