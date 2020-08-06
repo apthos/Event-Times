@@ -21,6 +21,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import <Parse/Parse.h>
+#import <MaterialComponents/MaterialActivityIndicator.h>
 
 static NSString *activityCellId = @"activityCell";
 static NSString *addActivityCellId = @"addActivityCell";
@@ -40,6 +41,7 @@ static NSString *basicCellId = @"basicCell";
 @property (strong, nonatomic) NSIndexPath *datePickerIndexPath;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSIndexPath *editedActivityIndexPath;
+@property (strong, nonatomic) MDCActivityIndicator *activityIndicator;
 
 @property (strong, nonatomic) IBOutlet UITableView *eventTableView;
 
@@ -51,6 +53,9 @@ static NSString *basicCellId = @"basicCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self configureActivityIndicator];
+    [self configureLayoutConstraints];
     
     self.locationManager.delegate = self;
     [self.locationManager requestLocation];
@@ -88,6 +93,33 @@ static NSString *basicCellId = @"basicCell";
     
 }
 
+#pragma mark - UI Setup
+
+/** Configure MDCActivityIndicator and add to view.
+ */
+- (void)configureActivityIndicator {
+    self.activityIndicator = [MDCActivityIndicator new];
+    self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
+    self.activityIndicator.cycleColors = @[UIColor.blackColor];
+    [self.activityIndicator sizeToFit];
+    [self.view addSubview:self.activityIndicator];
+    
+}
+
+/** Configure Auto Layout constraints for the view.
+ */
+- (void)configureLayoutConstraints {
+    NSMutableArray<NSLayoutConstraint *> *constraints = [NSMutableArray new];
+    
+    //Activity Indicator Constraints
+    NSLayoutConstraint *centerXIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f];
+    [constraints addObject:centerXIndicatorConstraint];
+    
+    NSLayoutConstraint *centerYIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.f constant:0.f];
+    [constraints addObject:centerYIndicatorConstraint];
+    
+    [NSLayoutConstraint activateConstraints:constraints];
+}
 
 #pragma mark - Utilities
 
@@ -132,6 +164,8 @@ static NSString *basicCellId = @"basicCell";
             }
         }];
     }
+    
+    [self.activityIndicator stopAnimating];
     
 }
 
@@ -383,6 +417,8 @@ static NSString *basicCellId = @"basicCell";
  @param sender The "Save" UIButton.
  */
 - (IBAction)onCreatePress:(id)sender {
+    [self.activityIndicator startAnimating];
+    
     self.event.author = [PFUser currentUser];
     
     for (DetailData *detailData in self.detailsArray) {

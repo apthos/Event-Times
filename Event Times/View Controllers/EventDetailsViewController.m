@@ -9,10 +9,12 @@
 #import "EventDetailsViewController.h"
 #import "ActivityDetailsViewController.h"
 #import "DetailsCell.h"
+#import <MaterialComponents/MaterialActivityIndicator.h>
 
 @interface EventDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSArray *activities;
+@property (strong, nonatomic) MDCActivityIndicator *activityIndicator;
 
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
@@ -28,12 +30,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self configureActivityIndicator];
+    [self configureLayoutConstraints];
+    
     [self displayDetails];
     
     self.activitiesTableView.delegate = self;
     self.activitiesTableView.dataSource = self;
     [self fetchActivitiesForEvent];
     
+}
+
+#pragma mark - UI Setup
+
+/** Configure MDCActivityIndicator and add to view.
+ */
+- (void)configureActivityIndicator {
+    self.activityIndicator = [MDCActivityIndicator new];
+    self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
+    self.activityIndicator.cycleColors = @[UIColor.blackColor];
+    [self.activityIndicator sizeToFit];
+    [self.view addSubview:self.activityIndicator];
+    
+}
+
+/** Configure Auto Layout constraints for the view.
+ */
+- (void)configureLayoutConstraints {
+    NSMutableArray<NSLayoutConstraint *> *constraints = [NSMutableArray new];
+    
+    //Activity Indicator Constraints
+    NSLayoutConstraint *centerXIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f];
+    [constraints addObject:centerXIndicatorConstraint];
+    
+    NSLayoutConstraint *centerYIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.f constant:0.f];
+    [constraints addObject:centerYIndicatorConstraint];
+    
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 #pragma mark - Setup
@@ -67,6 +100,8 @@
     [query includeKeys:@[@"name", @"startDate", @"endDate", @"location",  @"author", @"info", @"tags"]];
     [query whereKey:@"event" equalTo:self.event];
     
+    [self.activityIndicator startAnimating];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
         if (activities != nil) {
             self.activities = (NSMutableArray *) activities;
@@ -74,8 +109,10 @@
             [self.activitiesTableView reloadData];
             
         } else {
-            NSLog(@"%@", error.localizedDescription);
+            //TODO: IMPLEMENT ERROR HANDLING
         }
+        
+        [self.activityIndicator stopAnimating];
     }];
     
 }

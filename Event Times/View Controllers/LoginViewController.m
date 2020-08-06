@@ -11,6 +11,7 @@
 #import <MaterialComponents/MaterialTextFields.h>
 #import <MaterialComponents/MaterialButtons.h>
 #import <MaterialComponents/MaterialSnackbar.h>
+#import <MaterialComponents/MaterialActivityIndicator.h>
 
 #pragma mark -
 
@@ -23,6 +24,7 @@
 @property (strong, nonatomic) MDCTextField *passwordField;
 @property (strong, nonatomic) MDCButton *loginButton;
 @property (strong, nonatomic) MDCButton *signUpButton;
+@property (strong, nonatomic) MDCActivityIndicator *activityIndicator;
 
 - (IBAction)onLoginPress:(id)sender;
 - (IBAction)onSignUpPress:(id)sender;
@@ -36,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     [self configureTitle];
     [self configureTextFields];
     [self configureButtons];
@@ -44,6 +46,17 @@
 }
 
 #pragma mark - UI Setup
+
+/** Configure MDCActivityIndicator and add to view.
+ */
+- (void)configureActivityIndicator {
+    self.activityIndicator = [MDCActivityIndicator new];
+    self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
+    self.activityIndicator.cycleColors = @[UIColor.blackColor];
+    [self.activityIndicator sizeToFit];
+    [self.view addSubview:self.activityIndicator];
+    
+}
 
 /** Configure MDCButtons and add to view.
  */
@@ -104,6 +117,13 @@
     NSArray<NSLayoutConstraint *> *horizontalButtonConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[login]-[signup]-|" options:0 metrics:nil views:@{@"login": self.loginButton, @"signup": self.signUpButton}];
     [constraints addObjectsFromArray:horizontalButtonConstraints];
     
+    //Activity Indicator Constraints
+    NSLayoutConstraint *centerXIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f];
+    [constraints addObject:centerXIndicatorConstraint];
+    
+    NSLayoutConstraint *centerYIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.f constant:0.f];
+    [constraints addObject:centerYIndicatorConstraint];
+    
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
@@ -150,7 +170,11 @@
     NSString *username = self.usernameField.text;
     NSString *password = self.passwordField.text;
     
+    [self.activityIndicator startAnimating];
+    
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError * error) {
+        [self.activityIndicator stopAnimating];
+        
         if (error) {
             NSLog(@"Error: %@", error.localizedDescription);
             

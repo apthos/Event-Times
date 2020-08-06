@@ -11,6 +11,7 @@
 #import "DetailsCell.h"
 #import "Event.h"
 #import <Parse/Parse.h>
+#import <MaterialComponents/MaterialActivityIndicator.h>
 
 #pragma mark -
 
@@ -19,6 +20,7 @@
 @property (strong, nonatomic) NSMutableArray *events;
 @property (strong, nonatomic) NSMutableSet *userTags;
 @property (strong, nonatomic) NSMutableArray *recommendedEvents;
+@property (strong, nonatomic) MDCActivityIndicator *activityIndicator;
 
 @property (strong, nonatomic) IBOutlet UITableView *eventsTableView;
 
@@ -35,8 +37,39 @@
     self.eventsTableView.delegate = self;
     self.eventsTableView.dataSource = self;
     
+    [self configureActivityIndicator];
+    [self configureLayoutConstraints];
+    
     [self fetchEvents];
     
+}
+
+#pragma mark - UI Setup
+
+/** Configure MDCActivityIndicator and add to view.
+ */
+- (void)configureActivityIndicator {
+    self.activityIndicator = [MDCActivityIndicator new];
+    self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
+    self.activityIndicator.cycleColors = @[UIColor.blackColor];
+    [self.activityIndicator sizeToFit];
+    [self.view addSubview:self.activityIndicator];
+    
+}
+
+/** Configure Auto Layout constraints for the view.
+ */
+- (void)configureLayoutConstraints {
+    NSMutableArray<NSLayoutConstraint *> *constraints = [NSMutableArray new];
+    
+    //Activity Indicator Constraints
+    NSLayoutConstraint *centerXIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f];
+    [constraints addObject:centerXIndicatorConstraint];
+    
+    NSLayoutConstraint *centerYIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.f constant:0.f];
+    [constraints addObject:centerYIndicatorConstraint];
+    
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 #pragma mark - Utilities
@@ -67,6 +100,8 @@
     [query includeKeys:@[@"name", @"startDate", @"endDate", @"location",  @"author", @"info", @"tags"]];
     query.limit = 20;
     
+    [self.activityIndicator startAnimating];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
         if (events != nil) {
             self.events = (NSMutableArray *) events;
@@ -74,6 +109,7 @@
             [self fetchRecommendedEvents];
         } else {
             //TODO: IMPLEMENT ERROR HANDLING
+            [self.activityIndicator stopAnimating];
         }
     }];
     
@@ -129,6 +165,8 @@
             
             [self.eventsTableView reloadData];
         }
+        
+        [self.activityIndicator stopAnimating];
     }];
     
 }

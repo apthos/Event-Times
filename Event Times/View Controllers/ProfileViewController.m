@@ -13,6 +13,7 @@
 #import "SceneDelegate.h"
 #import "DetailsCell.h"
 #import "Event.h"
+#import <MaterialComponents/MaterialActivityIndicator.h>
 
 @import Parse;
 
@@ -21,6 +22,7 @@
 @interface ProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray *events;
+@property (strong, nonatomic) MDCActivityIndicator *activityIndicator;
 
 @property (strong, nonatomic) IBOutlet PFImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -39,6 +41,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self configureActivityIndicator];
+    [self configureLayoutConstraints];
+    
     UITapGestureRecognizer *photoTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onPhotoTap:)];
     [self.profileImageView addGestureRecognizer:photoTapRecognizer];
     [self.profileImageView setUserInteractionEnabled:YES];
@@ -49,6 +54,34 @@
     self.eventsTableView.dataSource = self;
     
     [self fetchEvents];
+}
+
+#pragma mark - UI Setup
+
+/** Configure MDCActivityIndicator and add to view.
+ */
+- (void)configureActivityIndicator {
+    self.activityIndicator = [MDCActivityIndicator new];
+    self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
+    self.activityIndicator.cycleColors = @[UIColor.blackColor];
+    [self.activityIndicator sizeToFit];
+    [self.view addSubview:self.activityIndicator];
+    
+}
+
+/** Configure Auto Layout constraints for the view.
+ */
+- (void)configureLayoutConstraints {
+    NSMutableArray<NSLayoutConstraint *> *constraints = [NSMutableArray new];
+    
+    //Activity Indicator Constraints
+    NSLayoutConstraint *centerXIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f];
+    [constraints addObject:centerXIndicatorConstraint];
+    
+    NSLayoutConstraint *centerYIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.f constant:0.f];
+    [constraints addObject:centerYIndicatorConstraint];
+    
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 #pragma mark - Utilities
@@ -96,7 +129,11 @@
  @param event The Event to delete.
  */
 - (void)deleteEvent:(Event *)event {
+    [self.activityIndicator startAnimating];
+    
     [event deleteInBackgroundWithBlock:^(BOOL succeded, NSError *error) {
+        [self.activityIndicator stopAnimating];
+        
         if (succeded) {
             [self fetchEvents];
         }
@@ -112,7 +149,11 @@
     [query includeKeys:@[@"name", @"startDate", @"endDate", @"location",  @"author", @"info", @"tags"]];
     query.limit = 20;
     
+    [self.activityIndicator startAnimating];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {
+        [self.activityIndicator stopAnimating];
+        
         if (events != nil) {
             self.events = (NSMutableArray *) events;
             
@@ -120,7 +161,7 @@
             
         }
         else {
-            NSLog(@"%@", error.localizedDescription);
+            //TODO: IMPLEMENT ERROR HANDLING
         }
     }];
     
@@ -135,8 +176,12 @@
     NSData *imageData = UIImagePNGRepresentation(resizedPhoto);
     PFFileObject *imageFile = [PFFileObject fileObjectWithName:@"image.png" data:imageData];
     
+    [self.activityIndicator startAnimating];
+    
     [PFUser.currentUser setObject:imageFile forKey:@"profileImage"];
     [PFUser.currentUser saveInBackgroundWithBlock:^(BOOL succeded, NSError *error) {
+        [self.activityIndicator stopAnimating];
+        
         if (succeded) {
             self.profileImageView.file = imageFile;
             [self.profileImageView loadInBackground];

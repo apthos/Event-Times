@@ -10,12 +10,14 @@
 #import "ActivityDetailsViewController.h"
 #import "Activity.h"
 #import "DetailsCell.h"
+#import <MaterialComponents/MaterialActivityIndicator.h>
 
 #pragma mark -
 
 @interface ScheduleViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (retain, nonatomic) NSMutableArray *activities;
+@property (strong, nonatomic) MDCActivityIndicator *activityIndicator;
 
 @property (strong, nonatomic) IBOutlet UITableView *activitiesTableView;
 
@@ -27,13 +29,43 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self configureActivityIndicator];
+    [self configureLayoutConstraints];
     
     self.activitiesTableView.delegate = self;
     self.activitiesTableView.dataSource = self;
     
     [self fetchActivities];
     
+}
+
+#pragma mark - UI Setup
+
+/** Configure MDCActivityIndicator and add to view.
+ */
+- (void)configureActivityIndicator {
+    self.activityIndicator = [MDCActivityIndicator new];
+    self.activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
+    self.activityIndicator.cycleColors = @[UIColor.blackColor];
+    [self.activityIndicator sizeToFit];
+    [self.view addSubview:self.activityIndicator];
+    
+}
+
+/** Configure Auto Layout constraints for the view.
+ */
+- (void)configureLayoutConstraints {
+    NSMutableArray<NSLayoutConstraint *> *constraints = [NSMutableArray new];
+    
+    //Activity Indicator Constraints
+    NSLayoutConstraint *centerXIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f];
+    [constraints addObject:centerXIndicatorConstraint];
+    
+    NSLayoutConstraint *centerYIndicatorConstraint = [NSLayoutConstraint constraintWithItem:self.activityIndicator attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.f constant:0.f];
+    [constraints addObject:centerYIndicatorConstraint];
+    
+    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 #pragma mark - Parse
@@ -47,7 +79,11 @@
     [query includeKeys:@[@"name", @"startDate", @"endDate", @"location",  @"author", @"info", @"tags"]];
     query.limit = 20;
     
+    [self.activityIndicator startAnimating];
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+        [self.activityIndicator stopAnimating];
+        
         if (activities != nil) {
             NSArray *sortedActivities = [activities sortedArrayUsingComparator:^NSComparisonResult(id activityOne, id activityTwo) {
                 NSDate *dateOne = [(Activity *) activityOne startDate];
@@ -59,7 +95,7 @@
             [self.activitiesTableView reloadData];
             
         } else {
-            NSLog(@"%@", error.localizedDescription);
+            //TODO: IMPLEMENT ERROR HANDLING
         }
     }];
 }
