@@ -973,71 +973,16 @@
                     <view key="view" contentMode="scaleToFill" id="C0e-gG-YdP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8E-fK-jSU">
-                                <rect key="frame" x="180" y="433" width="54" height="30"/>
-                                <state key="normal" title="Sign Up"/>
-                                <connections>
-                                    <action selector="onSignUpPress:" destination="0Ov-Dk-N2a" eventType="touchUpInside" id="A0y-xP-MNk"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vdM-Vf-cys">
-                                <rect key="frame" x="100" y="391" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PtT-0j-gYf">
-                                <rect key="frame" x="100" y="349" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="email"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qdd-mD-fVu">
-                                <rect key="frame" x="100" y="307" width="214" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAV-Ug-Zfp">
-                                <rect key="frame" x="190" y="471" width="34" height="30"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <segue destination="19r-pQ-Clv" kind="unwind" identifier="unwindToLogin" unwindAction="unwindToLogin:" id="bDe-7y-JX6"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
-                        <constraints>
-                            <constraint firstItem="F8E-fK-jSU" firstAttribute="top" secondItem="vdM-Vf-cys" secondAttribute="bottom" constant="8" id="6sX-gJ-5yL"/>
-                            <constraint firstItem="CAV-Ug-Zfp" firstAttribute="top" secondItem="F8E-fK-jSU" secondAttribute="bottom" constant="8" id="8iL-LD-Z9k"/>
-                            <constraint firstItem="F8E-fK-jSU" firstAttribute="centerX" secondItem="vdM-Vf-cys" secondAttribute="centerX" id="BEk-Mh-wih"/>
-                            <constraint firstItem="lN5-ND-nVS" firstAttribute="trailing" secondItem="PtT-0j-gYf" secondAttribute="trailing" constant="100" id="GTD-FA-Zr2"/>
-                            <constraint firstItem="F8E-fK-jSU" firstAttribute="centerX" secondItem="PtT-0j-gYf" secondAttribute="centerX" id="Jfl-qV-Dlh"/>
-                            <constraint firstItem="Qdd-mD-fVu" firstAttribute="leading" secondItem="lN5-ND-nVS" secondAttribute="leading" constant="100" id="Zfj-h3-F1o"/>
-                            <constraint firstItem="F8E-fK-jSU" firstAttribute="centerX" secondItem="Qdd-mD-fVu" secondAttribute="centerX" id="fbK-pN-DAo"/>
-                            <constraint firstItem="PtT-0j-gYf" firstAttribute="top" secondItem="Qdd-mD-fVu" secondAttribute="bottom" constant="8" id="kQ1-4j-qV9"/>
-                            <constraint firstItem="PtT-0j-gYf" firstAttribute="leading" secondItem="lN5-ND-nVS" secondAttribute="leading" constant="100" id="l47-nO-9eS"/>
-                            <constraint firstItem="F8E-fK-jSU" firstAttribute="centerY" secondItem="C0e-gG-YdP" secondAttribute="centerY" id="mf9-34-fO2"/>
-                            <constraint firstItem="vdM-Vf-cys" firstAttribute="leading" secondItem="lN5-ND-nVS" secondAttribute="leading" constant="100" id="s0f-mw-inY"/>
-                            <constraint firstItem="vdM-Vf-cys" firstAttribute="top" secondItem="PtT-0j-gYf" secondAttribute="bottom" constant="8" id="saC-1P-Zz5"/>
-                            <constraint firstItem="CAV-Ug-Zfp" firstAttribute="centerX" secondItem="F8E-fK-jSU" secondAttribute="centerX" id="tDL-X7-2uV"/>
-                            <constraint firstItem="lN5-ND-nVS" firstAttribute="trailing" secondItem="vdM-Vf-cys" secondAttribute="trailing" constant="100" id="ukv-BE-2Xi"/>
-                            <constraint firstItem="F8E-fK-jSU" firstAttribute="centerX" secondItem="C0e-gG-YdP" secondAttribute="centerX" id="y0X-eu-wL1"/>
-                            <constraint firstItem="lN5-ND-nVS" firstAttribute="trailing" secondItem="Qdd-mD-fVu" secondAttribute="trailing" constant="100" id="z00-jT-IGM"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="lN5-ND-nVS"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="WjG-P9-yje" appends="YES" id="S0B-La-bvJ"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="Kqj-vb-k2r"/>
-                    <connections>
-                        <outlet property="emailField" destination="PtT-0j-gYf" id="fDT-as-F3A"/>
-                        <outlet property="passwordField" destination="vdM-Vf-cys" id="uuf-CO-RPY"/>
-                        <outlet property="usernameField" destination="Qdd-mD-fVu" id="mYp-gN-UCc"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="taY-sI-Uft" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="19r-pQ-Clv" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="WjG-P9-yje">
                     <connections>
                         <action selector="onScreenTap:" destination="0Ov-Dk-N2a" id="AD5-lV-Ogc"/>

@@ -112,6 +112,7 @@
 - (void)configureTextFields {
     self.usernameField = [MDCTextField new];
     self.usernameField.translatesAutoresizingMaskIntoConstraints = NO;
+    self.usernameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [self.view addSubview:self.usernameField];
     
     self.usernameController = [[MDCTextInputControllerFilled alloc] initWithTextInput:self.usernameField];
@@ -119,6 +120,7 @@
     
     self.passwordField = [MDCTextField new];
     self.passwordField.translatesAutoresizingMaskIntoConstraints = NO;
+    self.passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [self.view addSubview:self.passwordField];
     
     self.passwordController = [[MDCTextInputControllerFilled alloc] initWithTextInput:self.passwordField];
