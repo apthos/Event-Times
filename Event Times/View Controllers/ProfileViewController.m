@@ -23,6 +23,7 @@
 
 @property (strong, nonatomic) NSMutableArray *events;
 @property (strong, nonatomic) MDCActivityIndicator *activityIndicator;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) IBOutlet PFImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -53,6 +54,7 @@
     self.eventsTableView.delegate = self;
     self.eventsTableView.dataSource = self;
     
+    [self configureRefreshControl];
     [self fetchEvents];
 }
 
@@ -84,7 +86,22 @@
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
+/** Configure UIRefreshControl for the table view.
+ */
+- (void)configureRefreshControl {
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.eventsTableView addSubview:self.refreshControl];
+    [self.eventsTableView sendSubviewToBack:self.refreshControl];
+}
+
 #pragma mark - Utilities
+
+/** Begins refreshing the content.
+ */
+- (void)beginRefresh:(UIRefreshControl *)refreshControl {
+    [self fetchEvents];
+}
 
 /** Resizes the given UIImage to the given CGSize.
  
@@ -149,6 +166,7 @@
     [query includeKeys:@[@"name", @"startDate", @"endDate", @"location",  @"author", @"info", @"tags"]];
     query.limit = 20;
     
+    [self.refreshControl endRefreshing];
     [self.activityIndicator startAnimating];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *events, NSError *error) {

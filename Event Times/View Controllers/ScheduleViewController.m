@@ -18,6 +18,7 @@
 
 @property (retain, nonatomic) NSMutableArray *activities;
 @property (strong, nonatomic) MDCActivityIndicator *activityIndicator;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) IBOutlet UITableView *activitiesTableView;
 
@@ -36,6 +37,7 @@
     self.activitiesTableView.delegate = self;
     self.activitiesTableView.dataSource = self;
     
+    [self configureRefreshControl];
     [self fetchActivities];
     
 }
@@ -68,6 +70,24 @@
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
+/** Configure UIRefreshControl for the table view.
+ */
+- (void)configureRefreshControl {
+    self.refreshControl = [UIRefreshControl new];
+    [self.refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.activitiesTableView addSubview:self.refreshControl];
+    [self.activitiesTableView sendSubviewToBack:self.refreshControl];
+    
+}
+
+#pragma mark - Utilities
+
+/** Begins refreshing the content.
+ */
+- (void)beginRefresh:(UIRefreshControl *)refreshControl {
+    [self fetchActivities];
+}
+
 #pragma mark - Parse
 
 /** Fetch activities for the current user from the Parse database.
@@ -79,6 +99,7 @@
     [query includeKeys:@[@"name", @"startDate", @"endDate", @"location",  @"author", @"info", @"tags"]];
     query.limit = 20;
     
+    [self.refreshControl endRefreshing];
     [self.activityIndicator startAnimating];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
