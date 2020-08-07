@@ -107,9 +107,17 @@
         
         if (activities != nil) {
             NSArray *sortedActivities = [activities sortedArrayUsingComparator:^NSComparisonResult(id activityOne, id activityTwo) {
-                NSDate *dateOne = [(Activity *) activityOne startDate];
-                NSDate *dateTwo = [(Activity *) activityTwo startDate];
-                return [dateOne compare:dateTwo];
+                NSDate *startDateOne = [(Activity *) activityOne startDate];
+                NSDate *startDateTwo = [(Activity *) activityTwo startDate];
+                
+                if ([startDateOne isEqual:startDateTwo]) {
+                    NSDate *endDateOne = [(Activity *) activityOne endDate];
+                    NSDate *endDateTwo = [(Activity *) activityTwo endDate];
+                    return [endDateOne compare:endDateTwo];
+                }
+                else {
+                    return [startDateOne compare:startDateTwo];
+                }
             }];
             self.activities = [sortedActivities mutableCopy];
             

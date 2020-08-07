@@ -104,8 +104,20 @@
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
         if (activities != nil) {
-            self.activities = (NSMutableArray *) activities;
-            
+            self.activities = [activities sortedArrayUsingComparator:^NSComparisonResult(id activityOne, id activityTwo) {
+                NSDate *startDateOne = [(Activity *) activityOne startDate];
+                NSDate *startDateTwo = [(Activity *) activityTwo startDate];
+                
+                if ([startDateOne isEqual:startDateTwo]) {
+                    NSDate *endDateOne = [(Activity *) activityOne endDate];
+                    NSDate *endDateTwo = [(Activity *) activityTwo endDate];
+                    return [endDateOne compare:endDateTwo];
+                }
+                else {
+                    return [startDateOne compare:startDateTwo];
+                }
+            }];
+
             [self.activitiesTableView reloadData];
             
         } else {
