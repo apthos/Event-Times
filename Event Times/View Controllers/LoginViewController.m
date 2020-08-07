@@ -39,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self configureActivityIndicator];
     [self configureTitle];
     [self configureTextFields];
     [self configureButtons];

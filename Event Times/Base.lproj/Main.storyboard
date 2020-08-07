@@ -138,26 +138,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sta-Xg-Gvi">
-                                <rect key="frame" x="174" y="143" width="66" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIw-f4-zh5">
-                                <rect key="frame" x="20" y="172" width="374" height="20.5"/>
+                                <rect key="frame" x="20" y="184" width="374" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yO3-aN-gh2">
-                                <rect key="frame" x="20" y="200.5" width="374" height="17"/>
+                                <rect key="frame" x="20" y="212.5" width="374" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="y5i-te-XCx">
-                                <rect key="frame" x="0.0" y="225.5" width="414" height="533.5"/>
+                                <rect key="frame" x="0.0" y="237.5" width="414" height="521.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="detailsCell" rowHeight="109" id="smP-oX-bpj" customClass="DetailsCell">
@@ -204,25 +198,33 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jps-ME-tAl">
+                                <rect key="frame" x="174" y="143" width="66" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Location"/>
+                                <connections>
+                                    <action selector="onLocationPress:" destination="0gv-1G-vJW" eventType="touchUpInside" id="B4A-q1-K9Q"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="yO3-aN-gh2" firstAttribute="top" secondItem="jIw-f4-zh5" secondAttribute="bottom" constant="8" id="1Ne-hW-n6T"/>
                             <constraint firstItem="X2j-xV-Lbw" firstAttribute="centerX" secondItem="zJc-W7-3wv" secondAttribute="centerX" id="73l-lb-Uki"/>
+                            <constraint firstItem="jps-ME-tAl" firstAttribute="top" secondItem="X2j-xV-Lbw" secondAttribute="bottom" constant="8" id="8p7-3L-Ugl"/>
                             <constraint firstItem="y5i-te-XCx" firstAttribute="leading" secondItem="TMM-XE-J4z" secondAttribute="leading" id="FMi-JM-H2L"/>
+                            <constraint firstItem="jps-ME-tAl" firstAttribute="centerX" secondItem="X2j-xV-Lbw" secondAttribute="centerX" id="JDP-Sy-w8y"/>
                             <constraint firstItem="yO3-aN-gh2" firstAttribute="leading" secondItem="TMM-XE-J4z" secondAttribute="leading" constant="20" id="JGM-CG-93x"/>
                             <constraint firstItem="y5i-te-XCx" firstAttribute="trailing" secondItem="TMM-XE-J4z" secondAttribute="trailing" id="MCU-sf-d8t"/>
                             <constraint firstItem="TMM-XE-J4z" firstAttribute="trailing" secondItem="yO3-aN-gh2" secondAttribute="trailing" constant="20" id="YNf-8s-Oxd"/>
                             <constraint firstItem="y5i-te-XCx" firstAttribute="top" secondItem="yO3-aN-gh2" secondAttribute="bottom" constant="8" id="dsh-jd-TBm"/>
                             <constraint firstItem="zJc-W7-3wv" firstAttribute="top" secondItem="TMM-XE-J4z" secondAttribute="top" constant="20" id="dvf-hO-ENi"/>
-                            <constraint firstItem="sta-Xg-Gvi" firstAttribute="centerX" secondItem="X2j-xV-Lbw" secondAttribute="centerX" id="fPL-Nx-hy5"/>
                             <constraint firstItem="TMM-XE-J4z" firstAttribute="trailing" secondItem="jIw-f4-zh5" secondAttribute="trailing" constant="20" id="fpu-9v-dmN"/>
                             <constraint firstItem="y5i-te-XCx" firstAttribute="bottom" secondItem="TMM-XE-J4z" secondAttribute="bottom" id="haP-cG-DGG"/>
-                            <constraint firstItem="sta-Xg-Gvi" firstAttribute="top" secondItem="X2j-xV-Lbw" secondAttribute="bottom" constant="8" id="jc8-hm-eU8"/>
                             <constraint firstItem="jIw-f4-zh5" firstAttribute="leading" secondItem="TMM-XE-J4z" secondAttribute="leading" constant="20" id="l8a-ua-Nmk"/>
                             <constraint firstItem="zJc-W7-3wv" firstAttribute="centerX" secondItem="HEw-1z-d8i" secondAttribute="centerX" id="sXW-cD-mAc"/>
+                            <constraint firstItem="jIw-f4-zh5" firstAttribute="top" secondItem="jps-ME-tAl" secondAttribute="bottom" constant="8" id="t68-0T-uwc"/>
                             <constraint firstItem="X2j-xV-Lbw" firstAttribute="top" secondItem="zJc-W7-3wv" secondAttribute="bottom" constant="8" id="xsA-Vx-QDj"/>
-                            <constraint firstItem="jIw-f4-zh5" firstAttribute="top" secondItem="sta-Xg-Gvi" secondAttribute="bottom" constant="8" id="xuA-26-wiP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TMM-XE-J4z"/>
                     </view>
@@ -231,7 +233,7 @@
                         <outlet property="activitiesTableView" destination="y5i-te-XCx" id="rK8-Rq-ost"/>
                         <outlet property="dateLabel" destination="X2j-xV-Lbw" id="ceU-wQ-yfu"/>
                         <outlet property="infoLabel" destination="jIw-f4-zh5" id="y5N-dC-GMx"/>
-                        <outlet property="locationLabel" destination="sta-Xg-Gvi" id="ZiN-kb-aoB"/>
+                        <outlet property="locationButon" destination="jps-ME-tAl" id="LLL-lz-FVc"/>
                         <outlet property="nameLabel" destination="zJc-W7-3wv" id="7jG-pp-9Qn"/>
                         <outlet property="tagsLabel" destination="yO3-aN-gh2" id="Skh-lj-yX4"/>
                         <segue destination="62y-pj-wI5" kind="presentation" identifier="activitySegue" id="UXd-CS-jJj"/>
@@ -239,7 +241,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fm6-KI-JzD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2200" y="3196"/>
+            <point key="canvasLocation" x="-2200" y="3195.5357142857142"/>
         </scene>
         <!--Activity Details View Controller-->
         <scene sceneID="8GR-15-fZV">

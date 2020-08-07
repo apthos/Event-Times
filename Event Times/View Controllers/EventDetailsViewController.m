@@ -9,7 +9,11 @@
 #import "EventDetailsViewController.h"
 #import "ActivityDetailsViewController.h"
 #import "DetailsCell.h"
+#import "Placemark.h"
 #import <MaterialComponents/MaterialActivityIndicator.h>
+
+@import Contacts;
+@import CoreLocation;
 
 @interface EventDetailsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -18,10 +22,12 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
-@property (strong, nonatomic) IBOutlet UILabel *locationLabel;
 @property (strong, nonatomic) IBOutlet UILabel *infoLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tagsLabel;
 @property (strong, nonatomic) IBOutlet UITableView *activitiesTableView;
+@property (strong, nonatomic) IBOutlet UIButton *locationButon;
+
+- (IBAction)onLocationPress:(id)sender;
 
 @end
 
@@ -84,7 +90,7 @@
     NSString *dates = [NSString stringWithFormat:@"%@ - %@", [dateFormatter stringFromDate:self.event.startDate], [dateFormatter stringFromDate:self.event.endDate]];
     self.dateLabel.text = dates;
     
-    self.locationLabel.text = self.event.location.name;
+    [self.locationButon setTitle:self.event.location.name forState:UIControlStateNormal];
     self.infoLabel.text = self.event.info;
     self.tagsLabel.text = [self.event.tags componentsJoinedByString:@","];
     
@@ -162,6 +168,32 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark - Actions
+
+/** User chose to display location in Apple Maps by pressing on the location UIButton.
+ 
+ @param sender The UIButton corresponding to the location.
+ */
+- (IBAction)onLocationPress:(id)sender {
+    Placemark *location = self.event.location;
+    
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(location.location.latitude, location.location.longitude);
+    
+    CNMutablePostalAddress *address = [CNMutablePostalAddress new];
+    address.street = location.street;
+    address.city = location.city;
+    address.state = location.state;
+    address.country = location.country;
+    address.postalCode = location.postalCode;
+    
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate postalAddress:address];
+    
+    MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+    [mapItem setName:location.name];
+    [mapItem openInMapsWithLaunchOptions:nil];
+    
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -184,5 +216,6 @@
 - (IBAction)unwindFromActivityDetails:(UIStoryboardSegue *)unwindSegue {
     
 }
+
 
 @end
