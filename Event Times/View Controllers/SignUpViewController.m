@@ -198,7 +198,7 @@
         [self.activityIndicator stopAnimating];
         
         if (succeeded) {
-            [self performSegueWithIdentifier:@"unwindToLogin" sender:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         else {
             NSLog(@"Error: %@", error.localizedDescription);
